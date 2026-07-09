@@ -1,0 +1,77 @@
+/* ============================================
+   TOURLY — Gallery Page Styles
+   ============================================ */
+
+.gallery-section {
+  padding-top: var(--space-3xl);
+}
+
+/* Gallery large items */
+.gallery-grid--masonry {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.gallery-item--tall {
+  grid-row: span 2;
+  aspect-ratio: auto;
+  height: 100%;
+}
+
+.gallery-item--wide {
+  grid-column: span 2;
+  aspect-ratio: auto;
+  height: 320px;
+}
+
+.gallery-stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3xl);
+  padding: var(--space-2xl) 0;
+  margin-bottom: var(--space-xl);
+}
+
+.gallery-stat {
+  text-align: center;
+}
+
+.gallery-stat__number {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.gallery-stat__label {
+  color: var(--text-tertiary);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .gallery-grid--masonry {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .gallery-item--tall {
+    grid-row: span 1;
+    aspect-ratio: 4/3;
+  }
+  
+  .gallery-item--wide {
+    grid-column: span 1;
+    height: auto;
+    aspect-ratio: 4/3;
+  }
+
+  .gallery-stats {
+    gap: var(--space-xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid--masonry {
+    grid-template-columns: 1fr;
+  }
+}

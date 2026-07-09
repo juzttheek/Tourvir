@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tourly — Your premier Sri Lanka travel companion. Discover the Pearl of the Indian Ocean with curated tour packages, expert guides, and unforgettable experiences.">
+  <title>Tourly — Discover Sri Lanka | Premier Tourist Guide</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages/home.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+</head>
+<body>
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__header">
+      <a href="index.html" class="sidebar__logo">
+        <span class="sidebar__logo-icon">🌿</span>
+        Tourly
+      </a>
+      <button class="sidebar__close" id="sidebar-close" aria-label="Close sidebar">✕</button>
+    </div>
+
+    <nav class="sidebar__nav">
+      <div class="sidebar__nav-label">Navigation</div>
+      <a href="index.html" class="sidebar__nav-link active">
+        <span class="sidebar__nav-icon">🏠</span>
+        About Us
+      </a>
+      <a href="gallery.html" class="sidebar__nav-link">
+        <span class="sidebar__nav-icon">📸</span>
+        Gallery
+      </a>
+      <a href="packages.html" class="sidebar__nav-link">
+        <span class="sidebar__nav-icon">🗺️</span>
+        Tour Packages
+      </a>
+      <a href="vehicles.html" class="sidebar__nav-link">
+        <span class="sidebar__nav-icon">🚗</span>
+        Vehicles
+      </a>
+      <a href="inquiry.html" class="sidebar__nav-link">
+        <span class="sidebar__nav-icon">📝</span>
+        Inquiry
+      </a>
+      <a href="contact.html" class="sidebar__nav-link">
+        <span class="sidebar__nav-icon">📞</span>
+        Contact Us
+      </a>
+    </nav>
+
+    <div class="sidebar__theme-section">
+      <div class="sidebar__theme-label">Theme</div>
+      <div class="sidebar__theme-options">
+        <button class="sidebar__theme-btn" data-theme="light">
+          <span class="sidebar__theme-icon">☀️</span> Light
+        </button>
+        <button class="sidebar__theme-btn active" data-theme="default">
+          <span class="sidebar__theme-icon">🌿</span> Default
+        </button>
+        <button class="sidebar__theme-btn" data-theme="dark">
+          <span class="sidebar__theme-icon">🌙</span> Dark
+        </button>
+      </div>
+    </div>
+
+    <div class="sidebar__footer">
+      <div class="sidebar__social">
+        <a href="#" class="sidebar__social-link" aria-label="Facebook">f</a>
+        <a href="#" class="sidebar__social-link" aria-label="Instagram">📷</a>
+        <a href="#" class="sidebar__social-link" aria-label="Twitter">𝕏</a>
+        <a href="#" class="sidebar__social-link" aria-label="YouTube">▶</a>
+      </div>
+      <p class="sidebar__copyright">© 2026 Tourly</p>
+    </div>
+  </aside>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header__left">
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+      </button>
+      <a href="index.html" class="header__logo">
+        <span class="header__logo-icon">🌿</span>
+        Tourly
+      </a>
+    </div>
+
+    <nav class="header__nav" id="header-nav">
+      <a href="index.html" class="header__nav-link active">About Us</a>
+      <a href="gallery.html" class="header__nav-link">Gallery</a>
+      <a href="packages.html" class="header__nav-link">Tour Packages</a>
+      <a href="vehicles.html" class="header__nav-link">Vehicles</a>
+      <a href="inquiry.html" class="header__nav-link">Inquiry</a>
+      <a href="contact.html" class="header__nav-link">Contact Us</a>
+    </nav>
+
+    <div class="header__right">
+      <a href="inquiry.html" class="btn btn--primary btn--sm">Plan Your Trip</a>
+    </div>
+  </header>
+
+  <div class="page-wrapper">
+    <main class="main-content">
+
+      <!-- ===== HERO SECTION ===== -->
+      <section class="hero" id="hero">
+        <div class="hero__bg">
+          <img src="images/hero/hero-main.png" alt="Sri Lanka landscape with Sigiriya rock fortress at sunset">
+        </div>
+        <div class="hero__overlay"></div>
+        <div class="hero__particles">
+          <div class="hero__particle"></div>
+          <div class="hero__particle"></div>
+          <div class="hero__particle"></div>
+          <div class="hero__particle"></div>
+          <div class="hero__particle"></div>
+          <div class="hero__particle"></div>
+          <div class="hero__particle"></div>
+          <div class="hero__particle"></div>
+        </div>
+        <div class="hero__content">
+          <span class="hero__label">🌴 Welcome to Sri Lanka</span>
+          <h1 class="hero__title">Discover the <span>Pearl of the Indian Ocean</span></h1>
+          <p class="hero__subtitle">Experience ancient wonders, pristine beaches, lush mountains, and vibrant culture with Tourly — your trusted travel companion in Sri Lanka.</p>
+          <div class="hero__buttons">
+            <a href="packages.html" class="btn btn--accent btn--lg">Explore Packages</a>
+            <a href="gallery.html" class="btn btn--outline btn--lg" style="border-color: white; color: white;">View Gallery</a>
+          </div>
+        </div>
+        <div class="hero__scroll-indicator">↓</div>
+      </section>
+
+      <!-- ===== ABOUT SECTION ===== -->
+      <section class="section" id="about">
+        <div class="container">
+          <div class="about-grid reveal">
+            <div class="about__image-wrapper reveal-left">
+              <img src="images/gallery/sigiriya.png" alt="Sigiriya Rock Fortress" class="about__image">
+              <div class="about__image-badge">🏆 10+ Years of Excellence</div>
+            </div>
+            <div class="about__text reveal-right">
+              <span class="section__label">About Tourly</span>
+              <h2>Your Gateway to <br>Sri Lanka's Wonders</h2>
+              <p>Founded in 2015, Tourly has been the premier choice for international travelers seeking authentic Sri Lankan experiences. We combine local expertise with world-class service to create journeys that go beyond ordinary tourism.</p>
+              <p>Our team of passionate travel experts and certified guides ensures every trip is tailored to your dreams — from the ancient ruins of Anuradhapura to the golden beaches of Bentota.</p>
+              <div class="about__highlights">
+                <div class="about__highlight">
+                  <span class="about__highlight-icon">✓</span>
+                  Licensed & Certified
+                </div>
+                <div class="about__highlight">
+                  <span class="about__highlight-icon">✓</span>
+                  24/7 Traveler Support
+                </div>
+                <div class="about__highlight">
+                  <span class="about__highlight-icon">✓</span>
+                  Customized Itineraries
+                </div>
+                <div class="about__highlight">
+                  <span class="about__highlight-icon">✓</span>
+                  Sustainable Tourism
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== STATS SECTION ===== -->
+      <section class="section section--alt" id="stats">
+        <div class="container">
+          <div class="stats">
+            <div class="stat reveal delay-1">
+              <div class="stat__icon">🌍</div>
+              <div class="stat__number" data-count="5000" data-suffix="+">0</div>
+              <div class="stat__label">Happy Tourists</div>
+            </div>
+            <div class="stat reveal delay-2">
+              <div class="stat__icon">📍</div>
+              <div class="stat__number" data-count="50" data-suffix="+">0</div>
+              <div class="stat__label">Destinations</div>
+            </div>
+            <div class="stat reveal delay-3">
+              <div class="stat__icon">⭐</div>
+              <div class="stat__number" data-count="10" data-suffix="+">0</div>
+              <div class="stat__label">Years Experience</div>
+            </div>
+            <div class="stat reveal delay-4">
+              <div class="stat__icon">🏅</div>
+              <div class="stat__number" data-count="98" data-suffix="%">0</div>
+              <div class="stat__label">Satisfaction Rate</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== WHY CHOOSE US ===== -->
+      <section class="section" id="why-us">
+        <div class="container">
+          <div class="section__header reveal">
+            <span class="section__label">Why Choose Us</span>
+            <h2 class="section__title">What Makes Tourly Special</h2>
+            <p class="section__subtitle">We don't just plan trips — we craft unforgettable experiences that connect you with the heart of Sri Lanka.</p>
+          </div>
+          <div class="features-grid">
+            <div class="feature-card reveal delay-1">
+              <div class="feature-card__icon">🗺️</div>
+              <h4 class="feature-card__title">Expert Local Guides</h4>
+              <p class="feature-card__text">Our certified guides bring stories to life with deep local knowledge and fluent English.</p>
+            </div>
+            <div class="feature-card reveal delay-2">
+              <div class="feature-card__icon">🎯</div>
+              <h4 class="feature-card__title">Tailored Experiences</h4>
+              <p class="feature-card__text">Every itinerary is customized to your interests, pace, and budget. No cookie-cutter tours.</p>
+            </div>
+            <div class="feature-card reveal delay-3">
+              <div class="feature-card__icon">🛡️</div>
+              <h4 class="feature-card__title">Safe & Reliable</h4>
+              <p class="feature-card__text">Licensed vehicles, insured trips, and 24/7 support for complete peace of mind.</p>
+            </div>
+            <div class="feature-card reveal delay-4">
+              <div class="feature-card__icon">💚</div>
+              <h4 class="feature-card__title">Eco-Friendly Travel</h4>
+              <p class="feature-card__text">We partner with sustainable lodges and support local communities on every journey.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== TOP DESTINATIONS ===== -->
+      <section class="section section--alt" id="destinations">
+        <div class="container">
+          <div class="section__header reveal">
+            <span class="section__label">Top Destinations</span>
+            <h2 class="section__title">Places You'll Love</h2>
+            <p class="section__subtitle">From ancient ruins to tropical beaches, Sri Lanka offers a world of wonder in one small island.</p>
+          </div>
+          <div class="destinations-grid">
+            <div class="destination-card reveal delay-1">
+              <img src="images/gallery/sigiriya.png" alt="Sigiriya Rock Fortress">
+              <div class="destination-card__overlay">
+                <h3 class="destination-card__name">Sigiriya</h3>
+                <p class="destination-card__desc">Ancient rock fortress & UNESCO site</p>
+              </div>
+            </div>
+            <div class="destination-card reveal delay-2">
+              <img src="images/gallery/beach.png" alt="Tropical Beach in Sri Lanka">
+              <div class="destination-card__overlay">
+                <h3 class="destination-card__name">Southern Coast</h3>
+                <p class="destination-card__desc">Golden beaches & turquoise waters</p>
+              </div>
+            </div>
+            <div class="destination-card reveal delay-3">
+              <img src="images/gallery/temple.png" alt="Temple of the Tooth Relic">
+              <div class="destination-card__overlay">
+                <h3 class="destination-card__name">Kandy</h3>
+                <p class="destination-card__desc">Temple of the Tooth & hill capital</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== TESTIMONIALS ===== -->
+      <section class="section testimonials-section" id="testimonials">
+        <div class="container">
+          <div class="section__header reveal">
+            <span class="section__label">Testimonials</span>
+            <h2 class="section__title">What Our Travelers Say</h2>
+            <p class="section__subtitle">Hear from tourists who experienced the magic of Sri Lanka with Tourly.</p>
+          </div>
+          <div class="testimonials__wrapper reveal">
+            <div class="testimonials__carousel">
+              <div class="testimonials__track">
+                <div class="testimonial">
+                  <div class="stars" style="justify-content:center; margin-bottom:1rem;">★★★★★</div>
+                  <p class="testimonial__quote">Tourly made our Sri Lanka trip absolutely magical. From the moment we landed, everything was perfectly organized. Our guide Kamal was incredible — he showed us hidden gems we'd never have found on our own!</p>
+                  <p class="testimonial__name">Sarah & James Mitchell</p>
+                  <p class="testimonial__origin">London, United Kingdom</p>
+                </div>
+                <div class="testimonial">
+                  <div class="stars" style="justify-content:center; margin-bottom:1rem;">★★★★★</div>
+                  <p class="testimonial__quote">The wildlife safari at Yala and the train ride through Ella were unforgettable. Tourly's attention to detail and flexibility made all the difference. Highly recommend to anyone visiting Sri Lanka!</p>
+                  <p class="testimonial__name">Hans & Ingrid Weber</p>
+                  <p class="testimonial__origin">Munich, Germany</p>
+                </div>
+                <div class="testimonial">
+                  <div class="stars" style="justify-content:center; margin-bottom:1rem;">★★★★★</div>
+                  <p class="testimonial__quote">As solo traveler, I was nervous about navigating Sri Lanka alone. Tourly's team made me feel safe and welcomed. The cultural triangle tour was a once-in-a-lifetime experience. Thank you, Tourly!</p>
+                  <p class="testimonial__name">Yuki Tanaka</p>
+                  <p class="testimonial__origin">Tokyo, Japan</p>
+                </div>
+              </div>
+              <div class="testimonials__dots">
+                <button class="testimonials__dot active" aria-label="Testimonial 1"></button>
+                <button class="testimonials__dot" aria-label="Testimonial 2"></button>
+                <button class="testimonials__dot" aria-label="Testimonial 3"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CTA SECTION ===== -->
+      <section class="cta-section" id="cta">
+        <div class="cta-section__bg">
+          <img src="images/gallery/beach.png" alt="Sri Lanka beach">
+        </div>
+        <div class="cta-section__overlay"></div>
+        <div class="container">
+          <div class="cta-section__content reveal">
+            <h2>Ready to Explore Sri Lanka?</h2>
+            <p>Start planning your dream vacation today. Our travel experts are ready to craft a personalized itinerary just for you.</p>
+            <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+              <a href="inquiry.html" class="btn btn--accent btn--lg">Start Planning</a>
+              <a href="contact.html" class="btn btn--outline btn--lg" style="border-color:white; color:white;">Talk to Us</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer" id="footer">
+      <div class="container">
+        <div class="footer__grid">
+          <div class="footer__brand">
+            <div class="footer__logo">
+              <span class="footer__logo-icon">🌿</span>
+              Tourly
+            </div>
+            <p class="footer__desc">Your trusted travel companion for exploring the wonders of Sri Lanka. Licensed by the Sri Lanka Tourism Development Authority.</p>
+            <div class="footer__social">
+              <a href="#" class="footer__social-link" aria-label="Facebook">f</a>
+              <a href="#" class="footer__social-link" aria-label="Instagram">📷</a>
+              <a href="#" class="footer__social-link" aria-label="Twitter">𝕏</a>
+              <a href="#" class="footer__social-link" aria-label="YouTube">▶</a>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="footer__heading">Quick Links</h4>
+            <div class="footer__links">
+              <a href="index.html" class="footer__link">About Us</a>
+              <a href="gallery.html" class="footer__link">Gallery</a>
+              <a href="packages.html" class="footer__link">Tour Packages</a>
+              <a href="vehicles.html" class="footer__link">Vehicles</a>
+              <a href="inquiry.html" class="footer__link">Inquiry</a>
+              <a href="contact.html" class="footer__link">Contact Us</a>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="footer__heading">Popular Tours</h4>
+            <div class="footer__links">
+              <a href="packages.html" class="footer__link">Cultural Triangle</a>
+              <a href="packages.html" class="footer__link">Beach Paradise</a>
+              <a href="packages.html" class="footer__link">Wildlife Safari</a>
+              <a href="packages.html" class="footer__link">Hill Country</a>
+              <a href="packages.html" class="footer__link">Complete Sri Lanka</a>
+              <a href="packages.html" class="footer__link">Honeymoon Special</a>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="footer__heading">Contact Info</h4>
+            <div class="footer__contact-item">
+              <span class="footer__contact-icon">📍</span>
+              <span>42 Galle Road, Colombo 03, Sri Lanka</span>
+            </div>
+            <div class="footer__contact-item">
+              <span class="footer__contact-icon">📞</span>
+              <span>+94 11 234 5678</span>
+            </div>
+            <div class="footer__contact-item">
+              <span class="footer__contact-icon">✉️</span>
+              <span>hello@tourly.lk</span>
+            </div>
+            <div class="footer__contact-item">
+              <span class="footer__contact-icon">💬</span>
+              <span>+94 77 123 4567 (WhatsApp)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer__bottom">
+          <p class="footer__copyright">© 2026 Tourly. All rights reserved.</p>
+          <div class="footer__bottom-links">
+            <a href="#" class="footer__bottom-link">Privacy Policy</a>
+            <a href="#" class="footer__bottom-link">Terms of Service</a>
+            <a href="#" class="footer__bottom-link">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+</body>
+</html>

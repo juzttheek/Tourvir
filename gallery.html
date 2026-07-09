@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore the breathtaking beauty of Sri Lanka through our curated photo gallery — beaches, temples, wildlife, mountains, and cultural heritage.">
+  <title>Gallery — Tourly | Sri Lanka in Pictures</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages/gallery.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+</head>
+<body>
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__header">
+      <a href="index.html" class="sidebar__logo">
+        <span class="sidebar__logo-icon">🌿</span>
+        Tourly
+      </a>
+      <button class="sidebar__close" id="sidebar-close" aria-label="Close sidebar">✕</button>
+    </div>
+    <nav class="sidebar__nav">
+      <div class="sidebar__nav-label">Navigation</div>
+      <a href="index.html" class="sidebar__nav-link"><span class="sidebar__nav-icon">🏠</span> About Us</a>
+      <a href="gallery.html" class="sidebar__nav-link active"><span class="sidebar__nav-icon">📸</span> Gallery</a>
+      <a href="packages.html" class="sidebar__nav-link"><span class="sidebar__nav-icon">🗺️</span> Tour Packages</a>
+      <a href="vehicles.html" class="sidebar__nav-link"><span class="sidebar__nav-icon">🚗</span> Vehicles</a>
+      <a href="inquiry.html" class="sidebar__nav-link"><span class="sidebar__nav-icon">📝</span> Inquiry</a>
+      <a href="contact.html" class="sidebar__nav-link"><span class="sidebar__nav-icon">📞</span> Contact Us</a>
+    </nav>
+    <div class="sidebar__theme-section">
+      <div class="sidebar__theme-label">Theme</div>
+      <div class="sidebar__theme-options">
+        <button class="sidebar__theme-btn" data-theme="light"><span class="sidebar__theme-icon">☀️</span> Light</button>
+        <button class="sidebar__theme-btn active" data-theme="default"><span class="sidebar__theme-icon">🌿</span> Default</button>
+        <button class="sidebar__theme-btn" data-theme="dark"><span class="sidebar__theme-icon">🌙</span> Dark</button>
+      </div>
+    </div>
+    <div class="sidebar__footer">
+      <div class="sidebar__social">
+        <a href="#" class="sidebar__social-link">f</a>
+        <a href="#" class="sidebar__social-link">📷</a>
+        <a href="#" class="sidebar__social-link">𝕏</a>
+        <a href="#" class="sidebar__social-link">▶</a>
+      </div>
+      <p class="sidebar__copyright">© 2026 Tourly</p>
+    </div>
+  </aside>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header__left">
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+      </button>
+      <a href="index.html" class="header__logo">
+        <span class="header__logo-icon">🌿</span>
+        Tourly
+      </a>
+    </div>
+    <nav class="header__nav">
+      <a href="index.html" class="header__nav-link">About Us</a>
+      <a href="gallery.html" class="header__nav-link active">Gallery</a>
+      <a href="packages.html" class="header__nav-link">Tour Packages</a>
+      <a href="vehicles.html" class="header__nav-link">Vehicles</a>
+      <a href="inquiry.html" class="header__nav-link">Inquiry</a>
+      <a href="contact.html" class="header__nav-link">Contact Us</a>
+    </nav>
+    <div class="header__right">
+      <a href="inquiry.html" class="btn btn--primary btn--sm">Plan Your Trip</a>
+    </div>
+  </header>
+
+  <div class="page-wrapper">
+    <main class="main-content">
+
+      <!-- Page Hero -->
+      <section class="page-hero">
+        <div class="page-hero__bg">
+          <img src="images/gallery/beach.png" alt="Sri Lanka Beach">
+        </div>
+        <div class="page-hero__overlay"></div>
+        <div class="page-hero__content">
+          <h1 class="page-hero__title">Photo Gallery</h1>
+          <p class="page-hero__subtitle">Discover the breathtaking beauty of Sri Lanka through our curated collection</p>
+          <div class="page-hero__breadcrumb">
+            <a href="index.html">Home</a>
+            <span>→</span>
+            <span>Gallery</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery Stats -->
+      <section class="section">
+        <div class="container">
+          <div class="gallery-stats reveal">
+            <div class="gallery-stat">
+              <div class="gallery-stat__number">50+</div>
+              <div class="gallery-stat__label">Destinations Captured</div>
+            </div>
+            <div class="gallery-stat">
+              <div class="gallery-stat__number">200+</div>
+              <div class="gallery-stat__label">Professional Photos</div>
+            </div>
+            <div class="gallery-stat">
+              <div class="gallery-stat__number">8</div>
+              <div class="gallery-stat__label">UNESCO Sites</div>
+            </div>
+          </div>
+
+          <!-- Filter Pills -->
+          <div class="filter-pills reveal">
+            <button class="filter-pill active" data-filter="all">All</button>
+            <button class="filter-pill" data-filter="beaches">Beaches</button>
+            <button class="filter-pill" data-filter="temples">Temples</button>
+            <button class="filter-pill" data-filter="wildlife">Wildlife</button>
+            <button class="filter-pill" data-filter="mountains">Mountains</button>
+            <button class="filter-pill" data-filter="culture">Culture</button>
+            <button class="filter-pill" data-filter="heritage">Heritage</button>
+          </div>
+
+          <!-- Gallery Grid -->
+          <div class="gallery-grid gallery-grid--masonry">
+
+            <div class="gallery-item gallery-item--tall reveal" data-category="heritage">
+              <img src="images/gallery/sigiriya.png" alt="Sigiriya Rock Fortress">
+              <div class="gallery-item__overlay">
+                <div class="gallery-item__zoom">🔍</div>
+                <h4 class="gallery-item__title">Sigiriya Rock Fortress</h4>
+                <p class="gallery-item__location">📍 Central Province</p>
+              </div>
+            </div>
+
+            <div class="gallery-item reveal" data-category="beaches">
+              <img src="images/gallery/beach.png" alt="Southern Coast Beach">
+              <div class="gallery-item__overlay">
+                <div class="gallery-item__zoom">🔍</div>
+                <h4 class="gallery-item__title">Golden Beach Sunset</h4>
+                <p class="gallery-item__location">📍 Southern Coast</p>
+              </div>
+            </div>
+
+            <div class="gallery-item reveal" data-category="temples">
+              <img src="images/gallery/temple.png" alt="Temple of the Tooth Relic">
+              <div class="gallery-item__overlay">
+                <div class="gallery-item__zoom">🔍</div>
+                <h4 class="gallery-item__title">Temple of the Tooth</h4>
+                <p class="gallery-item__location">📍 Kandy</p>
+              </div>
+            </div>
+
+            <div class="gallery-item reveal" data-category="mountains" style="background: linear-gradient(135deg, #2d8a4e, #1a5c35); display:flex; align-items:center; justify-content:center;">
+              <img src="images/gallery/train.png" alt="Ella Nine Arch Bridge" style="filter: hue-rotate(40deg) saturate(1.3);">
+              <div class="gallery-item__overlay">
+                <div class="gallery-item__zoom">🔍</div>
+                <h4 class="gallery-item__title">Nine Arch Bridge</h4>
+                <p class="gallery-item__location">📍 Ella</p>
+              </div>
+            </div>
+
+            <div class="gallery-item gallery-item--wide reveal" data-category="wildlife" style="background: linear-gradient(135deg, #c8a832, #8B6914);">
+              <img src="images/gallery/elephant.png" alt="Yala National Park Wildlife" style="filter: sepia(0.3) saturate(1.4) brightness(0.9);">
+              <div class="gallery-item__overlay">
+                <div class="gallery-item__zoom">🔍</div>
+                <h4 class="gallery-item__title">Yala National Park</h4>
+                <p class="gallery-item__location">📍 Southern Province</p>
+              </div>
+            </div>
+
+            <div class="gallery-item reveal" data-category="culture">
+              <img src="images/gallery/temple.png" alt="Traditional Kandyan Dance" style="filter: hue-rotate(20deg) saturate(1.2);">
+              <div class="gallery-item__overlay">
+                <div class="gallery-item__zoom">🔍</div>
+                <h4 class="gallery-item__title">Kandyan Dance</h4>
+                <p class="gallery-item__location">📍 Kandy</p>
+              </div>
+            </div>
+
+            <div class="gallery-item reveal" data-category="heritage">
+              <img src="images/gallery/temple.png" alt="Galle Fort" style="filter: brightness(1.1) contrast(1.05);">
+              <div class="gallery-item__overlay">
+                <div class="gallery-item__zoom">🔍</div>
+                <h4 class="gallery-item__title">Galle Fort</h4>
+                <p class="gallery-item__location">📍 Galle</p>
+              </div>
+            </div>
+
+            <div class="gallery-item reveal" data-category="beaches">
+              <img src="images/gallery/beach.png" alt="Mirissa Beach" style="filter: hue-rotate(10deg) brightness(1.1);">
+              <div class="gallery-item__overlay">
+                <div class="gallery-item__zoom">🔍</div>
+                <h4 class="gallery-item__title">Mirissa Bay</h4>
+                <p class="gallery-item__location">📍 Mirissa</p>
+              </div>
+            </div>
+
+            <div class="gallery-item reveal" data-category="mountains">
+              <img src="images/gallery/tea_plantation.png" alt="Tea Plantations" style="filter: hue-rotate(60deg) saturate(1.5) brightness(1.1);">
+              <div class="gallery-item__overlay">
+                <div class="gallery-item__zoom">🔍</div>
+                <h4 class="gallery-item__title">Tea Plantations</h4>
+                <p class="gallery-item__location">📍 Nuwara Eliya</p>
+              </div>
+            </div>
+
+            <div class="gallery-item reveal" data-category="culture">
+              <img src="images/gallery/beach.png" alt="Stilt Fishermen" style="filter: sepia(0.2) saturate(1.3);">
+              <div class="gallery-item__overlay">
+                <div class="gallery-item__zoom">🔍</div>
+                <h4 class="gallery-item__title">Stilt Fishermen</h4>
+                <p class="gallery-item__location">📍 Koggala</p>
+              </div>
+            </div>
+
+            <div class="gallery-item reveal" data-category="wildlife">
+              <img src="images/gallery/sigiriya.png" alt="Elephant Gathering" style="filter: sepia(0.15) saturate(1.2) brightness(1.05);">
+              <div class="gallery-item__overlay">
+                <div class="gallery-item__zoom">🔍</div>
+                <h4 class="gallery-item__title">Elephant Gathering</h4>
+                <p class="gallery-item__location">📍 Minneriya</p>
+              </div>
+            </div>
+
+            <div class="gallery-item reveal" data-category="temples">
+              <img src="images/gallery/temple.png" alt="Dambulla Cave Temple" style="filter: hue-rotate(-10deg) saturate(1.1);">
+              <div class="gallery-item__overlay">
+                <div class="gallery-item__zoom">🔍</div>
+                <h4 class="gallery-item__title">Dambulla Cave Temple</h4>
+                <p class="gallery-item__location">📍 Dambulla</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="cta-section">
+        <div class="cta-section__bg">
+          <img src="images/gallery/sigiriya.png" alt="Sri Lanka scenery">
+        </div>
+        <div class="cta-section__overlay"></div>
+        <div class="container">
+          <div class="cta-section__content reveal">
+            <h2>Want to See These Places in Person?</h2>
+            <p>Let us create a personalized tour that brings these stunning destinations to life.</p>
+            <a href="packages.html" class="btn btn--accent btn--lg">Browse Tour Packages</a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox__close" aria-label="Close">✕</button>
+      <button class="lightbox__nav lightbox__prev" aria-label="Previous">←</button>
+      <button class="lightbox__nav lightbox__next" aria-label="Next">→</button>
+      <img class="lightbox__image" src="" alt="">
+      <div class="lightbox__caption">
+        <h4></h4>
+        <p></p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__grid">
+          <div class="footer__brand">
+            <div class="footer__logo"><span class="footer__logo-icon">🌿</span> Tourly</div>
+            <p class="footer__desc">Your trusted travel companion for exploring the wonders of Sri Lanka. Licensed by the Sri Lanka Tourism Development Authority.</p>
+            <div class="footer__social">
+              <a href="#" class="footer__social-link">f</a>
+              <a href="#" class="footer__social-link">📷</a>
+              <a href="#" class="footer__social-link">𝕏</a>
+              <a href="#" class="footer__social-link">▶</a>
+            </div>
+          </div>
+          <div>
+            <h4 class="footer__heading">Quick Links</h4>
+            <div class="footer__links">
+              <a href="index.html" class="footer__link">About Us</a>
+              <a href="gallery.html" class="footer__link">Gallery</a>
+              <a href="packages.html" class="footer__link">Tour Packages</a>
+              <a href="vehicles.html" class="footer__link">Vehicles</a>
+              <a href="inquiry.html" class="footer__link">Inquiry</a>
+              <a href="contact.html" class="footer__link">Contact Us</a>
+            </div>
+          </div>
+          <div>
+            <h4 class="footer__heading">Popular Tours</h4>
+            <div class="footer__links">
+              <a href="packages.html" class="footer__link">Cultural Triangle</a>
+              <a href="packages.html" class="footer__link">Beach Paradise</a>
+              <a href="packages.html" class="footer__link">Wildlife Safari</a>
+              <a href="packages.html" class="footer__link">Hill Country</a>
+            </div>
+          </div>
+          <div>
+            <h4 class="footer__heading">Contact Info</h4>
+            <div class="footer__contact-item"><span class="footer__contact-icon">📍</span><span>42 Galle Road, Colombo 03, Sri Lanka</span></div>
+            <div class="footer__contact-item"><span class="footer__contact-icon">📞</span><span>+94 11 234 5678</span></div>
+            <div class="footer__contact-item"><span class="footer__contact-icon">✉️</span><span>hello@tourly.lk</span></div>
+          </div>
+        </div>
+        <div class="footer__bottom">
+          <p class="footer__copyright">© 2026 Tourly. All rights reserved.</p>
+          <div class="footer__bottom-links">
+            <a href="#" class="footer__bottom-link">Privacy Policy</a>
+            <a href="#" class="footer__bottom-link">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
+  <script src="js/main.js"></script>
+  <script src="js/gallery.js"></script>
+</body>
+</html>
