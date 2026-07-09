@@ -790,16 +790,20 @@
   }
 
   .progress-steps {
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-  }
-
-  .progress-step__line {
-    width: 30px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 0;
+    gap: 0;
   }
 
   .progress-step__label {
     display: none;
+  }
+
+  .progress-step__line {
+    flex: 1;
+    width: auto;
+    margin: 0 var(--space-xs);
   }
 
   .gallery-grid {
