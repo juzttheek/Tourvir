@@ -1,5 +1,5 @@
 /* ============================================
-   TOURLY — Main JavaScript
+   Tourvir — Main JavaScript
    Theme Switcher, Sidebar, Global Logic
    ============================================ */
 
@@ -9,28 +9,36 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeader();
   initBackToTop();
   initScrollReveal();
+  initFeedbackForm();
 });
 
 /* ---------- Theme Management ---------- */
 function initTheme() {
-  const saved = localStorage.getItem('tourly-theme') || 'default';
+  const saved = localStorage.getItem('Tourvir-theme') || 'light';
   setTheme(saved);
   
-  document.querySelectorAll('.sidebar__theme-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const theme = btn.dataset.theme;
-      setTheme(theme);
+  const themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      setTheme(next);
     });
-  });
+  }
 }
 
 function setTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('tourly-theme', theme);
+  localStorage.setItem('Tourvir-theme', theme);
   
-  document.querySelectorAll('.sidebar__theme-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.theme === theme);
-  });
+  const themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle) {
+    if (theme === 'dark') {
+      themeToggle.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>';
+    } else {
+      themeToggle.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>';
+    }
+  }
 }
 
 /* ---------- Sidebar ---------- */
@@ -256,3 +264,75 @@ function initTestimonialCarousel() {
 }
 
 document.addEventListener('DOMContentLoaded', initTestimonialCarousel);
+
+/* ---------- Feedback Form ---------- */
+function initFeedbackForm() {
+  const starsContainer = document.getElementById('feedback-stars');
+  const ratingInput = document.getElementById('feedback-rating');
+  const form = document.getElementById('feedback-form');
+  const successEl = document.getElementById('feedback-success');
+  const resetBtn = document.getElementById('feedback-reset');
+
+  if (!starsContainer || !form) return;
+
+  const stars = starsContainer.querySelectorAll('.feedback-form__star');
+  let currentRating = 0;
+
+  // Star hover effect
+  stars.forEach(star => {
+    star.addEventListener('mouseenter', () => {
+      const rating = parseInt(star.dataset.rating);
+      stars.forEach(s => {
+        s.classList.toggle('hovered', parseInt(s.dataset.rating) <= rating);
+      });
+    });
+
+    star.addEventListener('click', () => {
+      currentRating = parseInt(star.dataset.rating);
+      if (ratingInput) ratingInput.value = currentRating;
+      stars.forEach(s => {
+        const r = parseInt(s.dataset.rating);
+        s.classList.toggle('active', r <= currentRating);
+      });
+    });
+  });
+
+  starsContainer.addEventListener('mouseleave', () => {
+    stars.forEach(s => s.classList.remove('hovered'));
+  });
+
+  // Form submission
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    if (currentRating === 0) {
+      alert('Please select a star rating before submitting.');
+      return;
+    }
+
+    // Simulate submission (no backend)
+    const submitBtn = document.getElementById('feedback-submit');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="animation:spin 1s linear infinite;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Submitting...';
+
+    setTimeout(() => {
+      form.style.display = 'none';
+      if (successEl) successEl.style.display = 'block';
+    }, 1200);
+  });
+
+  // Reset button
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      form.reset();
+      currentRating = 0;
+      if (ratingInput) ratingInput.value = 0;
+      stars.forEach(s => s.classList.remove('active'));
+      form.style.display = '';
+      if (successEl) successEl.style.display = 'none';
+      const submitBtn = document.getElementById('feedback-submit');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> Submit Feedback';
+    });
+  }
+}

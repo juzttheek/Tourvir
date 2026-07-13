@@ -1,5 +1,5 @@
 /* ============================================
-   TOURLY — Inquiry Page JavaScript
+   Tourvir — Inquiry Page JavaScript
    Multi-step Form Logic
    ============================================ */
 

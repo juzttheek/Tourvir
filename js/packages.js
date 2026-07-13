@@ -1,5 +1,5 @@
 /* ============================================
-   TOURLY — Packages Page JavaScript
+   Tourvir — Packages Page JavaScript
    Filter & Search Logic
    ============================================ */
 

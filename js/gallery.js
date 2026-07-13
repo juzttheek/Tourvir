@@ -1,5 +1,5 @@
 /* ============================================
-   TOURLY — Gallery JavaScript
+   Tourvir — Gallery JavaScript
    Lightbox & Masonry Filter
    ============================================ */
 
