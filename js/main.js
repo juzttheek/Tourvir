@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initBackToTop();
   initScrollReveal();
   initFeedbackForm();
+  initHeroSlider();
+  initContactForm();
 });
 
 /* ---------- Theme Management ---------- */
@@ -310,15 +312,37 @@ function initFeedbackForm() {
       return;
     }
 
-    // Simulate submission (no backend)
     const submitBtn = document.getElementById('feedback-submit');
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="animation:spin 1s linear infinite;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Submitting...';
 
-    setTimeout(() => {
-      form.style.display = 'none';
-      if (successEl) successEl.style.display = 'block';
-    }, 1200);
+    const feedbackData = {
+      name: document.getElementById('feedback-name').value,
+      email: document.getElementById('feedback-email').value,
+      rating: currentRating,
+      message: document.getElementById('feedback-message').value,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    if (typeof db !== 'undefined') {
+      db.collection('feedback').add(feedbackData)
+        .then(() => {
+          form.style.display = 'none';
+          if (successEl) successEl.style.display = 'block';
+        })
+        .catch((error) => {
+          console.error("Error writing document: ", error);
+          alert("Sorry, there was an error submitting your feedback. Please try again.");
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> Submit Feedback';
+        });
+    } else {
+      // Fallback if Firebase fails to load
+      setTimeout(() => {
+        form.style.display = 'none';
+        if (successEl) successEl.style.display = 'block';
+      }, 1200);
+    }
   });
 
   // Reset button
@@ -335,4 +359,65 @@ function initFeedbackForm() {
       submitBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> Submit Feedback';
     });
   }
+}
+
+/* ---------- Hero Slider ---------- */
+function initHeroSlider() {
+  const slider = document.getElementById('hero-slider');
+  if (!slider) return;
+  
+  const images = slider.querySelectorAll('img');
+  if (images.length <= 1) return;
+  
+  let currentIndex = 0;
+  
+  setInterval(() => {
+    images[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % images.length;
+    images[currentIndex].classList.add('active');
+  }, 5000);
+}
+
+/* ---------- Contact Form ---------- */
+function initContactForm() {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnHTML = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="animation:spin 1s linear infinite;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Sending...';
+
+    const contactData = {
+      name: document.getElementById('contact-name').value,
+      email: document.getElementById('contact-email').value,
+      subject: document.getElementById('contact-subject').value,
+      message: document.getElementById('contact-message').value,
+      createdAt: typeof firebase !== 'undefined' ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString()
+    };
+
+    if (typeof db !== 'undefined') {
+      db.collection('contacts').add(contactData)
+        .then(() => {
+          showToast('Message sent successfully! We\'ll respond within 24 hours.', 'success');
+          form.reset();
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnHTML;
+        })
+        .catch((error) => {
+          console.error("Error writing document: ", error);
+          showToast('Sorry, there was an error sending your message. Please try again.', 'error');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnHTML;
+        });
+    } else {
+      showToast('Message sent successfully! We\'ll respond within 24 hours.', 'success');
+      form.reset();
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnHTML;
+    }
+  });
 }

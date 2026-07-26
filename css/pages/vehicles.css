@@ -2,11 +2,21 @@
    TOURVIR — Vehicles Page Styles
    ============================================ */
 
+.page-hero__bg img {
+  object-position: center bottom;
+}
+
 .vehicles-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--space-xl);
+  justify-content: center;
   margin-bottom: var(--space-3xl);
+}
+
+.vehicles-grid > .vehicle-card {
+  flex: 0 1 calc((100% - 2 * var(--space-xl)) / 3);
+  min-width: 280px;
 }
 
 /* Chauffeur Section */
@@ -130,14 +140,14 @@
 }
 
 @media (max-width: 1024px) {
-  .vehicles-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .vehicles-grid > .vehicle-card {
+    flex: 0 1 calc((100% - var(--space-xl)) / 2);
   }
 }
 
 @media (max-width: 768px) {
-  .vehicles-grid {
-    grid-template-columns: 1fr;
+  .vehicles-grid > .vehicle-card {
+    flex: 0 1 100%;
   }
   
   .chauffeur-section {

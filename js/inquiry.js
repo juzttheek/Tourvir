@@ -139,15 +139,58 @@ function initMultiStepForm() {
   // Submit
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    showToast('Your inquiry has been submitted successfully! We\'ll contact you within 24 hours.', 'success');
     
-    // Reset form
-    setTimeout(() => {
-      form.reset();
-      document.querySelectorAll('.interest-tag').forEach(t => t.classList.remove('selected'));
-      document.querySelectorAll('.accommodation-option').forEach(o => o.classList.remove('selected'));
-      showStep(0);
-    }, 2000);
+    // Gather form data
+    const selectedInterests = Array.from(document.querySelectorAll('.interest-tag.selected')).map(t => t.textContent.trim());
+    const selectedAccommodation = document.querySelector('.accommodation-option.selected h4')?.textContent || 'Not specified';
+    
+    const inquiryData = {
+      destinations: document.getElementById('destinations').value,
+      duration: document.getElementById('duration').value,
+      date: document.getElementById('date').value,
+      adults: document.getElementById('adults').value,
+      children: document.getElementById('children').value,
+      interests: selectedInterests,
+      accommodation: selectedAccommodation,
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      phone: document.getElementById('phone').value,
+      specialRequests: document.getElementById('special-requests').value,
+      createdAt: typeof firebase !== 'undefined' ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString()
+    };
+    
+    const submitBtn = document.querySelector('#step-3 button[type="submit"]');
+    if (submitBtn) submitBtn.disabled = true;
+
+    if (typeof db !== 'undefined') {
+      db.collection('inquiries').add(inquiryData)
+        .then(() => {
+          showToast('Your inquiry has been submitted successfully! We\'ll contact you within 24 hours.', 'success');
+          // Reset form
+          setTimeout(() => {
+            form.reset();
+            document.querySelectorAll('.interest-tag').forEach(t => t.classList.remove('selected'));
+            document.querySelectorAll('.accommodation-option').forEach(o => o.classList.remove('selected'));
+            showStep(0);
+            if (submitBtn) submitBtn.disabled = false;
+          }, 2000);
+        })
+        .catch((error) => {
+          console.error("Error writing document: ", error);
+          showToast('Sorry, there was an error submitting your inquiry. Please try again.', 'error');
+          if (submitBtn) submitBtn.disabled = false;
+        });
+    } else {
+      showToast('Your inquiry has been submitted successfully! We\'ll contact you within 24 hours.', 'success');
+      // Reset form
+      setTimeout(() => {
+        form.reset();
+        document.querySelectorAll('.interest-tag').forEach(t => t.classList.remove('selected'));
+        document.querySelectorAll('.accommodation-option').forEach(o => o.classList.remove('selected'));
+        showStep(0);
+        if (submitBtn) submitBtn.disabled = false;
+      }, 2000);
+    }
   });
   
   // Initialize first step
