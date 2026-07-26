@@ -1251,53 +1251,39 @@ Restore the prior compatible Formspree form IDs/configuration or disable forms w
 
 ---
 
-### Phase 8 — Cloudinary gallery and image workflow
+### Phase 8 — Gallery Administration (Sveltia CMS + Cloudinary Integration)
 
-**Goal:** Let the client manage an attractive gallery without a custom Tourvir admin app.
+**Goal:** Provide the client with a secure, single-panel administration interface to manage gallery content and media without a custom backend, relying entirely on static JSON generation.
 
-#### Account/model setup
+#### Architecture Setup
 
-1. Confirm business-owned users, MFA, recovery and billing alerts.
-2. Create `tourvir/gallery` plus archive folder.
-3. Define controlled `title`, `alt`, `category`, `location`, numeric `order`, `published`, optional `featured` and focal metadata.
-4. Define approved categories and require `tourvir-gallery` publication tag.
-5. Configure dashboard upload defaults, allowed types and reasonable original-size limits.
-6. Never enable an unsigned public Tourvir upload widget.
+1. **Sveltia CMS Integration:** Replaced the legacy insecure Firebase admin panel with Sveltia CMS, configured in `public/admin/config.yml`.
+2. **Single Panel Pattern:** The CMS serves as a single entry point for all client editing (Testimonials from Phase 7.1 and Gallery from Phase 8).
+3. **Cloudinary Media Library:** Integrated the official Cloudinary widget directly into Sveltia CMS.
+4. **Hybrid Storage Choice:** The CMS configuration supports both "Global Assets" (commits images directly to GitHub) and "Cloudinary" (uploads heavy assets to Cloudinary CDN and commits the URL).
 
-#### Migration
+#### Implementation Details
 
-1. Inventory Firebase originals/metadata from the Phase 1 export, or use the approved local/current asset set when the owner attested that no legacy Firebase data must be retained.
-2. Normalize caption/category/order/alt in a reviewed manifest.
-3. Import without deleting Firebase originals until the Phase 1 disposition and retention gate permits decommissioning.
-4. Compare counts, dimensions/checksums and caption/crop samples.
-5. Publish/tag only reviewed assets.
+1. **Static Data Layer:** The gallery is powered entirely by JSON files stored in `src/data/gallery/`. Each file contains `image` (URL or local path), `title`, `location`, `category`, and `orientation`.
+2. **Astro Integration:** `src/pages/gallery.astro` uses `import.meta.glob` to eagerly load all JSON files at build time, completely eliminating client-side fetch delays or API dependencies.
+3. **Security:** Authentication is handled by standard GitHub OAuth via PKCE. No secrets, custom databases, or vulnerable admin endpoints are exposed on the public site.
+4. **Content Rules:** The `gallery` collection schema enforces required fields (category dropdowns, orientation selection) to prevent malformed data.
 
-#### Frontend adapter
+#### Client Workflow
 
-1. Fetch the tagged public list through typed `gallery-client.ts`.
-2. Validate response, URL scheme, type, metadata and dimensions.
-3. Exclude invalid/unpublished records; sort by order and stable fallback.
-4. Render through safe component properties, never remote `innerHTML`.
-5. Build thumbnail/card/lightbox transformation URLs with automatic format/quality and focal crop.
-6. Provide `srcset`, `sizes`, dimensions/aspect ratio, lazy loading and async decoding.
-7. Initially render 12–18; progressively reveal/paginate and prefetch only adjacent lightbox images.
-8. Provide loading, empty, error and curated local fallback states.
-9. Use a temporary `local|cloudinary` adapter flag during preview; no secret in public environment variables.
-
-#### Client acceptance
-
-Have the real editor use `docs/gallery-editor-guide.md` to upload, publish, reorder, replace, unpublish and archive on phone/desktop without developer help. Confirm incomplete assets stay hidden and changes appear within documented cache delay.
-
-#### Cutover/cleanup
-
-Remove admin HTML/CSS/JS, password hash, all Firebase SDK/configuration and gallery mutation code after Preview parity. Keep legacy Firebase access closed, then delete retained data and decommission the project only after the approved export/disposition and retention window.
+1. The client logs into `tourvir.com/admin` using their GitHub account.
+2. Under "Gallery", they click "New" to create an entry.
+3. Clicking the Image field opens the Media Library, where they can choose to upload to "Local/Global Assets" or switch the tab to "Cloudinary" for heavy images.
+4. Saving the post automatically commits the new JSON file to the GitHub repository.
+5. GitHub Actions detects the commit, rebuilds the Astro static site with the new data, and automatically deploys the updated gallery to Vercel.
 
 #### Exit gate
 
-- Client publishing works and is documented.
-- Categories/order/captions/fallback/lightbox pass all viewports.
-- Public bundle contains no mutation capability or vendor API secret.
-- Image bytes, crops and layout shift meet budgets.
+- Client can successfully authenticate and publish via the Sveltia CMS.
+- Both Local and Cloudinary media uploads work correctly.
+- GitHub Actions automatically rebuilds the static gallery upon JSON changes.
+- The insecure Firebase admin panel has been completely removed.
+- Playwright tests accommodate dynamic gallery growth without failing.
 
 #### Rollback
 
