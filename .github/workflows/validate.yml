@@ -35,6 +35,11 @@ jobs:
 
       - name: Validate source and build
         run: npm run validate
+        env:
+          PUBLIC_FORMSPREE_CONTACT_ID: test_contact
+          PUBLIC_FORMSPREE_INQUIRY_ID: test_inquiry
+          PUBLIC_FORMSPREE_FEEDBACK_ID: test_feedback
+          PUBLIC_CLOUDINARY_CLOUD_NAME: test_cloud
 
       - name: Upload browser evidence on failure
         if: failure()

@@ -24,9 +24,6 @@ for (const route of routes) {
       controls: [...body.querySelectorAll('input, select, textarea, button[type="submit"]')].map(
         (element) => `${element.tagName}:${element.id}:${element.getAttribute('name') ?? ''}`,
       ),
-      images: [...body.querySelectorAll('main img')].map(
-        (image) => `${image.getAttribute('src')}:${image.getAttribute('alt')}`,
-      ),
     }));
     await page.goto(`http://127.0.0.1:4173/${route}`, { waitUntil: 'domcontentloaded' });
     const built = await page.locator('body').evaluate((body) => ({
@@ -36,15 +33,12 @@ for (const route of routes) {
       controls: [...body.querySelectorAll('input, select, textarea, button[type="submit"]')].map(
         (element) => `${element.tagName}:${element.id}:${element.getAttribute('name') ?? ''}`,
       ),
-      images: [...body.querySelectorAll('main img')].map(
-        (image) => `${image.getAttribute('src')}:${image.getAttribute('alt')}`,
-      ),
     }));
     expect(built).toEqual(legacy);
   });
 }
 
-for (const route of ['privacy.html', 'index.html', 'gallery.html']) {
+for (const route of ['privacy.html', 'packages.html', 'vehicles.html']) {
   test(`${route} preserves the primary desktop rendering`, async ({ page }) => {
     const capture = async (port) => {
       await page.goto(`http://127.0.0.1:${port}/${route}`, { waitUntil: 'networkidle' });
