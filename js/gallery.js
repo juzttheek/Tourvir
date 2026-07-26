@@ -98,8 +98,19 @@ function initLightbox() {
   }
   
   // Event listeners
-  galleryItems.forEach((item, index) => {
-    item.addEventListener('click', () => openLightbox(index));
+  galleryItems.forEach((item) => {
+    const openItem = () => {
+      const visibleIndex = getVisibleItems().indexOf(item);
+      if (visibleIndex >= 0) openLightbox(visibleIndex);
+    };
+
+    item.addEventListener('click', openItem);
+    item.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openItem();
+      }
+    });
   });
   
   if (closeBtn) closeBtn.addEventListener('click', closeLightbox);

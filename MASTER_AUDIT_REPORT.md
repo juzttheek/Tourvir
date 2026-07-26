@@ -932,7 +932,7 @@ Update this ledger as work proceeds. Valid states: `not_started`, `in_progress`,
 |---:|---|---:|---|---|
 | 0 | Authority, accounts and business decisions | — | not_started | Approved decision record |
 | 1 | Baseline, data disposition and characterization | 0 | complete | Local evidence plus approved Path B irreversible-disposal receipt (`docs/baseline/phase-1/`) |
-| 2 | Immediate security and conversion containment | 1 | not_started | P0 tests and safe behavior |
+| 2 | Immediate security and conversion containment | 1 | blocked | Local containment complete; external Firebase Hosting/Firestore/Storage shutdown evidence pending (`docs/phases/phase-2/`) |
 | 3 | Toolchain and validation pipeline | 2 | not_started | Clean install/build/check CI |
 | 4 | Astro scaffold and non-destructive migration | 3 | not_started | `dist/` route/content parity |
 | 5 | Shared layout, content and components | 4 | not_started | No duplicated global chrome/data |
@@ -1646,6 +1646,29 @@ Environment evidence:
 Required next action for completion:
 
 The business owner approved Path B irreversible disposal. There is no backup and no recovery capability. Authorized Firebase cleanup may proceed, while production vendor provisioning and external project decommissioning still require appropriate account access.
+
+#### Phase 2 — local containment execution (blocked on external shutdown verification)
+
+**Run date:** 2026-07-26
+
+**Branch:** `main`
+
+Completed locally:
+
+- Removed all Firebase SDK tags, initialization/configuration, hosting cache and public gallery administration source.
+- Replaced the remote gallery dependency with six safe local cards while retaining filters and lightbox behavior.
+- Removed broken inquiry/feedback selectors and all false-success form fallbacks.
+- Added honest temporary form-unavailable messages that preserve input and direct visitors to email/WhatsApp until Phase 7.
+- Added inquiry date-order validation plus filtered-gallery and keyboard interaction fixes.
+- Verified all nine routes return HTTP 200, local references/IDs are valid, repository Firebase/runtime scans are clean, and gallery/inquiry/contact render in Edge at 390×844.
+
+Evidence and exact rollback constraints are recorded in `docs/phases/phase-2/README.md`.
+
+External blocker:
+
+- No authorized Firebase/Google Cloud credentials or CLI are available in this workspace.
+- Old Firebase Hosting and remote Firestore/Storage closure cannot be verified here.
+- An authorized owner must disable those resources and attach redacted evidence before Phase 2 is marked `complete`.
 
 ## 13. Deployment-ready target
 

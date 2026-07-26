@@ -124,7 +124,30 @@
 
           <!-- Gallery Grid -->
           <div class="gallery-grid gallery-grid--masonry" id="gallery-dynamic-container">
-            <!-- Dynamic Images from Firebase will load here -->
+            <article class="gallery-item gallery-item--tall" data-category="heritage" tabindex="0">
+              <img src="images/gallery/sigiriya.webp" alt="Sigiriya rock fortress rising above the forest" loading="eager">
+              <div class="gallery-item__overlay"><div class="gallery-item__zoom" aria-hidden="true">↗</div><h4 class="gallery-item__title">Sigiriya Rock Fortress</h4><p class="gallery-item__location">Central Province</p></div>
+            </article>
+            <article class="gallery-item" data-category="wildlife" tabindex="0">
+              <img src="images/gallery/elephant.webp" alt="Sri Lankan elephant in its natural habitat" loading="lazy">
+              <div class="gallery-item__overlay"><div class="gallery-item__zoom" aria-hidden="true">↗</div><h4 class="gallery-item__title">Wild Encounters</h4><p class="gallery-item__location">Sri Lanka</p></div>
+            </article>
+            <article class="gallery-item gallery-item--wide" data-category="mountains" tabindex="0">
+              <img src="images/gallery/tea_plantation.webp" alt="Green tea plantations across the Sri Lankan hill country" loading="lazy">
+              <div class="gallery-item__overlay"><div class="gallery-item__zoom" aria-hidden="true">↗</div><h4 class="gallery-item__title">Hill Country Tea</h4><p class="gallery-item__location">Central Highlands</p></div>
+            </article>
+            <article class="gallery-item" data-category="culture" tabindex="0">
+              <img src="images/gallery/train.webp" alt="Scenic train travelling through Sri Lanka's hill country" loading="lazy">
+              <div class="gallery-item__overlay"><div class="gallery-item__zoom" aria-hidden="true">↗</div><h4 class="gallery-item__title">Scenic Rail Journey</h4><p class="gallery-item__location">Hill Country</p></div>
+            </article>
+            <article class="gallery-item" data-category="temples" tabindex="0">
+              <img src="images/gallery/temple.webp" alt="Historic Sri Lankan temple architecture" loading="lazy">
+              <div class="gallery-item__overlay"><div class="gallery-item__zoom" aria-hidden="true">↗</div><h4 class="gallery-item__title">Sacred Heritage</h4><p class="gallery-item__location">Sri Lanka</p></div>
+            </article>
+            <article class="gallery-item gallery-item--wide" data-category="beaches" tabindex="0">
+              <img src="images/gallery/beach.webp" alt="Golden tropical beach on the Sri Lankan coast" loading="lazy">
+              <div class="gallery-item__overlay"><div class="gallery-item__zoom" aria-hidden="true">↗</div><h4 class="gallery-item__title">Island Coast</h4><p class="gallery-item__location">Southern Coast</p></div>
+            </article>
           </div>
 
         </div>
@@ -156,75 +179,6 @@
       <div class="lightbox__caption">
         <h4></h4>
         <p></p>
-      </div>
-    </div>
-
-    <!-- Admin Panel Modal -->
-    <div class="admin-overlay" id="admin-overlay"></div>
-    <div class="admin-panel" id="admin-panel">
-      <div class="admin-panel__header">
-        <h3 class="admin-panel__title">🔒 Admin Panel</h3>
-        <button class="admin-panel__close" id="admin-close" aria-label="Close admin panel">✕</button>
-      </div>
-      
-      <!-- Password Gate -->
-      <div class="admin-panel__gate" id="admin-gate">
-        <p class="admin-panel__gate-text">Enter admin password to continue</p>
-        <div class="admin-panel__gate-input-wrap">
-          <input type="password" id="admin-password" class="admin-panel__input" placeholder="Password" autocomplete="off">
-          <button id="admin-login-btn" class="admin-panel__btn admin-panel__btn--primary">Unlock</button>
-        </div>
-        <p class="admin-panel__error" id="admin-error"></p>
-      </div>
-
-      <!-- Upload Form (hidden until authenticated) -->
-      <div class="admin-panel__content" id="admin-content" style="display:none;">
-        <div class="admin-panel__upload-zone" id="upload-zone">
-          <input type="file" id="admin-file-input" accept="image/*" multiple hidden>
-          <div class="admin-panel__upload-placeholder" id="upload-placeholder">
-            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            <p>Click or drag images here</p>
-            <span>Max 10MB per image · JPG, PNG, WebP</span>
-          </div>
-          <div class="admin-panel__preview-grid" id="preview-grid"></div>
-        </div>
-
-        <div class="admin-panel__fields" id="upload-fields" style="display:none;">
-          <div class="admin-panel__field">
-            <label for="img-title">Title</label>
-            <input type="text" id="img-title" class="admin-panel__input" placeholder="e.g., Sigiriya at Sunset">
-          </div>
-          <div class="admin-panel__field">
-            <label for="img-category">Category</label>
-            <select id="img-category" class="admin-panel__input">
-              <option value="beaches">Beaches</option>
-              <option value="temples">Temples</option>
-              <option value="wildlife">Wildlife</option>
-              <option value="mountains">Mountains</option>
-              <option value="culture">Culture</option>
-              <option value="heritage">Heritage</option>
-            </select>
-          </div>
-          <div class="admin-panel__field">
-            <label for="img-location">Location</label>
-            <input type="text" id="img-location" class="admin-panel__input" placeholder="e.g., Central Province">
-          </div>
-          <button id="admin-upload-btn" class="admin-panel__btn admin-panel__btn--primary admin-panel__btn--full">
-            <span id="upload-btn-text">Upload to Gallery</span>
-            <span id="upload-spinner" class="admin-panel__spinner" style="display:none;"></span>
-          </button>
-          <div class="admin-panel__progress" id="upload-progress" style="display:none;">
-            <div class="admin-panel__progress-bar" id="upload-progress-bar"></div>
-          </div>
-        </div>
-
-        <hr class="admin-panel__divider">
-
-        <div class="admin-panel__manage">
-          <h4>Manage Uploaded Images</h4>
-          <p class="admin-panel__manage-hint">Click the ✕ on any uploaded image in the gallery to delete it.</p>
-          <div class="admin-panel__uploaded-list" id="uploaded-list"></div>
-        </div>
       </div>
     </div>
 
@@ -302,20 +256,9 @@
     </footer>
   </div>
 
-  <!-- Hidden Admin Trigger -->
-  <button class="admin-trigger" id="admin-trigger" aria-label="Admin Panel" title="Admin Panel">
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-  </button>
-
   <button class="back-to-top" id="back-to-top" aria-label="Back to top"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg></button>
-    <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-storage-compat.js"></script>
-  <script src="js/firebase-init.js?v=4"></script>
   <script src="js/main.js?v=2"></script>
   <script src="js/gallery.js?v=2"></script>
-  <script src="js/gallery-admin.js?v=2"></script>
   <!-- Floating Contact Buttons -->
   <div class="floating-contact">
     <a href="tel:+94771234567" class="floating-btn phone-btn" aria-label="Call Us">
