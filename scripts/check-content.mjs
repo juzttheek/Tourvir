@@ -1,7 +1,7 @@
 import { readFile, readdir } from 'node:fs/promises';
 import { resolveInside } from './lib/site-contract.mjs';
 
-const root = process.cwd();
+const root = resolveInside(process.cwd(), process.argv[2] ?? '.');
 const htmlFiles = (await readdir(root)).filter((name) => name.endsWith('.html')).sort();
 const forbiddenRuntime =
   /firebase|firestore|tourvir-fd341|gallery-admin|admin-trigger|admin-panel/i;

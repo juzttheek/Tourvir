@@ -934,7 +934,7 @@ Update this ledger as work proceeds. Valid states: `not_started`, `in_progress`,
 | 1 | Baseline, data disposition and characterization | 0 | complete | Local evidence plus approved Path B irreversible-disposal receipt (`docs/baseline/phase-1/`) |
 | 2 | Immediate security and conversion containment | 1 | blocked | Local containment complete; external Firebase Hosting/Firestore/Storage shutdown evidence pending (`docs/phases/phase-2/`) |
 | 3 | Toolchain and validation pipeline | 2 | complete | Validation/build evidence (`docs/phases/phase-3/`); owner-approved dependency exception while remote Firebase deletion remains external |
-| 4 | Astro scaffold and non-destructive migration | 3 | not_started | `dist/` route/content parity |
+| 4 | Astro scaffold and non-destructive migration | 3 | complete | Astro `dist/` route/content/visual parity and artifact audit (`docs/phases/phase-4/`) |
 | 5 | Shared layout, content and components | 4 | not_started | No duplicated global chrome/data |
 | 6 | JavaScript/TypeScript behavior migration | 5 | not_started | E2E parity; no compat globals |
 | 7 | Managed forms and legacy form migration | 6 | not_started | Formspree Preview delivery and dashboard/notification tests |
@@ -1600,6 +1600,10 @@ The repository now has a pinned Node/npm toolchain, exact lockfile, static allow
 
 Phase 3 proceeded under the owner's explicit instruction while Phase 2 remains blocked only on remote Firebase deletion evidence. The repository and generated `dist/` contain no Firebase runtime or deployment path. The owner accepted responsibility for deleting the unused remote Firebase project; that external task is not represented as completed here.
 
+### Phase 4 — complete (2026-07-26)
+
+All nine established `.html` routes now build from Astro `src/pages/`, with parity-preserved assets under `public/`. Astro is configured for static file-format output and whitespace preservation, and `vercel.json` targets only `dist/`. Automated checks prove DOM/content parity for every route, byte parity for all copied static assets, and pixel-identical desktop rendering for representative legal, home and gallery pages. The root implementation remains reference-only and is excluded from the deploy artifact. Evidence is in `docs/phases/phase-4/README.md`.
+
 ### 12.9 Phase execution record
 
 #### Phase 1 — baseline and data-disposition execution (complete)
@@ -1696,6 +1700,27 @@ Completed and verified:
 - Lighthouse baselines passed the hard accessibility budget: index 0.93, gallery 0.88 and contact 0.88. Best Practices and SEO were 1.00 on all three. Homepage performance remains a later-phase optimization target; observed runs varied from 0.30 to 0.68.
 
 Evidence, commands, known follow-ups and rollback instructions are recorded in `docs/phases/phase-3/README.md`.
+
+#### Phase 4 — Astro scaffold and non-destructive migration (complete)
+
+**Run date:** 2026-07-26
+
+**Branch:** `main`
+
+Completed and verified:
+
+- Created the target `src/` and `public/` scaffold without adding a server/functions application.
+- Migrated all nine routes to `src/pages/*.astro` in the planned order while keeping root files as a reference-only rollback source.
+- Copied CSS, JavaScript and images unchanged to `public/`; byte-level parity checks cover the full asset tree.
+- Added a typed `BaseLayout.astro` boundary for Phase 5 extraction without changing page markup during parity migration.
+- Configured Astro static file output so `/contact.html` and every other established URL remain exact.
+- Disabled Astro 7 JSX whitespace compression after parity tests detected removed inter-element spaces; all route DOM/content parity then passed.
+- Added Vercel configuration that builds Astro and publishes only `dist/`, with clean URLs disabled to preserve the current contract.
+- Added `dist/` allowlist auditing for unexpected files, directories, secrets and retired Firebase/admin markers.
+- Verified all nine routes and local references, 23 browser tests, four critical axe scans, three responsive viewport smoke tests and Lighthouse budgets.
+- Verified pixel-identical legacy/Astro desktop screenshots for privacy, home and gallery with motion disabled.
+
+Evidence, exact commands, artifact contents, known follow-ups and rollback instructions are recorded in `docs/phases/phase-4/README.md`.
 
 ## 13. Deployment-ready target
 

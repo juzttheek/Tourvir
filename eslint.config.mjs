@@ -13,7 +13,7 @@ export default [
   },
   eslint.configs.recommended,
   {
-    files: ['js/**/*.js'],
+    files: ['public/js/**/*.js'],
     languageOptions: {
       globals: {
         ...globals.browser,

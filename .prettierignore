@@ -3,6 +3,10 @@
 css/
 js/
 images/
+public/css/
+public/js/
+public/images/
+src/pages/
 docs/baseline/phase-1/screenshots/
 docs/baseline/
 MASTER_AUDIT_REPORT.md

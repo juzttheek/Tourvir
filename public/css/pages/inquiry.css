@@ -1,0 +1,263 @@
+/* ============================================
+   TOURVIR — Inquiry Page Styles
+   ============================================ */
+
+.inquiry-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--space-3xl);
+  align-items: start;
+}
+
+/* Multi-step Form */
+.inquiry-form-wrapper {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  box-shadow: var(--shadow-md);
+}
+
+.form-step {
+  display: none;
+}
+
+.form-step.active {
+  display: block;
+  animation: fadeInStep 0.4s ease;
+}
+
+@keyframes fadeInStep {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.form-step__title {
+  font-size: 1.3rem;
+  margin-bottom: var(--space-sm);
+}
+
+.form-step__subtitle {
+  color: var(--text-tertiary);
+  font-size: 0.92rem;
+  margin-bottom: var(--space-xl);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--divider);
+}
+
+/* Review Step */
+.review-card {
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.review-card__title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-sm);
+}
+
+.review-card__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.review-card__item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.review-card__label {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+}
+
+.review-card__value {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+/* Sidebar FAQ + Quick Contact */
+.inquiry-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.quick-contact-card {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+}
+
+.quick-contact-card h3 {
+  margin-bottom: var(--space-lg);
+  font-size: 1.2rem;
+}
+
+.quick-contact__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--divider);
+}
+
+.quick-contact__item:last-child {
+  border-bottom: none;
+}
+
+.quick-contact__icon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  background: var(--badge-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.quick-contact__info {
+  flex: 1;
+}
+
+.quick-contact__label {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+}
+
+.quick-contact__value {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.92rem;
+}
+
+/* Interest Tags */
+.interest-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.interest-tag {
+  padding: var(--space-sm) var(--space-lg);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background: none;
+}
+
+.interest-tag:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.interest-tag.selected {
+  background: var(--gradient-primary);
+  border-color: transparent;
+  color: white;
+}
+
+/* Accommodation Level */
+.accommodation-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.accommodation-option {
+  padding: var(--space-lg);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background: none;
+}
+
+.accommodation-option:hover {
+  border-color: var(--primary);
+}
+
+.accommodation-option.selected {
+  border-color: var(--primary);
+  background: var(--badge-bg);
+}
+
+.accommodation-option__icon {
+  font-size: 1.8rem;
+  margin-bottom: var(--space-sm);
+}
+
+.accommodation-option__label {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  display: block;
+}
+
+.accommodation-option__desc {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+@media (max-width: 1024px) {
+  .inquiry-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .accommodation-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: var(--space-md);
+  }
+
+  .form-actions .btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .review-card__grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,211 @@
+/* ============================================
+   TOURVIR — Contact Us Page Styles
+   ============================================ */
+
+.contact-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-xl);
+  margin-bottom: var(--space-3xl);
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+  align-items: start;
+}
+
+.contact-form-wrapper {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  box-shadow: var(--shadow-md);
+}
+
+.contact-form-wrapper h3 {
+  margin-bottom: var(--space-sm);
+}
+
+.contact-form-wrapper > p {
+  color: var(--text-tertiary);
+  font-size: 0.92rem;
+  margin-bottom: var(--space-xl);
+}
+
+/* Map & Info Side */
+.contact-info-side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.office-hours {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+}
+
+.office-hours h3 {
+  margin-bottom: var(--space-lg);
+  font-size: 1.2rem;
+}
+
+.office-hours__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.office-hours__item {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--divider);
+  font-size: 0.92rem;
+}
+
+.office-hours__item:last-child {
+  border-bottom: none;
+}
+
+.office-hours__day {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.office-hours__time {
+  color: var(--text-secondary);
+}
+
+.office-hours__time.closed {
+  color: var(--error);
+}
+
+/* Emergency Section */
+.emergency-section {
+  background: var(--bg-secondary);
+}
+
+.emergency-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xl);
+}
+
+.emergency-card {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  text-align: center;
+  transition: all var(--transition-base);
+}
+
+.emergency-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+.emergency-card__icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-md);
+}
+
+.emergency-card__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+}
+
+.emergency-card__number {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: var(--space-xs);
+}
+
+.emergency-card__desc {
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+}
+
+/* Social Media Grid */
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+}
+
+.social-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-base);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.social-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
+}
+
+.social-card__icon {
+  font-size: 1.5rem;
+}
+
+.social-card__name {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+.social-card__handle {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+
+@media (max-width: 1024px) {
+  .contact-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .emergency-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .emergency-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .social-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .social-grid {
+    grid-template-columns: 1fr;
+  }
+}

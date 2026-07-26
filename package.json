@@ -8,12 +8,12 @@
     "npm": ">=11"
   },
   "scripts": {
-    "dev": "node scripts/serve-static.mjs . 4173",
-    "preview": "node scripts/serve-static.mjs dist 4173",
-    "build": "node scripts/build-static.mjs",
+    "dev": "astro dev --host 127.0.0.1 --port 4173",
+    "preview": "astro preview --host 127.0.0.1 --port 4173",
+    "build": "astro build && node scripts/audit-dist.mjs",
     "format:check": "prettier --check .",
-    "lint:js": "eslint js scripts tests *.config.*",
-    "lint:css": "stylelint \"css/**/*.css\"",
+    "lint:js": "eslint public/js scripts tests *.config.*",
+    "lint:css": "stylelint \"public/css/**/*.css\"",
     "lint": "npm run lint:js && npm run lint:css",
     "typecheck": "tsc --noEmit",
     "test:unit": "vitest run tests/unit",
@@ -22,10 +22,11 @@
     "test:a11y": "npm run build && playwright test tests/accessibility --workers=1",
     "test:visual": "npm run build && playwright test tests/visual",
     "test:lighthouse": "npm run build && node scripts/run-lighthouse.mjs",
-    "check:html": "html-validate \"*.html\"",
-    "check:links": "node scripts/check-links.mjs",
-    "check:content": "node scripts/check-content.mjs",
-    "validate": "npm run format:check && npm run lint && npm run typecheck && npm run test:unit && npm run test:contract && npm run check:html && npm run check:links && npm run check:content && npm run build && npm run test:e2e && npm run test:a11y && npm run test:visual && npm run test:lighthouse"
+    "check:html": "html-validate \"dist/*.html\"",
+    "check:links": "node scripts/check-links.mjs dist",
+    "check:content": "node scripts/check-content.mjs dist",
+    "check:parity": "node scripts/check-parity.mjs",
+    "validate": "npm run format:check && npm run lint && npm run typecheck && npm run test:unit && npm run test:contract && npm run build && npm run check:html && npm run check:links && npm run check:content && npm run check:parity && npm run test:e2e && npm run test:a11y && npm run test:visual && npm run test:lighthouse"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.12.1",

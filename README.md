@@ -1,6 +1,6 @@
 # Tourvir
 
-Tourvir is a static tourism and lead-generation website being migrated incrementally to Astro. Phase 3 adds a reproducible validation and build system while the audited root HTML/CSS/JavaScript implementation remains the visual reference.
+Tourvir is a static tourism and lead-generation website built with Astro. The Phase 4 source lives in `src/` and `public/`; the root HTML/CSS/JavaScript files are retained temporarily as a reference-only parity and rollback source.
 
 ## Requirements
 
@@ -26,7 +26,7 @@ npm run build
 npm run preview
 ```
 
-`npm run build` creates `dist/` from only the nine HTML routes plus `css/`, `js/` and `images/`. Reports, source-control files, tests and operational documents are not deployable.
+`npm run build` runs Astro and audits `dist/`. The artifact contains only the nine established `.html` routes, Astro output and the approved `css/`, `js/` and `images/` assets. Reports, root legacy references, tests and operational documents are not deployable.
 
 ## Validation
 
