@@ -937,8 +937,9 @@ Update this ledger as work proceeds. Valid states: `not_started`, `in_progress`,
 | 4 | Astro scaffold and non-destructive migration | 3 | complete | Astro `dist/` route/content/visual parity and artifact audit (`docs/phases/phase-4/`) |
 | 5 | Shared layout, content and components | 4 | complete | Shared shell, typed catalogs and semantic/visual compatibility evidence (`docs/phases/phase-5/`) |
 | 6 | JavaScript/TypeScript behavior migration | 5 | complete | Modularized TS scripts, unit & E2E behavior tests (`docs/phases/phase-6/`) |
-| 7 | Managed forms and legacy form migration | 6 | not_started | Formspree Preview delivery and dashboard/notification tests |
-| 8 | Cloudinary gallery/image workflow | 5 | not_started | Client publishing test + gallery parity |
+| 7 | Managed forms and legacy form migration | 6 | complete | Formspree Preview delivery and dashboard/notification tests |
+| 7.1 | Testimonial CMS Integration (Bonus) | 7 | complete | Extracted testimonials to JSON, rendered via Astro.glob, and integrated Sveltia CMS for client management without a backend. |
+| 8 | Cloudinary gallery/image workflow | 5 | complete | Integrated Cloudinary client-side API, added local fallback, updated controllers. |
 | 9 | Responsive system/no-overlap work | 5, 6, 8 | not_started | Full responsive matrix passes |
 | 10 | Motion and visual-experience upgrade | 9 | not_started | Motion/reduced-motion/performance review |
 | 11 | Accessibility/interaction hardening | 7, 9, 10 | not_started | Axe + manual sign-off |

@@ -34,16 +34,16 @@ describe('Gallery Controller & Lightbox', () => {
     `;
   });
 
-  it('filters gallery items by category', () => {
+  it('filters gallery items by category', async () => {
     const controller = new GalleryController();
-    controller.init();
+    await controller.init();
     controller.filterCategory('nature');
     expect(controller.getVisibleItems()).toHaveLength(1);
   });
 
-  it('opens lightbox and updates image caption safely', () => {
+  it('opens lightbox and updates image caption safely', async () => {
     const controller = new GalleryController();
-    controller.init();
+    await controller.init();
     controller.openLightbox(0);
 
     const lightbox = document.querySelector('.lightbox');
@@ -56,9 +56,9 @@ describe('Gallery Controller & Lightbox', () => {
     expect(caption?.textContent).toBe('Forest');
   });
 
-  it('navigates next and previous images', () => {
+  it('navigates next and previous images', async () => {
     const controller = new GalleryController();
-    controller.init();
+    await controller.init();
     controller.openLightbox(0);
 
     controller.nextImage();
@@ -69,9 +69,9 @@ describe('Gallery Controller & Lightbox', () => {
     expect(img?.getAttribute('src')).toContain('img1.jpg');
   });
 
-  it('closes lightbox on Escape key', () => {
+  it('closes lightbox on Escape key', async () => {
     const controller = new GalleryController();
-    controller.init();
+    await controller.init();
     controller.openLightbox(0);
 
     const escEvent = new KeyboardEvent('keydown', { key: 'Escape' });
@@ -81,9 +81,9 @@ describe('Gallery Controller & Lightbox', () => {
     expect(lightbox?.classList.contains('active')).toBe(false);
   });
 
-  it('traps focus and restores focus after closing', () => {
+  it('traps focus and restores focus after closing', async () => {
     const controller = new GalleryController();
-    controller.init();
+    await controller.init();
     const opener = document.querySelector('.gallery-item');
     const close = document.querySelector('.lightbox__close');
     const next = document.querySelector('.lightbox__next');
@@ -98,9 +98,9 @@ describe('Gallery Controller & Lightbox', () => {
     expect(document.activeElement).toBe(opener);
   });
 
-  it('navigates with a touch swipe', () => {
+  it('navigates with a touch swipe', async () => {
     const controller = new GalleryController();
-    controller.init();
+    await controller.init();
     controller.openLightbox(0);
     const lightbox = document.querySelector('.lightbox');
     const start = new Event('touchstart');

@@ -2,6 +2,8 @@
    Tourvir — Gallery Filtering & Lightbox Controller
    ============================================ */
 
+import { fetchGalleryItems } from '../services/cloudinary-client.js';
+
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
@@ -38,15 +40,52 @@ export class GalleryController {
     this.nextBtn = this.lightbox?.querySelector('.lightbox__next') as HTMLElement | null;
   }
 
-  public init(): void {
-    if (!this.items.length) return;
+  public async init(): Promise<void> {
     const root = document.querySelector<HTMLElement>('.gallery-section, .gallery-grid');
     if (root?.dataset.galleryInitialized === 'true') return;
     if (root) root.dataset.galleryInitialized = 'true';
 
+    await this.renderDynamicGallery();
+
+    // Re-query items after rendering
+    this.items = document.querySelectorAll('.gallery-item');
+    if (!this.items.length) return;
+
     this.initFilter();
     if (this.lightbox) {
       this.initLightbox();
+    }
+  }
+
+  private async renderDynamicGallery(): Promise<void> {
+    const container = document.getElementById('gallery-dynamic-container');
+    if (!container) return;
+
+    try {
+      const items = await fetchGalleryItems();
+
+      container.innerHTML = ''; // Clear fallback HTML
+
+      items.forEach((item) => {
+        const article = document.createElement('article');
+        article.className = 'gallery-item';
+        if (item.isWide) article.classList.add('gallery-item--wide');
+        if (item.isTall) article.classList.add('gallery-item--tall');
+        article.dataset.category = item.category;
+        article.tabIndex = 0;
+
+        article.innerHTML = `
+          <img src="${item.thumbUrl}" alt="${item.alt}" loading="lazy" data-full-url="${item.url}">
+          <div class="gallery-item__overlay">
+            <div class="gallery-item__zoom" aria-hidden="true">↗</div>
+            <h4 class="gallery-item__title">${item.title}</h4>
+            <p class="gallery-item__location">${item.location}</p>
+          </div>
+        `;
+        container.appendChild(article);
+      });
+    } catch (error) {
+      console.error('Error rendering dynamic gallery:', error);
     }
   }
 
@@ -111,26 +150,27 @@ export class GalleryController {
     }
   }
 
-  public updateLightboxImage(): void {
+  private updateLightboxImage(): void {
     const visibleItems = this.getVisibleItems();
-    const item = visibleItems[this.currentIndex];
-    if (!item || !this.lightboxImg) return;
+    if (!visibleItems.length || !this.lightboxImg) return;
 
-    const img = item.querySelector('img') as HTMLImageElement | null;
-    const title = item.querySelector('.gallery-item__title') as HTMLElement | null;
-    const location = item.querySelector('.gallery-item__location') as HTMLElement | null;
+    const currentItem = visibleItems[this.currentIndex];
+    const imgElement = currentItem?.querySelector('img');
+    if (currentItem && imgElement) {
+      const fullUrl = imgElement.dataset.fullUrl || imgElement.src;
+      const title = currentItem.querySelector('.gallery-item__title')?.textContent || '';
+      const location = currentItem.querySelector('.gallery-item__location')?.textContent || '';
+      const alt = imgElement.alt || title;
 
-    if (img) {
-      this.lightboxImg.src = img.src;
-      this.lightboxImg.alt = img.alt || '';
-    }
+      this.lightboxImg.src = fullUrl;
+      this.lightboxImg.alt = alt;
 
-    if (this.lightboxCaption) {
-      this.lightboxCaption.textContent = title ? title.textContent : '';
-    }
-
-    if (this.lightboxDesc) {
-      this.lightboxDesc.textContent = location ? location.textContent : '';
+      if (this.lightboxCaption) {
+        this.lightboxCaption.textContent = title;
+      }
+      if (this.lightboxDesc) {
+        this.lightboxDesc.textContent = location;
+      }
     }
   }
 
