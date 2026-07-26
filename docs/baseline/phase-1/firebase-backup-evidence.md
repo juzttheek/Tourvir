@@ -1,10 +1,10 @@
-# Firebase backup prerequisite evidence
+# Firebase data-disposition and decommission prerequisite
 
 **Project alias found in source:** `tourvir-fd341`
 
 **Audit date:** 2026-07-26
 
-**Result:** backup not performed; Phase 1 exit gate blocked
+**Result:** no disposition path approved; Phase 1 exit gate blocked
 
 ## Tool/credential audit
 
@@ -27,6 +27,10 @@ The browser Firebase API key is public configuration and was not used to enumera
 
 ## Required authorized completion
 
+An authorized owner must select exactly one path.
+
+### Path A — retain legacy data
+
 An owner with appropriate Google Cloud/Firebase access must:
 
 1. Identify the authoritative Firebase project and data locations.
@@ -37,10 +41,15 @@ An owner with appropriate Google Cloud/Firebase access must:
 6. Record backup location, timestamp, retention, encryption/access controls, restore result and responsible owner in a non-public operational record.
 7. Add only a redacted verification receipt here; never commit customer data or credentials.
 
+### Path B — approved disposal
+
+The business/data owner may instead attest that the Firebase project contains no records or assets that must be retained, or explicitly approve their irreversible disposal. The attestation must identify the project, decision owner/date, data categories considered, privacy/legal retention approval, and confirmation that the project has no other business use. This path permits decommissioning but provides no recovery capability.
+
 ## Redacted completion receipt
 
 ```text
 Status: pending
+Selected path: A / B
 Authorized owner:
 Source project verified:
 Firestore export timestamp/location reference:
@@ -48,6 +57,9 @@ Storage export timestamp/location reference:
 Counts/checksums verified:
 Isolated restore test:
 Retention/access reviewed:
+No-required-data / discard approval:
+Privacy/legal approver:
+Project has no other business use:
 ```
 
-Until this receipt is approved, Phase 1 must not be marked complete and destructive data migration/cleanup must not begin.
+Until one path in this receipt is approved, Phase 1 must not be marked complete and destructive Firebase cleanup must not begin.

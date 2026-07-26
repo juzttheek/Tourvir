@@ -6,11 +6,13 @@
 
 **Current stack:** Static HTML, CSS and browser JavaScript; Firebase Hosting, Firestore and Storage; GitHub Pages deployment workflow
 
+**Approved target stack:** Astro static output on Vercel; Cloudinary for gallery authoring/delivery; Formspree for contact, inquiry and feedback; no Firebase runtime, project dependency or deployment path
+
 ## 1. Executive summary
 
 Tourvir is a brochure and lead-generation website for a Sri Lankan travel business. It contains a home page, tour packages, vehicle listings, gallery, trip inquiry flow, contact page, and legal pages. The UI is a responsive multi-page static site. Firestore is used for feedback, contact messages, and inquiries; Firestore plus Firebase Storage are used for a dynamic gallery and its administration.
 
-The codebase is visually substantial but **not production-ready in its current state**. Static content can be deployed, but two conversion forms are broken, gallery administration is not secure, database/storage security rules are not version-controlled, and the hosting configuration has no explicit security or cache policy. There is also no build, lint, test, preview, or release-validation toolchain.
+The codebase is visually substantial but **not production-ready in its current state**. Static content can be deployed, but two conversion forms are broken, gallery administration is not secure, database/storage security rules are not version-controlled, and the hosting configuration has no explicit security or cache policy. There is also no build, lint, test, preview, or release-validation toolchain. The approved modernization removes Firebase entirely instead of repairing it as a permanent platform.
 
 ### Overall readiness score
 
@@ -57,7 +59,26 @@ Deployment definitions
   └─ GitHub Actions: publishes repository root to GitHub Pages
 ```
 
-There is no application server or trusted API layer. This is acceptable for public read-only content, but unsafe for administrative operations and weak for abuse-prone public form writes. Browser “threads” do not provide security or database concurrency control; those responsibilities belong in authenticated backend endpoints and Firebase rules/transactions.
+There is no application server or trusted API layer. This is acceptable for public read-only content, but unsafe for the current administrative operations and direct database writes. Browser “threads” do not provide security or database concurrency control. The approved target avoids both problems: Cloudinary owns authenticated media administration, Formspree owns managed form intake and spam controls, and the public site stays static on Vercel.
+
+### Approved target architecture
+
+```text
+Visitor browser
+  ├─ Vercel CDN → immutable Astro static assets + revalidated HTML
+  ├─ Cloudinary CDN → tagged gallery metadata + responsive transformed images
+  └─ Formspree → separate contact, inquiry and feedback forms
+                   ├─ domain restriction + bot/spam protection
+                   └─ managed submission dashboard + staff notifications
+
+Client editor
+  └─ Cloudinary Media Library (MFA; no Tourvir admin page)
+
+Deployment
+  └─ Git → Vercel Preview → validated Production deployment
+```
+
+There is no Tourvir application server or database in the target. Firebase Hosting, SDKs, Firestore, Storage, rules, configuration and deployment automation are removed after legacy data is exported or explicitly approved for disposal.
 
 ## 4. What is already good
 
@@ -81,7 +102,7 @@ These are useful foundations, but they do not offset the release blockers below.
 
 The same public page uploads and deletes Storage objects and creates/deletes `gallery_images` documents. No `firestore.rules` or `storage.rules` files are committed, so the effective production access rules cannot be reviewed, tested, or deployed reproducibly.
 
-**Required fix:** Remove the admin panel and admin bundle from the public gallery and rotate the exposed/default password immediately. The preferred final workflow is the authenticated Cloudinary Media Library described in Section 7 and Phase 8, with no privileged gallery capability in Tourvir's public bundle. If a custom Firebase admin is ever retained instead, it must be a separate authenticated application using allowlisted custom claims plus enforced Firestore/Storage rules and trusted mutation endpoints. Audit existing Firebase logs/data either way.
+**Required fix:** Remove the admin panel and admin bundle from the public gallery and rotate the exposed/default password immediately. Use the authenticated Cloudinary Media Library described in Section 7 and Phase 8, with no privileged gallery capability in Tourvir's public bundle. Audit existing Firebase logs/data, migrate or disposition retained assets, then decommission Firebase.
 
 ### P0 — Inquiry submission is broken
 
@@ -99,31 +120,31 @@ The same public page uploads and deletes Storage objects and creates/deletes `ga
 
 Contact, feedback, and inquiry documents are written directly from anonymous browsers. HTML validation is bypassable. Depending on deployed rules, this permits spam, unexpected fields, oversized payloads, cost amplification, and possibly unwanted reads/writes. The UI also reports success when Firebase is unavailable, even though no data was delivered.
 
-**Required fix:** Submit forms to a serverless endpoint (Cloud Functions/Cloud Run), validate and normalize with a schema, cap lengths, rate-limit by App Check/IP/session where appropriate, add bot protection, and return a real delivery ID. Never display success on the fallback path unless the submission was persisted. Restrict client reads entirely for private lead collections.
+**Required fix:** Submit each form to a dedicated Formspree form ID. Keep HTML/client schema validation, configure allowed domains plus honeypot and Turnstile/reCAPTCHA protection, cap field lengths, and show success only after Formspree confirms acceptance. Verify submissions in the managed dashboard and route notifications to named staff. Do not keep a public or private Tourvir database merely for these leads.
 
 ### P0 — Deployment configuration can publish unintended files
 
 Both Firebase and GitHub Pages publish `.` (the repository root). Firebase ignores dotfiles and `node_modules`, but GitHub Pages uploads the entire checked-out root. Once reports, source maps, tests, environment templates, or operational files are added, they may become public. Two deployment targets also create ambiguity about the canonical domain and rollback process.
 
-**Required fix:** Choose one production host, build into `dist/`, and deploy only `dist/`. Use preview environments for pull requests and a protected production environment.
+**Required fix:** Make Vercel the only production host, build into `dist/`, and deploy only the static build. Use Vercel Preview deployments for pull requests and a protected Production deployment; disable Firebase Hosting and GitHub Pages after domain cutover.
 
 ### P1 — No version-controlled data security policy
 
 The repository lacks `firestore.rules`, `storage.rules`, and indexes. This is an operational and security gap even if safe rules happen to exist in the Firebase Console.
 
-**Required fix:** Commit deny-by-default rules, emulator tests, required indexes, and deploy rules through CI. Separate public gallery reads from private form submissions. Never allow unauthenticated list/read access to contacts, inquiries, or feedback.
+**Required fix:** Treat this as a legacy containment issue, not a reason to keep Firebase. Freeze or deny old access during migration where authorized; export or explicitly disposition required data; then delete all Firebase client code/configuration and decommission the project. The final site has no Firestore/Storage policy because it has no Firestore/Storage dependency.
 
 ### P1 — Untrusted Firestore data is inserted with `innerHTML`
 
 Gallery titles, locations, URLs, categories, and storage paths are interpolated into `innerHTML` in `gallery-admin.js`. If an attacker can create/modify a document, stored cross-site scripting or attribute injection is possible.
 
-**Required fix:** Build elements with `createElement`, assign user content with `textContent`, validate URL protocols, constrain categories, and enforce server/rules validation. A Content Security Policy is defense in depth, not a substitute.
+**Required fix:** Build elements with `createElement`, assign user content with `textContent`, validate URL protocols, constrain categories, and validate the Cloudinary response contract before rendering. A Content Security Policy is defense in depth, not a substitute.
 
 ### P1 — Legal pages have incorrect titles
 
 `cookies.html`, `privacy.html`, and `terms.html` all use the title “Contact Us — Tourvir | Get in Touch”. This damages search snippets, browser history, and legal-page clarity.
 
-**Required fix:** Give every page a unique correct title/description and verify the legal text, business identity, data retention, Firebase/Google processing, cookie behavior, and contact details with the business/legal owner.
+**Required fix:** Give every page a unique correct title/description and verify the legal text, business identity, data retention, Formspree/Cloudinary/Vercel processing, cookie behavior, and contact details with the business/legal owner.
 
 ### P1 — Contact data appears to be placeholder data
 
@@ -184,29 +205,21 @@ tourvir/
 │  │  ├─ carousel.ts
 │  │  └─ forms/
 │  ├─ services/
-│  │  ├─ api-client.ts
+│  │  ├─ forms.ts
 │  │  └─ gallery.ts
 │  ├─ styles/
 │  │  ├─ tokens.css
 │  │  ├─ global.css
 │  │  ├─ utilities.css
 │  │  └─ components/
+│  ├─ config/
+│  │  └─ forms.ts            # public Formspree form IDs per environment
 │  └─ env.d.ts
-├─ functions/                # trusted form/admin endpoints
-│  ├─ src/
-│  │  ├─ forms/
-│  │  ├─ gallery/
-│  │  ├─ middleware/
-│  │  └─ index.ts
-│  └─ package.json
 ├─ tests/
 │  ├─ unit/
-│  ├─ e2e/
-│  └─ firebase-rules/
-├─ firebase.json
-├─ firestore.rules
-├─ storage.rules
-├─ firestore.indexes.json
+│  └─ e2e/
+├─ vercel.json               # redirects and explicit response headers
+├─ .env.example
 ├─ package.json
 ├─ tsconfig.json
 ├─ astro.config.mjs
@@ -215,7 +228,7 @@ tourvir/
 └─ README.md
 ```
 
-Keep the public web build and privileged backend independently deployable. If migration must be incremental, first introduce a build system and shared templates while retaining the current URLs, then migrate page by page.
+Keep the public build independent of both managed content services. If migration must be incremental, first introduce a build system and shared templates while retaining the current URLs, then migrate page by page. Formspree form IDs and Cloudinary delivery identifiers are configuration; vendor API secrets must never enter the client bundle.
 
 ## 7. Performance, caching and concurrency
 
@@ -230,8 +243,7 @@ Keep the public web build and privileged backend independently deployable. If mi
 
 ### JavaScript/network
 
-- Load Firebase only on pages that require it. Vehicles, packages, and legal pages currently download Firebase App, Firestore, and initialization scripts without using them.
-- Replace Firebase v10 compat globals with modular imports in the build. Tree-shake to the functions actually used.
+- Remove Firebase App, Firestore, Storage and initialization scripts from every page. No Firebase module belongs in the final bundle.
 - Use `defer`/ES modules and content-hashed filenames produced by the build.
 - Debounce package search for a larger data set; for the current six cards it is not a bottleneck.
 - Replace the two global scroll listeners with one `requestAnimationFrame`-throttled coordinator or observers.
@@ -250,20 +262,20 @@ Use content hashing so immutable assets can be cached for one year safely. HTML 
 | User/private API responses | `no-store` |
 | Public gallery metadata | Short CDN/client cache with ETag; invalidate on admin mutation |
 
-Add explicit Firebase Hosting `headers` entries. A service worker is optional and should come only after HTTP caching is correct; a stale HTML/service-worker deployment bug is more damaging than the modest repeat-visit benefit for this site.
+Configure explicit Vercel response headers and verify them from Preview and Production URLs. Vercel serves static files from its edge cache; content-hashed assets remain immutable while HTML revalidates. A service worker is optional and should come only after HTTP caching is correct; a stale HTML/service-worker deployment bug is more damaging than the modest repeat-visit benefit for this site.
 
-### Firestore query/data handling
+### Gallery and form data handling
 
-- Public gallery currently fetches the entire ordered collection. Add pagination (`limit` + cursor), thumbnails, and a stable sort/index.
+- Replace the current Firestore collection read with Cloudinary's tagged public asset list; validate metadata, use a stable sort, initially render 12–18 assets and progressively reveal more.
 - Store thumbnail, display, and original variants; serve the smallest suitable variant.
-- Use batched/transactional server-side workflows for paired Storage/Firestore operations. Current uploads can leave orphaned files if metadata creation fails, and deletes can become half-complete.
-- Use deterministic IDs/idempotency keys for form submissions to prevent duplicate records after retries.
-- Set server-enforced size/type limits and normalize file names. Client-side limits alone are not controls.
-- Apply retention policies to form records and gallery originals/backups.
+- Keep gallery publication atomic at the content level: an asset appears publicly only after required metadata and the publication tag are present.
+- Prevent double-submit in the browser and treat only a confirmed Formspree response as accepted. Do not automatically retry personal-data submissions without an explicit idempotency guarantee.
+- Configure allowed upload types/sizes in Cloudinary and length/field constraints plus spam protection in Formspree. Client validation improves UX but is not the only control.
+- Apply documented retention/export/deletion policies to Formspree submissions and Cloudinary originals/backups.
 
 ### Threads and workers
 
-The current page does not need general Web Workers. Filtering six cards and normal DOM interactions are cheap. The browser main-thread priorities are reducing image decode work, duplicated listeners, layout/repaint work, and unnecessary SDK parsing. A worker becomes useful only if client-side image resizing/compression is retained for admin uploads; otherwise resize in a trusted backend/Storage-triggered function. Database race conditions must be handled with rules, transactions, batches, and idempotency—not JavaScript threads.
+The current page does not need general Web Workers. Filtering six cards and normal DOM interactions are cheap. The browser main-thread priorities are reducing image decode work, duplicated listeners, layout/repaint work, and unnecessary SDK parsing. Cloudinary performs image transformation outside the browser, so no upload-compression worker is needed. Submission concurrency is handled with disabled submit state, abort timeouts and provider-confirmed responses—not JavaScript threads.
 
 ### Recommended simple gallery workflow (preferred over a website admin panel)
 
@@ -324,20 +336,20 @@ Use controlled category choices rather than free text. The public page should ig
 |---|---|
 | Images only, simple captions/categories, immediate publishing | Cloudinary Media Library + tagged public list (**recommended now**) |
 | Client will soon edit packages, prices, vehicles, pages and SEO too | A headless CMS such as Sanity Studio, with its image CDN |
-| No third-party media platform is acceptable | A small separate Firebase-authenticated admin route with strict Storage/Firestore rules; more development and maintenance |
+| No third-party media platform is acceptable | Keep images/content in Git and rebuild the static site; this loses client self-service but does not reintroduce Firebase |
 | Updates are rare and a developer controls every release | Keep images/content in Git and rebuild the static site; simplest infrastructure but not client-self-service |
 
 Sanity is a good future option if Tourvir needs broad content management because its Studio generates editing forms from schemas and its asset CDN processes and caches images. It is unnecessary overhead if the only editable content is a photo gallery. Start with the smallest workflow that satisfies the client; do not build a custom CMS preemptively.
 
 #### Migration from the current implementation
 
-1. Export/back up existing Firebase gallery originals and metadata.
+1. Export existing Firebase gallery originals/metadata, or record explicit owner approval that there is no required data and it may be discarded.
 2. Create the managed media account, folder, editor users, required metadata fields and gallery tag.
 3. Import existing images and normalize captions/categories/order.
 4. Replace the Firestore gallery query with one read-only tagged-list adapter and Cloudinary URL builder.
 5. Retain the existing visual gallery/filter/lightbox components, but render safely from the adapter.
 6. Remove `gallery-admin.js`, the public admin HTML/CSS, Firebase Storage SDK, password hash and gallery write/delete code.
-7. Deny old Firebase gallery writes, verify the live asset list, then remove unused Storage data after a documented backup/retention period.
+7. Freeze old Firebase gallery writes, verify the live asset list, then decommission Storage and the Firebase project after the approved export/disposition and retention gate.
 
 This approach keeps Tourvir a mostly static website. Only the gallery data is fetched as public content; there is no login state or privileged capability on the visitor-facing site.
 
@@ -346,23 +358,23 @@ This approach keeps Tourvir a mostly static website. Only the gallery data is fe
 ### Minimum security architecture
 
 1. No privileged gallery authoring in the visitor-facing site. Use individual Cloudinary Media Library editor accounts with MFA and minimum roles.
-2. If a custom Firebase admin is introduced later, require Firebase Auth, an allowlisted custom claim and both Firestore/Storage rule enforcement; UI state is never authorization.
-3. Private form collections: create through a validated function; no public reads/updates/deletes.
-4. Firebase App Check plus rate limiting and bot protection where approved. App Check is additive, not a replacement for Auth/rules.
-5. Strict schemas: allowed keys, types, lengths, enumerations and timestamp handling.
+2. Keep Formspree and Cloudinary accounts business-owned, grant individual least-privilege access, enable MFA where supported, and document offboarding/recovery.
+3. Use a separate Formspree form ID for contact, inquiry and feedback; restrict accepted domains and configure honeypot plus Turnstile/reCAPTCHA protection.
+4. Strict form schemas: approved field names, types, lengths, enumerations, consent and safe errors. Never put personal data in URLs, analytics or client logs.
+5. Treat public Formspree form IDs and Cloudinary delivery identifiers as identifiers, not secrets; keep vendor account/API secrets out of Git and `dist/`.
 6. Security headers: CSP, HSTS on the canonical HTTPS domain, `X-Content-Type-Options: nosniff`, `Referrer-Policy`, `Permissions-Policy`, and framing protection via CSP `frame-ancestors`.
 7. Avoid inline event handlers and inline style/SVG patterns that force a weak CSP. Packages currently has an inline `onclick`, and toast markup uses inline `onclick`.
 8. Dependency updates through Dependabot/Renovate and pinned/locked build dependencies.
-9. Secret scanning and production/preview Firebase projects. Firebase web configuration is normally public; rules and trusted backends provide security. Do not mistake hiding the API key for access control.
-10. Audit logging and alerts for editor/account changes, write spikes, function failures and budget thresholds.
+9. Secret scanning plus separate Formspree test/production form configuration and Vercel Preview/Production environment variables.
+10. Audit/alerts for editor or account changes, form-delivery failures, spam spikes, Cloudinary usage and Vercel deployment failures/budget thresholds.
 
 ### Reliability fixes
 
 - Show success only after confirmed persistence/delivery.
 - Add request timeouts with `AbortController`, retry only safe/idempotent operations, and distinguish offline, validation, permission, rate-limit, and server errors.
 - Preserve form input after failures; prevent double submission; provide a visible status region with `aria-live`.
-- Send internal notifications from a backend and monitor delivery. A stored Firestore lead without notification/processing is not an operationally complete inquiry.
-- Add backups/export policy and a tested restoration procedure.
+- Configure Formspree staff notifications and reconcile them against its submission dashboard. A browser success message without a provider-accepted submission is not operationally complete.
+- Add Formspree submission export/retention/deletion and Cloudinary original backup policies; test the procedures before launch.
 
 ## 9. Accessibility, SEO and quality
 
@@ -391,8 +403,8 @@ This approach keeps Tourvir a mostly static website. Only the gallery data is fe
 Adopt TypeScript in strict mode, ESLint, Prettier, Stylelint, HTML validation, and a spell/link checker. Add:
 
 - Unit tests for form serialization/validation, package filtering, URL sanitization, and gallery mapping.
-- Firebase Emulator tests proving unauthorized reads/writes/deletes fail and authorized admin actions pass.
-- Playwright end-to-end tests for navigation, theme persistence, contact success/failure, inquiry completion, feedback submission, gallery filters/lightbox, and admin authorization.
+- Contract/unit tests for the Formspree adapter and mocked accepted, validation, rate-limit, timeout and provider-failure responses.
+- Playwright end-to-end tests for navigation, theme persistence, contact success/failure, inquiry completion, feedback submission, gallery filters/lightbox, and absence of public admin capability.
 - Automated accessibility checks with axe plus manual keyboard/screen-reader checks.
 - Lighthouse CI budgets for LCP, CLS, INP, accessibility, SEO, and transferred bytes.
 - Visual regression tests for desktop/mobile and light/dark themes.
@@ -803,17 +815,17 @@ This section is the implementation runbook for upgrading the current repository 
 
 Every agent or engineer executing this plan must follow these rules:
 
-1. **Inspect before editing.** Read this report, `git status`, relevant source files, current Firebase configuration and any repository-level agent instructions before starting a phase.
+1. **Inspect before editing.** Read this report, `git status`, relevant source files, legacy Firebase configuration and any repository-level agent instructions before starting a phase.
 2. **Preserve unrelated work.** Existing uncommitted changes belong to the user. Never reset, overwrite, delete or reformat unrelated files.
 3. **Work phase by phase.** Do not start a later phase while an earlier phase's exit gate is failing. A phase may use several small pull requests, but every pull request must leave the preview usable.
 4. **Keep the legacy site as the visual/content reference until parity is signed off.** Create the new structure alongside it. Do not bulk-move or delete root HTML/CSS/JS files at the beginning.
-5. **Copy, verify, switch, then remove.** Apply this to pages, assets, Firebase data and gallery images. Deletion is the final step after backup, preview verification and an approved retention window.
-6. **No direct production experiments.** Code, rules, functions, headers and migrations must pass locally/emulators and staging/preview first.
-7. **Security changes fail closed.** If a backend is unavailable, privileged actions and form writes fail clearly; the UI never pretends a write succeeded.
+5. **Copy, verify, switch, then remove.** Apply this to pages, assets, legacy Firebase data and gallery images. Deletion is the final step after verified export or explicit owner-approved disposition, preview verification and any required retention window.
+6. **No direct production experiments.** Code, vendor configuration, headers and migrations must pass locally and in Vercel Preview with test service accounts/forms first.
+7. **Security changes fail closed.** If Formspree is unavailable, form submission fails clearly; the UI never pretends a submission succeeded.
 8. **One canonical source of truth.** Shared navigation, contact data, package data, schemas and metadata live in one maintained location.
 9. **Maintain URL compatibility.** Existing `.html` URLs continue through output parity or tested redirects. Do not create SEO-breaking route changes during migration.
 10. **Make every phase reversible.** Record the last known-good commit/deployment, backup location, external configuration changes and rollback process before cutover.
-11. **Do not weaken checks to pass a gate.** Fix the cause. Do not hide overflow, suppress TypeScript errors, disable rules tests, loosen CSP/rules, or accept visual snapshots without review.
+11. **Do not weaken checks to pass a gate.** Fix the cause. Do not hide overflow, suppress TypeScript errors, bypass form/provider checks, loosen CSP, or accept visual snapshots without review.
 12. **Record evidence.** A phase is complete only after its exit gate passes and the issue/PR contains tests, screenshots, preview URL and rollback evidence.
 
 ### 12.2 Fixed target decisions
@@ -823,17 +835,17 @@ Use this target unless the owner explicitly records another decision before Phas
 | Concern | Target decision |
 |---|---|
 | Frontend | Astro static output with strict TypeScript and minimal client JavaScript |
-| Production hosting | Firebase Hosting as the single canonical host |
+| Production hosting | Vercel as the single canonical host |
 | Build output | Only `dist/` is deployable |
-| Public forms | HTTPS Cloud Functions/Cloud Run endpoints with server validation, abuse controls and notifications |
-| Private lead data | Firestore, inaccessible directly to public clients |
+| Public forms | Separate Formspree contact/inquiry/feedback endpoints with provider spam controls and notifications |
+| Lead records | Formspree managed submission dashboard/export; no Tourvir database |
 | Gallery authoring | Cloudinary Media Library accounts; no admin panel on Tourvir |
 | Gallery delivery | Cloudinary tagged asset JSON plus responsive transformation URLs/CDN |
 | Content | Typed local content collections initially; consider Sanity only if the client later edits broad site content |
 | Styling | Mobile-first CSS, design/motion tokens, intrinsic grids and component container queries |
-| Testing | Unit tests, Firebase Emulator tests, Playwright E2E/visual, axe and Lighthouse CI |
-| Environments | Separate local/emulator, staging/preview and production configurations/projects |
-| Releases | Protected main, pull-request preview, explicit production approval and documented rollback |
+| Testing | Unit/contract tests, Playwright E2E/visual, axe and Lighthouse CI; synthetic provider tests in Preview |
+| Environments | Local mocks, Vercel Preview with test Formspree forms, and Vercel Production with production forms |
+| Releases | Protected `main`, Vercel pull-request previews, explicit production promotion and documented rollback |
 
 Do not add React/Vue, an SPA router, WebGL, a custom CMS, a website upload widget or a service worker unless a separately approved requirement proves the added complexity is necessary.
 
@@ -843,8 +855,8 @@ Do not add React/Vue, an SPA router, WebGL, a custom CMS, a website upload widge
 tourvir/
 ├─ .github/workflows/
 │  ├─ validate.yml
-│  ├─ preview.yml
-│  └─ production.yml
+│  ├─ preview-smoke.yml
+│  └─ production-smoke.yml
 ├─ public/
 │  ├─ favicon.svg
 │  ├─ robots.txt
@@ -869,17 +881,13 @@ tourvir/
 │  │  └─ 404.astro
 │  ├─ scripts/{navigation,theme,motion,gallery}.ts
 │  ├─ scripts/forms/
-│  ├─ services/{api-client,gallery-client,telemetry}.ts
+│  ├─ services/{forms-client,gallery-client,telemetry}.ts
+│  ├─ config/forms.ts
 │  ├─ schemas/{contact,feedback,inquiry,gallery}.ts
 │  ├─ styles/{tokens,reset,global,utilities}.css
 │  ├─ styles/components/
 │  └─ env.d.ts
-├─ functions/
-│  ├─ src/{forms,middleware,notifications}/
-│  ├─ test/
-│  ├─ package.json
-│  └─ tsconfig.json
-├─ tests/{unit,e2e,visual,accessibility,firebase-rules}/
+├─ tests/{unit,contract,e2e,visual,accessibility}/
 ├─ scripts/{validate-content,check-overflow,smoke-production}.mjs
 ├─ docs/
 │  ├─ decisions/
@@ -887,11 +895,7 @@ tourvir/
 │  ├─ content-guide.md
 │  └─ gallery-editor-guide.md
 ├─ .env.example
-├─ .firebaserc
-├─ firebase.json
-├─ firestore.rules
-├─ storage.rules
-├─ firestore.indexes.json
+├─ vercel.json
 ├─ astro.config.mjs
 ├─ eslint.config.js
 ├─ package.json
@@ -914,11 +918,11 @@ tourvir/
 | `js/main.js` | Keep until each feature has a parity test | Focused theme/navigation/motion/form modules |
 | `js/packages.js` | Migrate with package page | Typed accessible filter component/module |
 | `js/gallery.js` | Migrate after adapter contract | One gallery controller for filtering/lightbox/pagination |
-| `js/inquiry.js` | Lock schema/test first | Schema-based stepper and trusted API submit |
-| `js/firebase-init.js` | Stop global page loading | Remove public direct Firestore/Storage writes; retain only minimal approved client service if required |
+| `js/inquiry.js` | Lock schema/test first | Schema-based stepper and confirmed Formspree submit |
+| `js/firebase-init.js` | Stop global page loading | Delete; no Firebase SDK/configuration in final source or `dist/` |
 | `js/gallery-admin.js` | Disable immediately | Delete after Cloudinary cutover; no replacement on public site |
 | `images/` | Copy unchanged to `public/images/` for parity | Owned static assets become build assets; managed gallery moves to Cloudinary |
-| Firebase compat CDN scripts | Remove page by page | Bundle only minimal modular code that is actually required |
+| Firebase compat CDN scripts | Remove page by page | No Firebase network request or dependency remains |
 
 ### 12.5 Phase dependency and status ledger
 
@@ -927,13 +931,13 @@ Update this ledger as work proceeds. Valid states: `not_started`, `in_progress`,
 | Phase | Name | Depends on | Initial state | Required evidence |
 |---:|---|---:|---|---|
 | 0 | Authority, accounts and business decisions | — | not_started | Approved decision record |
-| 1 | Baseline, backup and characterization | 0 | blocked | Local evidence complete; authenticated backup receipt pending (`docs/baseline/phase-1/`) |
+| 1 | Baseline, data disposition and characterization | 0 | blocked | Local evidence complete; authorized export/restore receipt or approved discard/no-data attestation pending (`docs/baseline/phase-1/`) |
 | 2 | Immediate security and conversion containment | 1 | not_started | P0 tests and safe behavior |
 | 3 | Toolchain and validation pipeline | 2 | not_started | Clean install/build/check CI |
 | 4 | Astro scaffold and non-destructive migration | 3 | not_started | `dist/` route/content parity |
 | 5 | Shared layout, content and components | 4 | not_started | No duplicated global chrome/data |
 | 6 | JavaScript/TypeScript behavior migration | 5 | not_started | E2E parity; no compat globals |
-| 7 | Trusted forms and Firebase boundary | 6 | not_started | Emulator + staging delivery tests |
+| 7 | Managed forms and legacy form migration | 6 | not_started | Formspree Preview delivery and dashboard/notification tests |
 | 8 | Cloudinary gallery/image workflow | 5 | not_started | Client publishing test + gallery parity |
 | 9 | Responsive system/no-overlap work | 5, 6, 8 | not_started | Full responsive matrix passes |
 | 10 | Motion and visual-experience upgrade | 9 | not_started | Motion/reduced-motion/performance review |
@@ -946,7 +950,7 @@ Update this ledger as work proceeds. Valid states: `not_started`, `in_progress`,
 
 Frontend scaffolding and account provisioning may proceed in parallel only when changes do not overlap. The dependency and exit-gate order still controls integration.
 
-**Emergency exception:** if the currently deployed site still exposes gallery mutation or private data, the authorized parts of Phase 2 must be executed immediately after taking the smallest safe baseline/backup from Phase 1. Do not wait for vendor/content decisions to close a live security exposure. Record the emergency action, retain restrictive rules, and return to the normal sequence before continuing the architecture migration.
+**Emergency exception:** if the currently deployed site still exposes gallery mutation or private data, the authorized containment parts of Phase 2 must be executed immediately after preserving required data or obtaining a disposal decision. Do not wait for unrelated vendor/content decisions to close a live security exposure. Record the emergency action, keep the legacy service closed, and return to the normal sequence before continuing migration.
 
 ### Phase 0 — Authority, accounts and business decisions
 
@@ -955,15 +959,16 @@ Frontend scaffolding and account provisioning may proceed in parallel only when 
 #### Actions
 
 1. Name the business owner who can approve domain, contact information, legal text, vendors and production deployment.
-2. Confirm the canonical domain and whether Firebase project `tourvir-fd341` is development/staging or intended production.
-3. Create or identify a separate staging Firebase project. Never use production lead data for tests.
-4. Approve Firebase Hosting as canonical and approve disabling GitHub Pages production deployment.
+2. Confirm the canonical domain, business-owned Vercel account/team and production Git repository.
+3. Approve Vercel as canonical and approve disabling Firebase Hosting and GitHub Pages after verified cutover.
+4. Create separate Vercel Preview/Production configuration and business-owned Formspree test/production forms. Never use real lead data for automated tests.
 5. Create a business-owned Cloudinary account; enable MFA; identify two recovery owners; approve usage limits.
 6. Confirm actual phone, WhatsApp, email, address, social links, legal name, support hours and response-time claims.
 7. Resolve the feedback schema conflict: collect email, country, or both; record fields and retention purpose.
-8. Approve inquiry/contact/feedback recipients and notification provider/channel.
-9. Approve privacy/retention periods, analytics/consent position, image-rights policy and backup ownership.
-10. Record decisions in `docs/decisions/0001-platform-and-content.md` once the structure exists; before then, attach them to the implementation issue/PR.
+8. Approve inquiry/contact/feedback recipients, separate Formspree form ownership, spam controls, notification channels and submission retention/export policy.
+9. Decide legacy Firebase data disposition: (A) preserve it through a verified export/restore or (B) attest it contains no required records / explicitly approve irreversible discard with privacy/legal retention approval.
+10. Approve privacy/retention periods, analytics/consent position, image-rights policy and backup ownership.
+11. Record decisions in `docs/decisions/0001-platform-and-content.md` once the structure exists; before then, attach them to the implementation issue/PR.
 
 #### Exit gate
 
@@ -976,7 +981,7 @@ If approvals are unavailable, continue only with read-only local scaffolding tha
 
 ---
 
-### Phase 1 — Baseline, backup and characterization
+### Phase 1 — Baseline, data disposition and characterization
 
 **Goal:** Create a recoverable, testable description of current behavior before refactoring.
 
@@ -984,23 +989,23 @@ If approvals are unavailable, continue only with read-only local scaffolding tha
 
 1. Record `git status` and preserve user changes. Create a dedicated upgrade branch from the agreed commit.
 2. Tag or record the exact baseline commit; do not tag an unreviewed dirty worktree.
-3. Export/backup Firestore collections and Firebase Storage gallery assets through an authorized method. Record counts/checksums without leaking personal data.
+3. Resolve legacy Firebase data through one authorized path: export Firestore/Storage and verify an isolated restore, or record a signed no-required-data/approved-discard attestation. Never infer permission to delete customer data.
 4. Inventory every route, query string, title, description, heading, form, button, collection, external link and local asset.
 5. Capture desktop/mobile screenshots and intentional interactions for every page in both themes.
 6. Create a behavior checklist for navigation, drawer, theme, hero, filters, gallery/lightbox, feedback, contact and inquiry steps.
 7. Characterize known failures as tests: inquiry selector mismatch, feedback mismatch, false-success fallback and public admin exposure.
-8. Record authoritative Firebase rules/config without committing credentials or private data.
+8. Record authoritative Firebase services/configuration only as legacy decommission inventory, without committing credentials or private data.
 9. Create a route contract listing expected output paths and status codes.
 10. Measure baseline transferred bytes, images, Lighthouse values and console/network errors in a repeatable environment.
 
 #### Exit gate
 
-- Baseline commit, verified data backup, visual reference, route contract and known-bug list exist.
-- A restore owner confirms the backup is usable, not merely present.
+- Baseline commit, visual reference, route contract and known-bug list exist.
+- The data-disposition receipt is approved: either a restore owner confirms the export is usable, or an authorized owner explicitly confirms no retained data is required and approves disposal.
 
 #### Rollback
 
-Return to the recorded baseline commit. Restore data only from the verified backup with owner approval.
+Return to the recorded baseline commit. Restore data only from the verified export with owner approval; a disposal attestation is not a backup.
 
 ---
 
@@ -1011,25 +1016,25 @@ Return to the recorded baseline commit. Restore data only from the verified back
 #### Actions in order
 
 1. Rotate the documented/default gallery password even though the final solution removes it.
-2. Add and emulator-test restrictive Firestore/Storage rules denying unauthorized gallery mutation and public lead reads.
+2. With authorized project access, freeze/deny legacy Firestore/Storage public access while data disposition and migration proceed. Record the Console/config evidence; do not create a permanent Firebase test stack.
 3. Remove or feature-disable the public admin trigger, upload and delete controls; CSS hiding is not sufficient.
 4. Stop loading `gallery-admin.js` and Firebase Storage SDK publicly.
 5. Align inquiry IDs/names and serializer to the approved schema; validate date order, people counts, lengths and required steps.
 6. Align feedback HTML/serializer with the Phase 0 decision.
 7. Remove every branch that shows success without confirmed persistence.
-8. Until Phase 7's backend is live, use a temporary approved trusted endpoint or display an honest unavailable/direct-contact state. Never restore unrestricted anonymous writes.
+8. Until Phase 7's Formspree integration is live, use an approved temporary managed form endpoint or display an honest unavailable/direct-contact state. Never restore unrestricted anonymous database writes.
 9. Replace remote gallery `innerHTML` interpolation with safe element/text properties.
 10. Add smoke tests proving unsafe admin controls are absent and forms do not throw.
 
 #### Exit gate
 
-- Anonymous upload/delete and private lead reads fail in emulator/staging.
+- Anonymous upload/delete and private lead access are confirmed closed in the legacy environment.
 - Inquiry/feedback no longer throw, and no form reports unconfirmed success.
 - Public JavaScript contains no usable admin secret or privileged gallery workflow.
 
 #### Rollback
 
-Rollback may restore display behavior but never insecure rules or exposed mutation. If safe form delivery is unavailable, show direct contact details.
+Rollback may restore display behavior but never Firebase writes or exposed mutation. If safe form delivery is unavailable, show direct contact details.
 
 ---
 
@@ -1041,8 +1046,8 @@ Rollback may restore display behavior but never insecure rules or exposed mutati
 
 - Real `package.json`/lockfile, `.gitignore`, `.editorconfig`, `.env.example` and pinned supported runtime.
 - Astro/Vite, strict TypeScript, ESLint, Prettier, Stylelint and content/HTML validation.
-- Unit, Playwright, axe, Lighthouse and Firebase Emulator/rules harnesses.
-- `README.md` with install, development, emulator, test and build instructions.
+- Unit/contract, Playwright, axe and Lighthouse harnesses with HTTP mocks for Formspree and Cloudinary failure states.
+- `README.md` with install, development, test, Preview and build instructions.
 - `.github/workflows/validate.yml` that cannot deploy production.
 
 #### Standard commands
@@ -1052,7 +1057,7 @@ npm run format:check
 npm run lint
 npm run typecheck
 npm run test:unit
-npm run test:rules
+npm run test:contract
 npm run build
 npm run test:e2e
 npm run test:a11y
@@ -1083,8 +1088,8 @@ The legacy site stays directly previewable. Revert toolchain commits if the stac
 
 #### Actions
 
-1. Create `src/`, `public/`, `tests/`, `functions/`, `scripts/` and `docs/`.
-2. Configure static output and exact existing paths; test every `.html` URL.
+1. Create `src/`, `public/`, `tests/`, `scripts/` and `docs/`; do not create a server/functions package.
+2. Configure Astro static output, Vercel deployment settings and exact existing paths; test every `.html` URL.
 3. Initially copy current images to `public/images/` without renaming.
 4. Import current CSS in its original cascade order; do not combine markup and style refactoring.
 5. Create `BaseLayout.astro` with head slots, styles/scripts and landmarks.
@@ -1145,7 +1150,7 @@ Revert the last extracted component and restore its page-local version from Git,
 5. Migrate package filters with typed state, appropriate debounce and announced result count.
 6. Combine gallery filtering/lightbox into one controller; remove cloning and duplicate initialization.
 7. Migrate carousels/hero with pause on hover/focus/hidden tab/reduced motion and interval cleanup.
-8. Migrate form UI to schema serialization/field errors, submitting only to Phase 7's trusted API.
+8. Migrate form UI to schema serialization/field errors, submitting only through Phase 7's Formspree adapter.
 9. Replace injected toast/inline handlers with safe DOM and an `aria-live` status component.
 10. Remove global Firebase compat initialization and unused CDN scripts.
 
@@ -1170,53 +1175,50 @@ Switch one component to its previous module at a time; never run old/new initial
 
 ---
 
-### Phase 7 — Trusted forms and Firebase boundary
+### Phase 7 — Managed forms and legacy form migration
 
-**Goal:** Deliver inquiry, contact and feedback reliably without granting browsers database access.
+**Goal:** Deliver inquiry, contact and feedback reliably through a managed form service, with no Tourvir database or backend.
 
 #### Contracts
 
-Create shared schemas for contact, inquiry and feedback. Each declares allowed keys, normalized types, enumerations, min/max lengths, consent and safe errors. Server validation is authoritative.
+Create shared schemas for contact, inquiry and feedback. Each declares approved names, normalized types, enumerations, min/max lengths, consent and safe errors. Client validation is for UX; Formspree's accepted response and provider controls remain the delivery boundary.
 
-#### Backend actions
+#### Formspree configuration
 
-1. Implement routed HTTPS endpoints in `functions/src/forms/`.
-2. Allow only required methods/content types; enforce size/time limits.
-3. Validate/normalize, reject unknown keys and use server timestamps.
-4. Add approved rate limiting, bot defense and/or App Check; document retry/proxy behavior.
-5. Use idempotency/submission IDs.
-6. Write private Firestore records with minimal metadata.
-7. Send staff notification with server-held credentials; track delivery without sensitive logs.
-8. Return stable codes and a non-sensitive reference ID.
-9. Add redacted logs, monitoring and cost/write-spike alerts.
-10. Apply retention and least-privilege IAM.
+1. Create separate production forms for contact, inquiry and feedback under the business-owned Formspree project; create test forms for Preview automation.
+2. Configure approved recipient addresses, subject/routing fields, team access, retention/export ownership and notification fallback.
+3. Restrict accepted domains and enable honeypot plus Turnstile/reCAPTCHA protection appropriate to normal and AJAX submissions.
+4. Keep Formspree form IDs in environment configuration. They are public identifiers; no account token or API secret may enter Git or `dist/`.
+5. Configure only approved form fields and cap lengths in markup/schema; do not collect data without a stated business purpose.
+6. Confirm dashboard storage, email notification, spam review, export and deletion workflows with the operational owner.
+7. Document provider outage, quota, compromised-account and recipient-delivery recovery.
 
 #### Frontend actions
 
 1. Use `fetch` with abort timeout and double-submit prevention.
 2. Preserve input on failure; focus/announce actionable errors.
-3. Show success only on confirmed acceptance and show the reference ID.
-4. Distinguish offline, validation, rate-limit and server failure.
+3. Show success only on a confirmed Formspree acceptance response; show a provider reference only if one is safely returned.
+4. Distinguish offline, validation, bot/rate-limit and provider failure.
 5. Never place personal content in URLs, analytics or client logs.
 
-#### Rules/tests
+#### Tests
 
-- Public users cannot list/read/update/delete lead collections or create them directly when Admin SDK is authoritative.
-- Test valid, invalid, oversized, duplicate, rate-limited and backend-failure cases.
-- Staging proves persistence and staff notification end to end.
+- No Firebase/database request is made and no personal data appears in URLs, analytics, console logs or test artifacts.
+- Test valid, invalid, oversized, double-submit, bot/rate-limit, timeout and provider-failure cases with mocks.
+- Vercel Preview uses test forms and proves dashboard receipt plus staff notification end to end without real customer data.
 
 #### Deployment order
 
-Deploy/health-check backward-compatible endpoints and restrictive rules before switching the frontend.
+Configure and health-check test/production Formspree forms before switching frontend form IDs. Keep direct contact details visible until each form is confirmed.
 
 #### Exit gate
 
-- All forms pass success/failure paths in staging; staff can match notification, record and reference.
-- Direct database access is denied; no false success, duplicate write or sensitive log leak.
+- All forms pass success/failure paths in Preview; staff can match notification and dashboard submission.
+- No Firebase/database dependency remains in form code; no false success, duplicate submit or sensitive log leak.
 
 #### Rollback
 
-Use an older compatible endpoint or disable forms with direct-contact details. Never loosen rules as rollback.
+Restore the prior compatible Formspree form IDs/configuration or disable forms with direct-contact details. Never restore Firebase writes as rollback.
 
 ---
 
@@ -1235,9 +1237,9 @@ Use an older compatible endpoint or disable forms with direct-contact details. N
 
 #### Migration
 
-1. Inventory Firebase originals/metadata from Phase 1 backup.
+1. Inventory Firebase originals/metadata from the Phase 1 export, or use the approved local/current asset set when the owner attested that no legacy Firebase data must be retained.
 2. Normalize caption/category/order/alt in a reviewed manifest.
-3. Import without deleting Firebase originals.
+3. Import without deleting Firebase originals until the Phase 1 disposition and retention gate permits decommissioning.
 4. Compare counts, dimensions/checksums and caption/crop samples.
 5. Publish/tag only reviewed assets.
 
@@ -1259,7 +1261,7 @@ Have the real editor use `docs/gallery-editor-guide.md` to upload, publish, reor
 
 #### Cutover/cleanup
 
-Remove admin HTML/CSS/JS, password hash, Firebase Storage SDK and gallery mutation code after staging parity. Retain old Firebase data denied/read-only and backed up through the approved window; delete it only with explicit approval.
+Remove admin HTML/CSS/JS, password hash, all Firebase SDK/configuration and gallery mutation code after Preview parity. Keep legacy Firebase access closed, then delete retained data and decommission the project only after the approved export/disposition and retention window.
 
 #### Exit gate
 
@@ -1371,7 +1373,7 @@ Never remove accessibility semantics to restore an effect; simplify the conflict
 
 #### Security/privacy
 
-1. Configure CSP for final Firebase/Cloudinary/font/function origins and remove inline code that forces weak directives.
+1. Configure CSP for final Vercel, Cloudinary, Formspree and font origins and remove inline code that forces weak directives.
 2. Add HSTS on canonical HTTPS, `nosniff`, Referrer-Policy, Permissions-Policy and CSP `frame-ancestors`.
 3. Keep secrets in server secret manager; scan Git history and `dist/`.
 4. Implement analytics/consent only after approval; never collect form content.
@@ -1380,7 +1382,7 @@ Never remove accessibility semantics to restore an effect; simplify the conflict
 #### Performance
 
 1. Hash built assets with one-year immutable cache; HTML revalidates.
-2. Remove Firestore/Storage compat bundles and ship page-specific JavaScript.
+2. Verify Firebase App/Firestore/Storage compat bundles and configuration are absent; ship page-specific JavaScript.
 3. Optimize hero/gallery image dimensions, priority and responsive candidates.
 4. Optimize/self-host fonts where appropriate.
 5. Remove dead/duplicate CSS using coverage plus visual tests.
@@ -1407,7 +1409,7 @@ If a header blocks a required resource, fix the narrow origin/directive. Never b
 
 1. Format, lint, strict types and content schemas.
 2. Unit schemas/serializers/filters/URL builders/safe rendering.
-3. Firebase rules and function integration.
+3. Formspree adapter contract tests with mocked response/failure cases and controlled Preview synthetic submissions.
 4. Artifact audit, HTML and links.
 5. Playwright functional, responsive overflow, axe and selected visual baselines.
 6. Lighthouse budgets across representative templates.
@@ -1416,25 +1418,25 @@ If a header blocks a required resource, fix the narrow origin/directive. Never b
 #### Operations deliverables
 
 - `docs/operations/deploy.md`: staging/production steps and approvals.
-- `docs/operations/rollback.md`: Hosting, functions, rules/config and content rollback.
+- `docs/operations/rollback.md`: Vercel deployment promotion, form-ID/configuration and content rollback.
 - `docs/operations/incidents.md`: form outage, gallery outage, cost spike, compromised editor and bad deploy.
 - `docs/operations/backups.md`: schedule, retention, owner and restore procedure.
-- Alerts for function error/latency, notification failure, Firebase writes, Cloudinary usage, 404 and budgets.
+- Alerts/checks for Vercel deployment failure, Formspree notification/submission anomalies, Cloudinary usage, 404 and budgets.
 - Privacy-safe Web Vitals/conversion event plan and dependency/security update policy.
 
 #### Required drills
 
 1. Prove CI blocks an intentional harmless preview failure.
-2. Roll back a staging Hosting release.
-3. Simulate notification failure and confirm alert/retry without duplicate customer submission.
-4. Restore a sample backup into isolation.
+2. Promote a previous Vercel Preview deployment in a non-production drill.
+3. Simulate Formspree notification failure and confirm dashboard reconciliation without duplicate customer submission.
+4. Exercise a sample Formspree export and Cloudinary original/fallback recovery procedure.
 5. Remove a test Cloudinary editor and verify revocation.
 
 #### Exit gate
 
 - Branch protection requires checks.
 - Alerts reach real owners with non-sensitive actionable context.
-- Hosting rollback and data restore were exercised in staging.
+- Vercel rollback and managed-data export/recovery were exercised outside production.
 - README/runbooks work from a clean environment.
 
 ### Phase 14 — Staging migration and acceptance
@@ -1445,10 +1447,10 @@ If a header blocks a required resource, fix the narrow origin/directive. Never b
 
 1. Freeze release scope and create a candidate from a clean reviewed commit.
 2. Build once in CI; retain immutable `dist/` and checksum for promotion.
-3. Deploy staging indexes/rules/functions first; migrations use reviewed idempotent scripts.
-4. Health-check endpoints, then deploy the same web artifact.
+3. Deploy the immutable artifact to Vercel Preview with test Formspree IDs and Preview-safe Cloudinary delivery configuration.
+4. Health-check Formspree test forms and Cloudinary delivery, then run the same candidate artifact.
 5. Run deployed smoke/E2E/header/link/axe/performance checks.
-6. Test all forms with staging recipients and verify records, notifications and reference IDs.
+6. Test all forms with test recipients and verify Formspree dashboard submissions, notifications and any provider references.
 7. Have the client upload/publish/reorder/unpublish a test Cloudinary asset.
 8. Run the full responsive matrix and real-device tests on staging.
 9. Verify analytics/consent, 404, sitemap, robots, canonical and social previews.
@@ -1474,27 +1476,27 @@ Expire staging only after retaining evidence. Production is unchanged.
 #### Pre-deploy
 
 1. Verify no unreviewed change since acceptance and match artifact checksum.
-2. Confirm backups, last good Hosting release, function/rule versions and rollback owner.
-3. Confirm quotas, billing alerts, credentials and monitoring for Firebase, Cloudinary and email.
+2. Confirm legacy-data disposition, last good Vercel deployment, production Formspree IDs and rollback owner.
+3. Confirm quotas/billing alerts, business ownership and monitoring for Vercel, Formspree, Cloudinary and notification email.
 4. Prepare DNS TTL/certificates only if domain cutover requires it.
 5. Announce release window and freeze competing production changes.
 
 #### Deployment order
 
-1. Deploy backward-compatible indexes/rules/functions.
-2. Run health and safe synthetic form checks.
-3. Deploy the already-verified `dist/`—never rebuild from an unverified workspace.
-4. Apply/verify redirects, domain and headers.
+1. Verify production Formspree/Cloudinary configuration and safe synthetic form checks.
+2. Deploy or promote the already-verified Vercel artifact—never rebuild from an unverified workspace.
+3. Apply/verify redirects, domain, TLS and headers.
+4. Disable old Firebase Hosting and GitHub Pages only after the Vercel canonical domain is healthy.
 5. Smoke all routes/assets, console, navigation/theme, packages, vehicles, gallery/fallback/lightbox, forms, 404, sitemap/robots and cache/security headers.
 6. Use marked production form tests; confirm records/notifications then retain/delete by policy.
 7. Check representative mobile/desktop visuals and synthetic Web Vitals.
-8. Monitor errors, latency, writes, bandwidth and notification delivery during observation.
+8. Monitor Vercel/client errors, Formspree acceptance/notification delivery, spam, Cloudinary bandwidth and provider quotas during observation.
 
 #### Automatic rollback triggers
 
 - Widespread route/asset 4xx/5xx.
 - Contact/inquiry cannot be confirmed or materially duplicates.
-- Rules expose private data or privileged mutation.
+- Any Firebase request/write reappears or managed service configuration exposes private data/privileged mutation.
 - CSP/headers block core functionality.
 - Severe supported-viewport overlap blocks navigation/forms.
 - Error, latency or cost exceeds approved thresholds.
@@ -1502,9 +1504,9 @@ Expire staging only after retaining evidence. Production is unchanged.
 #### Rollback order
 
 1. Pause affected marketing traffic if necessary.
-2. Restore last compatible Hosting release.
-3. Restore the matching backend version.
-4. Keep safest restrictive rules; never deploy a permissive emergency rule.
+2. Promote the last compatible Vercel deployment.
+3. Restore the matching Formspree form IDs/configuration if the failure is form-specific.
+4. Keep legacy Firebase closed; never restore it as an emergency form or gallery path.
 5. Switch gallery to local fallback if Cloudinary alone fails.
 6. Run recovery smoke tests and notify owners.
 7. Preserve evidence and review incident before retry.
@@ -1522,13 +1524,13 @@ Expire staging only after retaining evidence. Production is unchanged.
 
 #### First 24 hours
 
-- Watch form/notification, function error/latency, Firebase writes, Cloudinary use, 404 and client errors.
+- Watch Formspree submissions/notifications/spam, Vercel deployment and client errors, Cloudinary use and 404s.
 - Recheck key pages/forms on real mobile and desktop.
 - Hotfix only verified regressions; do not bundle enhancements.
 
 #### First 7 days
 
-- Reconcile stored forms with staff notifications.
+- Reconcile Formspree dashboard submissions with staff notifications.
 - Review privacy-approved Web Vitals, image selection, gallery loading, 404 and funnel drop-off.
 - Confirm independent client gallery operation.
 - Review cost, bot and rate-limit events.
@@ -1538,7 +1540,7 @@ Expire staging only after retaining evidence. Production is unchanged.
 - Tune caches, image widths/quality, motion and preloads from field data.
 - Review accessibility feedback and content accuracy.
 - Apply dependency/security updates normally.
-- Remove retained legacy sources/Firebase gallery data only after explicit acceptance, backup and retention approval.
+- After explicit acceptance and the Phase 1 export/disposition/retention approval, remove remaining Firebase Hosting, Firestore, Storage, web-app credentials/IAM and project resources. Confirm the project has no other business use before project deletion.
 - Decide if a broader CMS/search/offline requirement is proven; default is not to add it.
 
 #### Completion gate
@@ -1574,13 +1576,13 @@ The upgrade is complete only when:
 - The target structure is active; legacy root files are absent from `dist/` and removed from source after retention approval.
 - All old URLs work or have tested permanent redirects/canonicals.
 - Shared layout/content/components have one source of truth.
-- Inquiry/contact/feedback are server-validated, rate-limited, observable and notify staff reliably.
+- Inquiry/contact/feedback use approved schemas and Formspree provider controls, are observable, and notify staff reliably.
 - Public clients cannot read lead data or mutate gallery/admin content.
 - Client manages Cloudinary gallery without developer help; delivery is responsive, optimized and safe.
 - Section 11's complete no-overlap matrix passes automatically and on real devices.
 - Section 10 motion is coherent, optional/reduced-motion-safe and within performance budgets.
 - Accessibility, SEO, privacy, headers, caching and performance pass on the live domain.
-- CI deploys reviewed `dist/` only; staging/production are separate; rollback/restore are tested.
+- CI validates reviewed `dist/`; Vercel Preview/Production configurations are separate; promotion/rollback and managed-data export/recovery are tested.
 - Monitoring, alerts, backups, incident/editor documentation and ownership operate in practice.
 - Business/content/privacy owners approve live content and customer-data workflow.
 
@@ -1588,13 +1590,13 @@ The upgrade is complete only when:
 
 No phase is marked complete yet.
 
-Phase 1's complete local baseline package was produced and tested on 2026-07-26, but the phase remains `blocked` because its mandatory authenticated Firestore/Storage backup and isolated restore verification cannot be performed from the current environment. Phase 0 also remains `not_started`; Phase 1's read-only local characterization was executed early at the user's explicit direction without making external configuration or data changes.
+Phase 1's complete local baseline package was produced and tested on 2026-07-26, but the phase remains `blocked` pending an authorized Firebase data-disposition decision. Completion now accepts either (A) an authenticated Firestore/Storage export with isolated restore verification or (B) an owner-approved attestation that no legacy data is required / irreversible discard is approved with applicable privacy and retention sign-off. Phase 0 also remains `not_started`; Phase 1's read-only local characterization was executed early at the user's explicit direction without making external configuration or data changes.
 
-Do not move Phase 1 into this completed list until the redacted receipt in `docs/baseline/phase-1/firebase-backup-evidence.md` is approved. Once approved, update the ledger state to `complete`, add the approval evidence here, and create a separate completion commit on `main`.
+Do not move Phase 1 into this completed list until one path in `docs/baseline/phase-1/firebase-backup-evidence.md` is approved. Once approved, update the ledger state to `complete`, add the redacted approval evidence here, and create a separate completion commit on `main`.
 
 ### 12.9 Phase execution record
 
-#### Phase 1 — local baseline execution (blocked on external backup)
+#### Phase 1 — local baseline execution (blocked on external data disposition)
 
 **Run date:** 2026-07-26
 
@@ -1631,7 +1633,7 @@ Evidence:
 - `docs/baseline/phase-1/screenshots/`
 - `docs/baseline/phase-1/firebase-backup-evidence.md`
 
-Blocking evidence:
+Pending decision evidence:
 
 - Firebase CLI: unavailable.
 - Google Cloud CLI: unavailable.
@@ -1643,19 +1645,20 @@ Blocking evidence:
 
 Required next action for completion:
 
-An authorized Firebase owner must create a managed Firestore export and Storage gallery backup, verify counts/checksums, restore into an isolated non-production environment, and approve the redacted receipt. Until then, destructive gallery/data migration and Phase 1 completion are prohibited.
+An authorized Firebase owner must approve one of two paths: create/verify a managed Firestore and Storage export with isolated restore evidence, or attest that no records/assets need retention and explicitly approve irreversible disposal. Until that receipt is approved, destructive Firebase cleanup and Phase 1 completion are prohibited.
 
 ## 13. Deployment-ready target
 
 A production release should meet all of these gates:
 
-- CI passes formatting, linting, type checking, unit tests, rules tests, link/HTML checks, end-to-end smoke tests, accessibility checks and performance budgets.
-- Only `dist/` is deployed; staging and production use separate Firebase projects and domains.
-- Every privileged mutation requires authenticated, authorized access enforced outside the UI.
-- Contact/inquiry/feedback submissions are validated, rate-limited, observable, and tested end to end, including staff notification.
+- CI passes formatting, linting, type checking, unit/contract tests, link/HTML checks, end-to-end smoke tests, accessibility checks and performance budgets.
+- Only static `dist/` is deployed to Vercel; Preview and Production use separate configuration and Formspree test/production form IDs.
+- Every gallery mutation occurs in authenticated Cloudinary Media Library; the public site has no privileged mutation capability.
+- Contact/inquiry/feedback submissions use approved schemas, domain/bot controls, observable Formspree delivery, and end-to-end staff-notification tests.
 - Cache and security headers are verified from the live domain.
 - Lighthouse is measured on representative mobile throttling; no critical axe findings remain.
-- Rollback is documented and tested; Firebase rules deploy with the application release.
+- Rollback is documented and tested by promoting a previous Vercel deployment; provider configuration rollback is recorded separately.
+- No Firebase SDK, configuration, network request, hosting path, database, storage bucket or deployment workflow remains after approved decommissioning.
 - Domain, analytics/consent, legal text, retention, backup, contact data, pricing and business claims have named owners and approval.
 
 ## 14. Suggested CI/CD flow
@@ -1664,16 +1667,16 @@ A production release should meet all of these gates:
 Pull request
   → install from lockfile
   → format/lint/typecheck
-  → unit + Firebase rules tests
+  → unit + form/gallery contract tests
   → build dist
   → HTML/link/a11y/Lighthouse checks
-  → Playwright against preview/emulators
-  → preview deployment
+  → Vercel Preview deployment
+  → Playwright/axe/Lighthouse/smoke against Preview
 
 Protected main branch
   → repeat required checks
-  → deploy rules/functions
-  → deploy immutable web assets + HTML
+  → promote the accepted immutable Vercel deployment
+  → apply/verify domain, redirects and headers
   → smoke test canonical domain
   → automatic rollback/alert on failure
 ```
@@ -1682,6 +1685,16 @@ Use GitHub Actions concurrency with `cancel-in-progress: true` for superseded pr
 
 ## 15. Final assessment
 
-The appropriate modernization is not “add threads.” It is to establish trustworthy boundaries and a build/release system: repair conversion flows, move administrative and sensitive writes behind authenticated/validated services, commit and test Firebase rules, componentize repeated page structure, ship smaller responsive assets, and make caching explicit. Once those foundations are in place, Tourvir can remain a fast mostly-static site with very little client JavaScript and low operational complexity.
+The appropriate modernization is not “add threads” or build a custom admin application. It is to simplify the system: repair conversion flows, use Formspree for managed forms, use Cloudinary for authenticated image management, componentize repeated page structure, ship smaller responsive assets, cache through Vercel's CDN, and validate every release. Tourvir can remain a fast static site with very little client JavaScript and low operational complexity.
 
-The highest-value first milestone is a secure, tested release baseline: working inquiry/contact/feedback flows, no public admin secret, deny-by-default rules, one canonical deployment target, and CI that refuses to deploy broken forms.
+The highest-value first milestone is a secure, tested release baseline: working Formspree inquiry/contact/feedback flows, no public admin secret, no Firebase dependency, one canonical Vercel deployment target, and CI that refuses to promote broken forms.
+
+## 16. Platform references used for the approved target
+
+- [Vercel Astro deployment](https://vercel.com/docs/frameworks/frontend/astro): static Astro deployment, Git integration, Preview deployments, caching and image optimization capabilities.
+- [Vercel deployment environments and promotion](https://vercel.com/docs/deployments/overview): Local, Preview and Production environments, generated deployment URLs, redeploy and promote workflows.
+- [Formspree spam protection](https://help.formspree.io/articles/troubleshooting/how-to-prevent-spam): form IDs, spam filtering, reCAPTCHA, allowed-domain restriction and honeypot controls.
+- [Formspree Cloudflare Turnstile](https://help.formspree.io/articles/form-and-project-settings/protecting-your-forms-with-cloudflare-turnstile): Turnstile configuration for AJAX form submissions.
+- [Cloudinary client-side asset lists](https://cloudinary.com/documentation/list_assets): tagged public asset-list delivery and cache behavior.
+- [Cloudinary Media Library uploads](https://cloudinary.com/documentation/dam_upload_store_assets): authenticated editor upload and media-management workflow.
+- [Cloudinary responsive images](https://cloudinary.com/documentation/responsive_images): responsive transformations and optimized delivery.
