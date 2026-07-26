@@ -446,6 +446,15 @@
                   <input type="text" id="feedback-name" class="feedback-form__input" placeholder="e.g. Sarah Mitchell" required>
                 </div>
                 <div class="feedback-form__group">
+                  <label for="feedback-email" class="feedback-form__label">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    Email (Optional)
+                  </label>
+                  <input type="email" id="feedback-email" class="feedback-form__input" placeholder="e.g. sarah@example.com">
+                </div>
+              </div>
+              <div class="feedback-form__row">
+                <div class="feedback-form__group">
                   <label for="feedback-country" class="feedback-form__label">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
                     Country
@@ -500,7 +509,12 @@
                 </label>
                 <textarea id="feedback-message" class="feedback-form__input feedback-form__textarea" placeholder="Tell us what you loved about your trip, your favourite moments, or anything we could improve..." rows="5" required></textarea>
               </div>
-              <button type="submit" class="btn btn--primary btn--lg feedback-form__submit" id="feedback-submit">
+              <div class="feedback-form__group checkbox-group" style="margin-top: 1.5rem; align-items: flex-start; gap: 0.5rem; display: flex;">
+                <input type="checkbox" id="feedback-consent" required style="margin-top: 0.25rem;">
+                <label for="feedback-consent" style="font-size: 0.875rem; color: var(--color-gray-600); line-height: 1.4;">I consent to Tourvir using my feedback and name as a testimonial on the website. *</label>
+              </div>
+              <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+              <button type="submit" class="btn btn--primary btn--lg feedback-form__submit" id="feedback-submit" style="margin-top: 1.5rem;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
                 Submit Feedback
               </button>

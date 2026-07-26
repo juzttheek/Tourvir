@@ -3,54 +3,27 @@
    ============================================ */
 
 import { showToast } from './status-toast.js';
-
-export const FORM_SCHEMAS = {
-  contact: ['contact-name', 'contact-email', 'contact-subject', 'contact-message'],
-  inquiry: [
-    'full-name',
-    'email',
-    'nationality',
-    'phone',
-    'arrival-date',
-    'departure-date',
-    'travelers',
-    'vehicle-pref',
-    'special-requirements',
-  ],
-  feedback: [
-    'feedback-name',
-    'feedback-country',
-    'feedback-tour',
-    'feedback-rating',
-    'feedback-message',
-  ],
-} as const;
-
-export type FormKind = keyof typeof FORM_SCHEMAS;
-
-export function serializeApprovedForm(
-  form: HTMLFormElement,
-  kind: FormKind,
-): Record<string, string> {
-  const result: Record<string, string> = {};
-  for (const id of FORM_SCHEMAS[kind]) {
-    const control = form.querySelector<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(
-      `#${id}`,
-    );
-    if (control) result[id] = control.value.trim();
-  }
-  return result;
-}
+import { FORMS_CONFIG, isFormConfigured } from '../config/forms.js';
+import { submitToFormspree } from '../services/forms-client.js';
+import { validateContact, type ContactPayload } from '../schemas/contact.js';
+import {
+  validateInquiry,
+  type IsoCountryCode,
+  type Interest,
+  type Accommodation,
+  type InquiryPayload,
+} from '../schemas/inquiry.js';
+import { validateFeedback } from '../schemas/feedback.js';
 
 export function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 }
 
 export function initFeedbackForm(): void {
+  const form = document.getElementById('feedback-form') as HTMLFormElement | null;
   const starsContainer = document.getElementById('feedback-stars');
   const ratingInput = document.getElementById('feedback-rating') as HTMLInputElement | null;
-  const form = document.getElementById('feedback-form') as HTMLFormElement | null;
-  if (!starsContainer || !form) return;
+  if (!form || !starsContainer) return;
 
   const stars = starsContainer.querySelectorAll<HTMLElement>('.feedback-form__star');
   let currentRating = 0;
@@ -77,16 +50,64 @@ export function initFeedbackForm(): void {
     stars.forEach((s) => s.classList.remove('hovered'));
   });
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    serializeApprovedForm(form, 'feedback');
 
-    if (currentRating === 0) {
-      showToast('Please select a star rating before submitting.', 'error');
+    if (!isFormConfigured('feedbackId')) {
+      showToast(
+        'Online feedback is temporarily unavailable. Please email info@tourvir.com.',
+        'error',
+      );
       return;
     }
 
-    showToast('Online feedback is temporarily unavailable. Please email hello@Tourvir.lk.', 'info');
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+
+    const payload = {
+      name: (form.querySelector('#feedback-name') as HTMLInputElement)?.value.trim() || '',
+      tour: (form.querySelector('#feedback-tour') as HTMLSelectElement)?.value || '',
+      rating: currentRating,
+      comments:
+        (form.querySelector('#feedback-message') as HTMLTextAreaElement)?.value.trim() || '',
+      email: (form.querySelector('#feedback-email') as HTMLInputElement)?.value.trim() || '',
+      country: (form.querySelector('#feedback-country') as HTMLInputElement)?.value.trim() || '',
+      testimonialConsent:
+        (form.querySelector('#feedback-consent') as HTMLInputElement)?.checked || false,
+      _gotcha: (form.querySelector('input[name="_gotcha"]') as HTMLInputElement)?.value || '',
+    };
+
+    const errors = validateFeedback(payload);
+    form.querySelectorAll('.error').forEach((el) => el.classList.remove('error'));
+
+    if (errors.length > 0) {
+      showToast(errors[0]?.message || 'Validation error', 'error');
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.setAttribute('aria-busy', 'true');
+    }
+
+    const abortController = new AbortController();
+    const timeout = setTimeout(() => abortController.abort(), 10000);
+
+    const result = await submitToFormspree(FORMS_CONFIG.feedbackId!, payload, abortController);
+    clearTimeout(timeout);
+
+    if (result.success) {
+      showToast(result.message, 'success');
+      form.reset();
+      currentRating = 0;
+      stars.forEach((s) => s.classList.remove('active', 'hovered'));
+    } else {
+      showToast(result.message, 'error');
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.removeAttribute('aria-busy');
+    }
   });
 }
 
@@ -94,37 +115,68 @@ export function initContactForm(): void {
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    serializeApprovedForm(form, 'contact');
 
-    const required = form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[required]');
-    let valid = true;
-
-    required.forEach((input) => {
-      if (!input.value.trim()) {
-        input.classList.add('error');
-        valid = false;
-      } else {
-        input.classList.remove('error');
-      }
-    });
-
-    const email = form.querySelector<HTMLInputElement>('input[type="email"]');
-    if (email && email.value && !isValidEmail(email.value)) {
-      email.classList.add('error');
-      valid = false;
-    }
-
-    if (!valid) {
-      showToast('Please fill in all required fields correctly', 'error');
+    if (!isFormConfigured('contactId')) {
+      showToast(
+        'Online messaging is temporarily unavailable. Please email info@tourvir.com.',
+        'error',
+      );
       return;
     }
 
-    showToast(
-      'Online messaging is temporarily unavailable. Please email hello@Tourvir.lk or use WhatsApp.',
-      'info',
-    );
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+
+    const payload = {
+      name: (form.querySelector('#contact-name') as HTMLInputElement)?.value.trim() || '',
+      email: (form.querySelector('#contact-email') as HTMLInputElement)?.value.trim() || '',
+      phone: (form.querySelector('#contact-phone') as HTMLInputElement)?.value.trim() || '',
+      subject: ((form.querySelector('#contact-subject') as HTMLSelectElement)?.value ||
+        '') as ContactPayload['subject'],
+      message: (form.querySelector('#contact-message') as HTMLTextAreaElement)?.value.trim() || '',
+      privacyConsent:
+        (form.querySelector('#contact-consent') as HTMLInputElement)?.checked || false,
+      _gotcha: (form.querySelector('input[name="_gotcha"]') as HTMLInputElement)?.value || '',
+    };
+
+    const errors = validateContact(payload);
+    form.querySelectorAll('.error').forEach((el) => el.classList.remove('error'));
+
+    if (errors.length > 0) {
+      errors.forEach((err) => {
+        let fieldEl;
+        if (err.field === 'privacyConsent') fieldEl = form.querySelector('#contact-consent');
+        else fieldEl = form.querySelector(`#contact-${err.field}`);
+
+        if (fieldEl) fieldEl.classList.add('error');
+      });
+      showToast(errors[0]?.message || 'Validation error', 'error');
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.setAttribute('aria-busy', 'true');
+    }
+
+    const abortController = new AbortController();
+    const timeout = setTimeout(() => abortController.abort(), 10000);
+
+    const result = await submitToFormspree(FORMS_CONFIG.contactId!, payload, abortController);
+    clearTimeout(timeout);
+
+    if (result.success) {
+      showToast(result.message, 'success');
+      form.reset();
+    } else {
+      showToast(result.message, 'error');
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.removeAttribute('aria-busy');
+    }
   });
 }
 
@@ -169,11 +221,20 @@ export function initMultiStepForm(): void {
     let valid = true;
 
     required.forEach((input) => {
-      if (!input.value.trim()) {
-        input.classList.add('error');
-        valid = false;
+      if (input.type === 'checkbox') {
+        if (!(input as HTMLInputElement).checked) {
+          input.classList.add('error');
+          valid = false;
+        } else {
+          input.classList.remove('error');
+        }
       } else {
-        input.classList.remove('error');
+        if (!input.value.trim()) {
+          input.classList.add('error');
+          valid = false;
+        } else {
+          input.classList.remove('error');
+        }
       }
     });
 
@@ -185,7 +246,7 @@ export function initMultiStepForm(): void {
 
     const arrival = step.querySelector<HTMLInputElement>('#arrival-date');
     const departure = step.querySelector<HTMLInputElement>('#departure-date');
-    if (arrival?.value && departure?.value && departure.value < arrival.value) {
+    if (arrival?.value && departure?.value && departure.value <= arrival.value) {
       departure.classList.add('error');
       showToast('Departure date must be after the arrival date', 'error');
       valid = false;
@@ -260,13 +321,114 @@ export function initMultiStepForm(): void {
     });
   });
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    serializeApprovedForm(form, 'inquiry');
-    showToast(
-      'Online inquiries are temporarily unavailable. Please email hello@Tourvir.lk or use WhatsApp.',
-      'info',
+
+    if (!isFormConfigured('inquiryId')) {
+      showToast(
+        'Online inquiries are temporarily unavailable. Please email info@tourvir.com.',
+        'error',
+      );
+      return;
+    }
+
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+
+    const interestValues: Record<string, Interest> = {
+      'Historical Sites': 'historical',
+      Beaches: 'beaches',
+      'Wildlife Safari': 'wildlife',
+      'Nature & Hiking': 'nature',
+      'Food & Cuisine': 'food',
+      'Ayurveda & Wellness': 'wellness',
+      Photography: 'photography',
+      'Water Sports': 'water-sports',
+      'Scenic Train Rides': 'train',
+      'Culture & Traditions': 'culture',
+    };
+    const selectedInterests = Array.from(
+      document.querySelectorAll<HTMLElement>('.interest-tag.selected'),
+    )
+      .map((el) => interestValues[(el.textContent || '').trim()])
+      .filter((value): value is Interest => Boolean(value));
+    const accommodationValues: Record<string, Accommodation> = {
+      Budget: 'budget',
+      'Mid-Range': 'standard',
+      Luxury: 'luxury',
+    };
+    const selectedAccomElement = document.querySelector<HTMLElement>(
+      '.accommodation-option.selected .accommodation-option__label',
     );
+    const selectedAccom = accommodationValues[(selectedAccomElement?.textContent || '').trim()];
+
+    const payload: Partial<InquiryPayload> = {
+      fullName: (form.querySelector('#full-name') as HTMLInputElement)?.value.trim() || '',
+      email: (form.querySelector('#email') as HTMLInputElement)?.value.trim() || '',
+      nationality: ((form.querySelector('#nationality') as HTMLSelectElement)?.value === 'other'
+        ? 'OTHER'
+        : (form.querySelector('#nationality') as HTMLSelectElement)?.value) as IsoCountryCode,
+      phone: (form.querySelector('#phone') as HTMLInputElement)?.value.trim() || '',
+      arrivalDate: (form.querySelector('#arrival-date') as HTMLInputElement)?.value || '',
+      departureDate: (form.querySelector('#departure-date') as HTMLInputElement)?.value || '',
+      travelers: parseInt((form.querySelector('#travelers') as HTMLInputElement)?.value || '0', 10),
+      interests: selectedInterests,
+      termsConsent: (form.querySelector('#terms-consent') as HTMLInputElement)?.checked || false,
+    };
+
+    if (selectedAccom) {
+      payload.accommodation = selectedAccom;
+    }
+
+    const specialReq = (
+      form.querySelector('#special-requirements') as HTMLTextAreaElement
+    )?.value.trim();
+    if (specialReq) {
+      payload.specialRequirements = specialReq;
+    }
+
+    const _gotcha = (form.querySelector('input[name="_gotcha"]') as HTMLInputElement)?.value || '';
+
+    const payloadWithGotcha = { ...payload, _gotcha };
+
+    const errors = validateInquiry(payload);
+    form.querySelectorAll('.error').forEach((el) => el.classList.remove('error'));
+
+    if (errors.length > 0) {
+      showToast(errors[0]?.message || 'Validation error', 'error');
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.setAttribute('aria-busy', 'true');
+    }
+
+    const abortController = new AbortController();
+    const timeout = setTimeout(() => abortController.abort(), 10000);
+
+    const result = await submitToFormspree(
+      FORMS_CONFIG.inquiryId!,
+      payloadWithGotcha,
+      abortController,
+    );
+    clearTimeout(timeout);
+
+    if (result.success) {
+      showToast(result.message, 'success');
+      form.reset();
+      document.querySelectorAll('.interest-tag').forEach((t) => t.classList.remove('selected'));
+      document
+        .querySelectorAll('.accommodation-option')
+        .forEach((o) => o.classList.remove('selected'));
+      showStep(0);
+    } else {
+      showToast(result.message, 'error');
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.removeAttribute('aria-busy');
+    }
   });
 
   showStep(0);

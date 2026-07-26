@@ -71,24 +71,39 @@ import PageShell from '../layouts/PageShell.astro';
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <label class="form-label" for="contact-subject">Subject *</label>
-                  <select class="form-select" id="contact-subject" required>
-                    <option value="">Select a subject</option>
-                    <option value="general">General Inquiry</option>
-                    <option value="booking">Booking Question</option>
-                    <option value="package">Custom Package Request</option>
-                    <option value="vehicle">Vehicle Reservation</option>
-                    <option value="feedback">Feedback</option>
-                    <option value="partnership">Partnership</option>
-                    <option value="other">Other</option>
-                  </select>
+                <div class="form-row legacy-util-1">
+                  <div class="form-group">
+                    <label class="form-label" for="contact-phone">Phone Number (Optional)</label>
+                    <input type="tel" class="form-input" id="contact-phone" placeholder="+94 77 123 4567">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="contact-subject">Subject *</label>
+                    <select class="form-select" id="contact-subject" required>
+                      <option value="">Select a subject</option>
+                      <option value="general">General Inquiry</option>
+                      <option value="booking">Booking Question</option>
+                      <option value="package">Custom Package Request</option>
+                      <option value="vehicle">Vehicle Reservation</option>
+                      <option value="feedback">Feedback</option>
+                      <option value="partnership">Partnership</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
                 </div>
+
+
 
                 <div class="form-group">
                   <label class="form-label" for="contact-message">Your Message *</label>
                   <textarea class="form-textarea" id="contact-message" placeholder="Write your message here..." required></textarea>
                 </div>
+
+                <div class="form-group checkbox-group" style="margin-top: 1rem;">
+                  <input type="checkbox" id="contact-consent" required>
+                  <label for="contact-consent">I consent to my data being processed according to the <a href="privacy.html">Privacy Policy</a>. *</label>
+                </div>
+
+                <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
                 <button type="submit" class="btn btn--primary btn--lg legacy-util-2">Send Message <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button>
               </form>
