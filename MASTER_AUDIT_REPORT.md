@@ -931,7 +931,7 @@ Update this ledger as work proceeds. Valid states: `not_started`, `in_progress`,
 | Phase | Name | Depends on | Initial state | Required evidence |
 |---:|---|---:|---|---|
 | 0 | Authority, accounts and business decisions | — | not_started | Approved decision record |
-| 1 | Baseline, data disposition and characterization | 0 | blocked | Local evidence complete; authorized export/restore receipt or approved discard/no-data attestation pending (`docs/baseline/phase-1/`) |
+| 1 | Baseline, data disposition and characterization | 0 | complete | Local evidence plus approved Path B irreversible-disposal receipt (`docs/baseline/phase-1/`) |
 | 2 | Immediate security and conversion containment | 1 | not_started | P0 tests and safe behavior |
 | 3 | Toolchain and validation pipeline | 2 | not_started | Clean install/build/check CI |
 | 4 | Astro scaffold and non-destructive migration | 3 | not_started | `dist/` route/content parity |
@@ -1588,15 +1588,15 @@ The upgrade is complete only when:
 
 ### 12.8 Completed phases
 
-No phase is marked complete yet.
+### Phase 1 — complete (2026-07-26)
 
-Phase 1's complete local baseline package was produced and tested on 2026-07-26, but the phase remains `blocked` pending an authorized Firebase data-disposition decision. Completion now accepts either (A) an authenticated Firestore/Storage export with isolated restore verification or (B) an owner-approved attestation that no legacy data is required / irreversible discard is approved with applicable privacy and retention sign-off. Phase 0 also remains `not_started`; Phase 1's read-only local characterization was executed early at the user's explicit direction without making external configuration or data changes.
+The local baseline package was produced and tested, and the business owner approved Path B irreversible disposal for Firebase project `tourvir-fd341`. The decision considered Firestore contacts, feedback, inquiries and gallery metadata plus Storage gallery uploads; no retained data is required, the project has no other business use, and recovery capability is explicitly `NONE` because no export/restore was performed. The redacted receipt is in `docs/baseline/phase-1/firebase-backup-evidence.md`.
 
-Do not move Phase 1 into this completed list until one path in `docs/baseline/phase-1/firebase-backup-evidence.md` is approved. Once approved, update the ledger state to `complete`, add the redacted approval evidence here, and create a separate completion commit on `main`.
+Phase 0 remains `not_started`; Phase 1's characterization was executed early at the user's explicit direction. Platform/account decisions not needed for the read-only baseline remain Phase 0 prerequisites for later production integrations.
 
 ### 12.9 Phase execution record
 
-#### Phase 1 — local baseline execution (blocked on external data disposition)
+#### Phase 1 — baseline and data-disposition execution (complete)
 
 **Run date:** 2026-07-26
 
@@ -1633,7 +1633,7 @@ Evidence:
 - `docs/baseline/phase-1/screenshots/`
 - `docs/baseline/phase-1/firebase-backup-evidence.md`
 
-Pending decision evidence:
+Environment evidence:
 
 - Firebase CLI: unavailable.
 - Google Cloud CLI: unavailable.
@@ -1645,7 +1645,7 @@ Pending decision evidence:
 
 Required next action for completion:
 
-An authorized Firebase owner must approve one of two paths: create/verify a managed Firestore and Storage export with isolated restore evidence, or attest that no records/assets need retention and explicitly approve irreversible disposal. Until that receipt is approved, destructive Firebase cleanup and Phase 1 completion are prohibited.
+The business owner approved Path B irreversible disposal. There is no backup and no recovery capability. Authorized Firebase cleanup may proceed, while production vendor provisioning and external project decommissioning still require appropriate account access.
 
 ## 13. Deployment-ready target
 

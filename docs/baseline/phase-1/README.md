@@ -8,7 +8,7 @@
 
 **Baseline tree:** `6568ce7dd79f44ffff81cff6399c5b6767a3a693`
 
-**Phase status:** blocked pending authorized Firebase data-disposition approval
+**Phase status:** complete — Path B disposal approved by the business owner
 
 This directory characterizes the pre-upgrade Tourvir site. It is a migration reference, not an assertion that current behavior is correct. Known failures and insecure behavior are preserved as evidence so later phases can prove they have been removed.
 
@@ -45,8 +45,8 @@ Completed locally:
 - 54 visual references captured and checked for non-zero output.
 - Known conversion/security failures recorded explicitly.
 
-Not completed externally:
+External disposition:
 
-- No authorized owner has yet selected and approved a Firebase disposition path. This environment cannot export/restore Firestore and Storage because it has no Firebase CLI, Google Cloud CLI, Node runtime, application credentials or Firebase token. Alternatively, an authorized owner may attest that no retained data is required and explicitly approve irreversible disposal. No attempt was made to bypass Firebase rules or download private lead data with the public web API key.
+- The business owner selected Path B and approved irreversible disposal of project `tourvir-fd341` after considering Firestore contacts, feedback, inquiries and gallery metadata plus Storage gallery uploads. No export/restore was performed, so recovery capability is explicitly `NONE`. No private Firebase data was downloaded into Git.
 
-Phase 1 must remain `blocked`, not `complete`, until an authorized owner approves either the verified export/restore path or the no-required-data/approved-discard path described in `firebase-backup-evidence.md`.
+Phase 1 is complete. The approved redacted receipt is recorded in `firebase-backup-evidence.md`; later phases may remove Firebase code and resources without representing that a backup exists.

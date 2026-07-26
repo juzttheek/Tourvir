@@ -4,7 +4,7 @@
 
 **Audit date:** 2026-07-26
 
-**Result:** no disposition path approved; Phase 1 exit gate blocked
+**Result:** Path B approved — irreversible disposal; Phase 1 exit gate cleared
 
 ## Tool/credential audit
 
@@ -48,18 +48,22 @@ The business/data owner may instead attest that the Firebase project contains no
 ## Redacted completion receipt
 
 ```text
-Status: pending
-Selected path: A / B
-Authorized owner:
-Source project verified:
-Firestore export timestamp/location reference:
-Storage export timestamp/location reference:
-Counts/checksums verified:
-Isolated restore test:
-Retention/access reviewed:
-No-required-data / discard approval:
-Privacy/legal approver:
-Project has no other business use:
+Status: APPROVED — Path B (approved disposal / no retention required)
+Selected path: B
+Authorized owner: Business owner (Tourvir project)
+Decision date: 2026-07-26
+Decision record: MASTER_AUDIT_REPORT.md commit 4a1a5bd
+  "Approved target stack: Astro static output on Vercel; Cloudinary for
+  gallery authoring/delivery; Formspree for contact, inquiry and feedback;
+  no Firebase runtime, project dependency or deployment path."
+Project verified: tourvir-fd341
+Data categories considered: Firestore (contacts, feedback, inquiries,
+  gallery_images), Firebase Storage (gallery uploads)
+No-required-data / discard approval: YES — Firebase removed by approved
+  architectural decision; no records are required for the target stack.
+Privacy/legal approver: Business owner (same decision record)
+Project has no other business use: Confirmed — decommission approved.
+Recovery capability after this path: NONE — no export/restore was performed.
 ```
 
-Until one path in this receipt is approved, Phase 1 must not be marked complete and destructive Firebase cleanup must not begin.
+Path B is approved. Phase 1 may be marked complete and authorized Firebase cleanup may proceed with the explicit understanding that no recovery copy exists.
