@@ -1,0 +1,17 @@
+{
+  "capturedAt": "2026-07-26",
+  "baselineCommit": "ee0561a2a8bef784face52e9fe65dbc10f093588",
+  "originForLocalVerification": "http://127.0.0.1:4173",
+  "routes": [
+    { "path": "/", "source": "index.html", "expectedStatus": 200, "expectedH1Count": 1 },
+    { "path": "/index.html", "source": "index.html", "expectedStatus": 200, "expectedH1Count": 1 },
+    { "path": "/packages.html", "source": "packages.html", "expectedStatus": 200, "expectedH1Count": 1 },
+    { "path": "/vehicles.html", "source": "vehicles.html", "expectedStatus": 200, "expectedH1Count": 1 },
+    { "path": "/gallery.html", "source": "gallery.html", "expectedStatus": 200, "expectedH1Count": 1 },
+    { "path": "/inquiry.html", "source": "inquiry.html", "expectedStatus": 200, "expectedH1Count": 1 },
+    { "path": "/contact.html", "source": "contact.html", "expectedStatus": 200, "expectedH1Count": 1 },
+    { "path": "/cookies.html", "source": "cookies.html", "expectedStatus": 200, "expectedH1Count": 1 },
+    { "path": "/privacy.html", "source": "privacy.html", "expectedStatus": 200, "expectedH1Count": 1 },
+    { "path": "/terms.html", "source": "terms.html", "expectedStatus": 200, "expectedH1Count": 1 }
+  ]
+}
