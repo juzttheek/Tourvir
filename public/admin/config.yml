@@ -3,13 +3,13 @@ backend:
   repo: juzttheek/Tourvir
   branch: main
 
-media_library:
-  name: cloudinary
-  config:
-    cloud_name: xgme9clf
-    api_key: 236693324451995
-    default_transformations:
-      - [{ fetch_format: auto, quality: auto }]
+media_libraries:
+  - name: cloudinary
+    config:
+      cloud_name: xgme9clf
+      api_key: 236693324451995
+      default_transformations:
+        - [{ fetch_format: auto, quality: auto }]
 
 media_folder: 'public/images/uploads'
 public_folder: '/images/uploads'
