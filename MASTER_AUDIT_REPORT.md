@@ -85,6 +85,28 @@ There is no Tourvir application server or database in the target. Firebase Hosti
 2. **Cloudinary:** We integrated the Cloudinary Client-side Asset List API. The gallery page dynamically fetches images tagged with `tourvir-gallery` directly from Cloudinary, providing on-the-fly responsive image resizing and compression (`f_auto,q_auto`).
 3. **Sveltia CMS:** We implemented a serverless Git-based CMS (Sveltia) at `/admin`. This allows the client to manage Testimonials through a visual dashboard, which serializes the data into local JSON files and commits them directly to the GitHub repository, triggering a static rebuild.
 
+### 3.1 Client Handover Guide (Service Ownership Transfer)
+
+When handing the project over to the client, you will need to transfer ownership of the external services to the client's email accounts. Here is exactly what needs to be updated in the codebase or hosting environment:
+
+#### 1. Formspree (Forms)
+The client must create a Formspree account and create three separate forms. Once created, you must update the Environment Variables (in `.env` locally, and in the Vercel Dashboard for production):
+- `PUBLIC_FORMSPREE_CONTACT_ID`
+- `PUBLIC_FORMSPREE_INQUIRY_ID`
+- `PUBLIC_FORMSPREE_FEEDBACK_ID`
+
+#### 2. Cloudinary (Gallery Images)
+The client must create a Cloudinary account. You must update this Environment Variable (in `.env` locally, and Vercel in production) to match their dashboard:
+- `PUBLIC_CLOUDINARY_CLOUD_NAME`
+
+#### 3. Sveltia CMS & GitHub
+If you transfer the actual GitHub repository ownership to the client (e.g., changing the URL from `juzttheek/Tourvir` to `client-name/Tourvir`), you **must** update the CMS configuration:
+- File: `public/admin/config.yml`
+- Field: Change `repo: juzttheek/Tourvir` to `repo: client-name/Tourvir`
+
+#### 4. Vercel (Hosting)
+You can either invite the client's email to your Vercel Team, or they can create their own Vercel account and simply "Import" the GitHub repository from their own dashboard.
+
 ## 4. What is already good
 
 - Images are already converted to WebP, and most below-the-fold images use `loading="lazy"`.
