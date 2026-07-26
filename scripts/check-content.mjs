@@ -19,10 +19,11 @@ for (const filename of htmlFiles) {
   if (forbiddenRuntime.test(html)) failures.push(`${filename}: legacy Firebase/admin marker`);
 }
 
+const assetDirectory = resolveInside(root, '_assets');
 const scripts = await Promise.all(
-  (await readdir(resolveInside(root, 'js')))
+  (await readdir(assetDirectory))
     .filter((name) => name.endsWith('.js'))
-    .map(async (name) => [name, await readFile(resolveInside(root, `js/${name}`), 'utf8')]),
+    .map(async (name) => [name, await readFile(resolveInside(assetDirectory, name), 'utf8')]),
 );
 
 for (const [name, source] of scripts) {

@@ -21,6 +21,16 @@ const { title, description, pageStyles = [] } = Astro.props;
     <link rel="stylesheet" href="css/legacy-utilities.css" />
     {pageStyles.map((href) => <link rel="stylesheet" href={href} />)}
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>" />
+    <script is:inline>
+      (() => {
+        try {
+          const saved = localStorage.getItem('Tourvir-theme');
+          document.documentElement.dataset.theme = saved === 'dark' ? 'dark' : 'light';
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
     <slot name="head" />
   </head>
   <body>

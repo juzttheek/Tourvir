@@ -1,6 +1,6 @@
 import path from 'node:path';
 
-export const DEPLOYABLE_DIRECTORIES = Object.freeze(['css', 'images', 'js']);
+export const DEPLOYABLE_DIRECTORIES = Object.freeze(['_assets', 'css', 'images']);
 export const HTML_ROUTES = Object.freeze([
   'index.html',
   'packages.html',
@@ -18,7 +18,7 @@ export function isExternalReference(reference) {
 }
 
 export function cleanReference(reference) {
-  return reference.split('#', 1)[0].split('?', 1)[0];
+  return reference.split('#', 1)[0].split('?', 1)[0].replace(/^\/+/, '');
 }
 
 export function resolveInside(root, relativePath) {

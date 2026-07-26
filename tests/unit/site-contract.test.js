@@ -9,6 +9,7 @@ import {
 describe('site contract helpers', () => {
   it('cleans query strings and fragments from local references', () => {
     expect(cleanReference('js/main.js?v=2#start')).toBe('js/main.js');
+    expect(cleanReference('/_assets/site.js')).toBe('_assets/site.js');
   });
 
   it('recognizes external and document-only references', () => {

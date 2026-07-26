@@ -13,21 +13,12 @@ export default [
   },
   eslint.configs.recommended,
   {
-    files: ['public/js/**/*.js'],
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        showToast: 'readonly',
-      },
-    },
-    rules: {
-      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-    },
-  },
-  {
     files: ['scripts/**/*.mjs', 'tests/**/*.js', '*.config.mjs'],
     languageOptions: {
-      globals: globals.node,
+      globals: {
+        ...globals.node,
+        ...globals.browser,
+      },
     },
   },
 ];

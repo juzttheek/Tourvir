@@ -936,7 +936,7 @@ Update this ledger as work proceeds. Valid states: `not_started`, `in_progress`,
 | 3 | Toolchain and validation pipeline | 2 | complete | Validation/build evidence (`docs/phases/phase-3/`); owner-approved dependency exception while remote Firebase deletion remains external |
 | 4 | Astro scaffold and non-destructive migration | 3 | complete | Astro `dist/` route/content/visual parity and artifact audit (`docs/phases/phase-4/`) |
 | 5 | Shared layout, content and components | 4 | complete | Shared shell, typed catalogs and semantic/visual compatibility evidence (`docs/phases/phase-5/`) |
-| 6 | JavaScript/TypeScript behavior migration | 5 | not_started | E2E parity; no compat globals |
+| 6 | JavaScript/TypeScript behavior migration | 5 | complete | Modularized TS scripts, unit & E2E behavior tests (`docs/phases/phase-6/`) |
 | 7 | Managed forms and legacy form migration | 6 | not_started | Formspree Preview delivery and dashboard/notification tests |
 | 8 | Cloudinary gallery/image workflow | 5 | not_started | Client publishing test + gallery parity |
 | 9 | Responsive system/no-overlap work | 5, 6, 8 | not_started | Full responsive matrix passes |
@@ -1745,6 +1745,10 @@ Completed and verified:
 - Lighthouse passed with performance 0.67/0.74/0.91 and accessibility 0.93/0.93/0.93 for home/gallery/contact; Best Practices and SEO were 1.00.
 
 Evidence, deviations and rollback instructions are recorded in `docs/phases/phase-5/README.md`.
+
+### Phase 6 — complete (2026-07-26)
+
+Legacy global scripts were replaced by one Astro/Vite production bundle sourced from focused TypeScript initializers in `src/scripts/` (`site.ts`, `theme.ts`, `navigation.ts`, `scroll-coordinator.ts`, `packages-filter.ts`, `gallery-controller.ts`, `carousel.ts`, `forms.ts`, `status-toast.ts`). The four duplicate `public/js/` implementations were removed, saved theme preference is applied before paint with storage-failure containment, component initializers prevent duplicate handlers, form serialization is restricted to approved schemas, and status content uses safe DOM text assignment. Coverage includes theme persistence failure, drawer focus/scroll restoration, combined package filters, gallery keyboard/focus/swipe behavior, carousel pause/cleanup and reduced motion, form validation/approved serialization, and production E2E parity. `npm run validate` passed with 34 unit, 3 contract, 28 Playwright E2E, 4 axe and 3 responsive visual tests. Lighthouse completed with accessibility 0.93 and Best Practices/SEO 1.00 across representative routes; the gallery performance sample warned at 0.32 and remains tracked for the image/performance phases. Dependency audit reports zero known vulnerabilities. Evidence is in `docs/phases/phase-6/README.md`.
 
 ## 13. Deployment-ready target
 
