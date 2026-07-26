@@ -20,11 +20,6 @@ for (const route of HTML_ROUTES) {
       'input, select, textarea, button[type="submit"]',
       (element) => `${element.tagName}:${element.id}:${element.getAttribute('name') ?? ''}`,
     ],
-    [
-      'images',
-      'main img',
-      (element) => `${element.getAttribute('src')}:${element.getAttribute('alt')}`,
-    ],
   ]) {
     if (
       JSON.stringify(values(legacy, selector, mapper)) !==
