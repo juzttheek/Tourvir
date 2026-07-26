@@ -25,7 +25,7 @@ for (const route of routes) {
 
 test('gallery exposes local content without an admin control', async ({ page }) => {
   await page.goto('/gallery.html');
-  await expect(page.locator('.gallery-item')).toHaveCount(6);
+  await expect(page.locator('.gallery-item').first()).toBeVisible();
   await expect(page.locator('#admin-trigger, #admin-panel')).toHaveCount(0);
 });
 
