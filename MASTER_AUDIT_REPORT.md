@@ -72,8 +72,9 @@ Visitor browser
                    └─ managed submission dashboard + staff notifications
 
 Client editor
-  ├─ Cloudinary Media Library (MFA) → Uploads gallery photos with tags
-  └─ Tourvir Admin (Sveltia CMS) → Edits Testimonials locally; pushes JSON directly to GitHub repository
+  └─ Tourvir Admin (Sveltia CMS)
+      ├─ Media Library → Uploads gallery photos to Cloudinary
+      └─ Content Editor → Edits Testimonials & Gallery JSON; commits directly to GitHub
 
 Deployment
   └─ Git → Vercel Preview → validated Production deployment
@@ -82,8 +83,8 @@ Deployment
 There is no Tourvir application server or database in the target. Firebase Hosting, SDKs, Firestore, Storage, rules, configuration and deployment automation have been completely removed. We have implemented three distinct external services to handle all dynamic requirements:
 
 1. **Formspree:** We integrated Formspree to handle three separate forms: Contact, Inquiry, and Feedback. All submissions are processed securely through Formspree's backend, providing bot protection and staff email notifications without needing a backend server.
-2. **Cloudinary:** We integrated the Cloudinary Client-side Asset List API. The gallery page dynamically fetches images tagged with `tourvir-gallery` directly from Cloudinary, providing on-the-fly responsive image resizing and compression (`f_auto,q_auto`).
-3. **Sveltia CMS:** We implemented a serverless Git-based CMS (Sveltia) at `/admin`. This allows the client to manage Testimonials through a visual dashboard, which serializes the data into local JSON files and commits them directly to the GitHub repository, triggering a static rebuild.
+2. **Cloudinary:** We integrated Cloudinary as our Media Library within the CMS. Images are served on-the-fly with responsive resizing and compression (`f_auto,q_auto`).
+3. **Sveltia CMS:** We implemented a serverless Git-based CMS (Sveltia) at `/admin`. This provides a single panel for the client to manage Testimonials and Gallery items visually. The CMS serializes the data into local JSON files and commits them directly to the GitHub repository, triggering a static rebuild on Vercel.
 
 ### 3.1 Client Handover Guide (Service Ownership Transfer)
 

@@ -2,8 +2,6 @@
    Tourvir — Gallery Filtering & Lightbox Controller
    ============================================ */
 
-import { fetchGalleryItems } from '../services/cloudinary-client.js';
-
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
@@ -40,52 +38,16 @@ export class GalleryController {
     this.nextBtn = this.lightbox?.querySelector('.lightbox__next') as HTMLElement | null;
   }
 
-  public async init(): Promise<void> {
+  public init(): void {
     const root = document.querySelector<HTMLElement>('.gallery-section, .gallery-grid');
     if (root?.dataset.galleryInitialized === 'true') return;
     if (root) root.dataset.galleryInitialized = 'true';
 
-    await this.renderDynamicGallery();
-
-    // Re-query items after rendering
-    this.items = document.querySelectorAll('.gallery-item');
     if (!this.items.length) return;
 
     this.initFilter();
     if (this.lightbox) {
       this.initLightbox();
-    }
-  }
-
-  private async renderDynamicGallery(): Promise<void> {
-    const container = document.getElementById('gallery-dynamic-container');
-    if (!container) return;
-
-    try {
-      const items = await fetchGalleryItems();
-
-      container.innerHTML = ''; // Clear fallback HTML
-
-      items.forEach((item) => {
-        const article = document.createElement('article');
-        article.className = 'gallery-item';
-        if (item.isWide) article.classList.add('gallery-item--wide');
-        if (item.isTall) article.classList.add('gallery-item--tall');
-        article.dataset.category = item.category;
-        article.tabIndex = 0;
-
-        article.innerHTML = `
-          <img src="${item.thumbUrl}" alt="${item.alt}" loading="lazy" data-full-url="${item.url}">
-          <div class="gallery-item__overlay">
-            <div class="gallery-item__zoom" aria-hidden="true">↗</div>
-            <h4 class="gallery-item__title">${item.title}</h4>
-            <p class="gallery-item__location">${item.location}</p>
-          </div>
-        `;
-        container.appendChild(article);
-      });
-    } catch (error) {
-      console.error('Error rendering dynamic gallery:', error);
     }
   }
 

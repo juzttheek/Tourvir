@@ -1,5 +1,8 @@
 ---
 import PageShell from '../layouts/PageShell.astro';
+
+const galleryFiles = import.meta.glob('../data/gallery/*.json', { eager: true });
+const galleryItems = Object.values(galleryFiles).map((file: any) => file.default);
 ---
 
 <PageShell
@@ -58,30 +61,19 @@ import PageShell from '../layouts/PageShell.astro';
 
           <!-- Gallery Grid -->
           <div class="gallery-grid gallery-grid--masonry" id="gallery-dynamic-container">
-            <article class="gallery-item gallery-item--tall" data-category="heritage" tabindex="0">
-              <img src="images/gallery/sigiriya.webp" alt="Sigiriya rock fortress rising above the forest" loading="eager">
-              <div class="gallery-item__overlay"><div class="gallery-item__zoom" aria-hidden="true">↗</div><h4 class="gallery-item__title">Sigiriya Rock Fortress</h4><p class="gallery-item__location">Central Province</p></div>
-            </article>
-            <article class="gallery-item" data-category="wildlife" tabindex="0">
-              <img src="images/gallery/elephant.webp" alt="Sri Lankan elephant in its natural habitat" loading="lazy">
-              <div class="gallery-item__overlay"><div class="gallery-item__zoom" aria-hidden="true">↗</div><h4 class="gallery-item__title">Wild Encounters</h4><p class="gallery-item__location">Sri Lanka</p></div>
-            </article>
-            <article class="gallery-item gallery-item--wide" data-category="mountains" tabindex="0">
-              <img src="images/gallery/tea_plantation.webp" alt="Green tea plantations across the Sri Lankan hill country" loading="lazy">
-              <div class="gallery-item__overlay"><div class="gallery-item__zoom" aria-hidden="true">↗</div><h4 class="gallery-item__title">Hill Country Tea</h4><p class="gallery-item__location">Central Highlands</p></div>
-            </article>
-            <article class="gallery-item" data-category="culture" tabindex="0">
-              <img src="images/gallery/train.webp" alt="Scenic train travelling through Sri Lanka's hill country" loading="lazy">
-              <div class="gallery-item__overlay"><div class="gallery-item__zoom" aria-hidden="true">↗</div><h4 class="gallery-item__title">Scenic Rail Journey</h4><p class="gallery-item__location">Hill Country</p></div>
-            </article>
-            <article class="gallery-item" data-category="temples" tabindex="0">
-              <img src="images/gallery/temple.webp" alt="Historic Sri Lankan temple architecture" loading="lazy">
-              <div class="gallery-item__overlay"><div class="gallery-item__zoom" aria-hidden="true">↗</div><h4 class="gallery-item__title">Sacred Heritage</h4><p class="gallery-item__location">Sri Lanka</p></div>
-            </article>
-            <article class="gallery-item gallery-item--wide" data-category="beaches" tabindex="0">
-              <img src="images/gallery/beach.webp" alt="Golden tropical beach on the Sri Lankan coast" loading="lazy">
-              <div class="gallery-item__overlay"><div class="gallery-item__zoom" aria-hidden="true">↗</div><h4 class="gallery-item__title">Island Coast</h4><p class="gallery-item__location">Southern Coast</p></div>
-            </article>
+            {galleryItems.map((item, index) => {
+              const orientationClass = item.orientation === 'wide' ? 'gallery-item--wide' : item.orientation === 'tall' ? 'gallery-item--tall' : '';
+              return (
+                <article class={`gallery-item ${orientationClass}`} data-category={item.category} tabindex="0">
+                  <img src={item.image} alt={item.alt || item.title} loading={index === 0 ? "eager" : "lazy"} />
+                  <div class="gallery-item__overlay">
+                    <div class="gallery-item__zoom" aria-hidden="true">↗</div>
+                    <h4 class="gallery-item__title">{item.title}</h4>
+                    <p class="gallery-item__location">{item.location}</p>
+                  </div>
+                </article>
+              );
+            })}
           </div>
 
         </div>
