@@ -933,7 +933,7 @@ Update this ledger as work proceeds. Valid states: `not_started`, `in_progress`,
 | 0 | Authority, accounts and business decisions | — | not_started | Approved decision record |
 | 1 | Baseline, data disposition and characterization | 0 | complete | Local evidence plus approved Path B irreversible-disposal receipt (`docs/baseline/phase-1/`) |
 | 2 | Immediate security and conversion containment | 1 | blocked | Local containment complete; external Firebase Hosting/Firestore/Storage shutdown evidence pending (`docs/phases/phase-2/`) |
-| 3 | Toolchain and validation pipeline | 2 | not_started | Clean install/build/check CI |
+| 3 | Toolchain and validation pipeline | 2 | complete | Validation/build evidence (`docs/phases/phase-3/`); owner-approved dependency exception while remote Firebase deletion remains external |
 | 4 | Astro scaffold and non-destructive migration | 3 | not_started | `dist/` route/content parity |
 | 5 | Shared layout, content and components | 4 | not_started | No duplicated global chrome/data |
 | 6 | JavaScript/TypeScript behavior migration | 5 | not_started | E2E parity; no compat globals |
@@ -1594,6 +1594,12 @@ The local baseline package was produced and tested, and the business owner appro
 
 Phase 0 remains `not_started`; Phase 1's characterization was executed early at the user's explicit direction. Platform/account decisions not needed for the read-only baseline remain Phase 0 prerequisites for later production integrations.
 
+### Phase 3 — complete (2026-07-26)
+
+The repository now has a pinned Node/npm toolchain, exact lockfile, static allowlist build, validation-only GitHub Actions workflow, formatting/lint/type/HTML/link/content gates, unit and contract tests, browser route checks, axe scans, responsive viewport smoke tests, and Lighthouse budgets. `npm run validate` passes end to end and `npm audit` reports zero vulnerabilities. Evidence is in `docs/phases/phase-3/README.md`.
+
+Phase 3 proceeded under the owner's explicit instruction while Phase 2 remains blocked only on remote Firebase deletion evidence. The repository and generated `dist/` contain no Firebase runtime or deployment path. The owner accepted responsibility for deleting the unused remote Firebase project; that external task is not represented as completed here.
+
 ### 12.9 Phase execution record
 
 #### Phase 1 — baseline and data-disposition execution (complete)
@@ -1669,6 +1675,27 @@ External blocker:
 - No authorized Firebase/Google Cloud credentials or CLI are available in this workspace.
 - Old Firebase Hosting and remote Firestore/Storage closure cannot be verified here.
 - An authorized owner must disable those resources and attach redacted evidence before Phase 2 is marked `complete`.
+
+#### Phase 3 — toolchain and validation execution (complete)
+
+**Run date:** 2026-07-26
+
+**Branch:** `main`
+
+Completed and verified:
+
+- Pinned Node.js 24.18.0 and npm 11, added exact dependencies and generated a reproducible lockfile.
+- Added an explicit static build that emits only nine HTML routes plus `css/`, `images/` and `js/`; repository documents, tests, configuration and retired Firebase material cannot enter `dist/`.
+- Added Prettier, ESLint, Stylelint, TypeScript, HTML, local-reference and content-contract validation.
+- Added Vitest unit/contract tests, Playwright route and responsive tests, axe critical-impact scans, and a project-owned Lighthouse runner with machine-readable reports.
+- Replaced the GitHub Pages deployment workflow with a least-privilege validation-only workflow. It has no deployment permissions or production publication step.
+- Fixed missing closing `main` landmarks on the privacy, terms and cookies pages, plus one unused JavaScript variable exposed by linting.
+- Verified lockfile consistency with `npm ci --dry-run`; `npm audit` reports zero vulnerabilities.
+- Proved the lint gate rejects a deliberate syntax error (exit 1) and accepts corrected project source (exit 0).
+- Ran `npm run validate` successfully: 3 unit, 3 contract, 11 browser-route, 4 accessibility and 3 responsive visual tests passed, alongside all static checks and builds.
+- Lighthouse baselines passed the hard accessibility budget: index 0.93, gallery 0.88 and contact 0.88. Best Practices and SEO were 1.00 on all three. Homepage performance remains a later-phase optimization target; observed runs varied from 0.30 to 0.68.
+
+Evidence, commands, known follow-ups and rollback instructions are recorded in `docs/phases/phase-3/README.md`.
 
 ## 13. Deployment-ready target
 

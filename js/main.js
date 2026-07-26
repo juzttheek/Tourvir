@@ -99,8 +99,6 @@ function initHeader() {
   const header = document.querySelector('.header');
   if (!header) return;
   
-  let lastScroll = 0;
-  
   window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
     
@@ -110,7 +108,6 @@ function initHeader() {
       header.classList.remove('scrolled');
     }
     
-    lastScroll = currentScroll;
   }, { passive: true });
 }
 

@@ -1,0 +1,13 @@
+# Phase 3 preserves the audited legacy source byte-for-byte except for targeted fixes.
+*.html
+css/
+js/
+images/
+docs/baseline/phase-1/screenshots/
+docs/baseline/
+MASTER_AUDIT_REPORT.md
+package-lock.json
+dist/
+playwright-report/
+test-results/
+.lighthouseci/
