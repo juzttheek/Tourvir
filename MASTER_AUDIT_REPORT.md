@@ -61,7 +61,7 @@ Deployment definitions
 
 There is no application server or trusted API layer. This is acceptable for public read-only content, but unsafe for the current administrative operations and direct database writes. Browser “threads” do not provide security or database concurrency control. The approved target avoids both problems: Cloudinary owns authenticated media administration, Formspree owns managed form intake and spam controls, and the public site stays static on Vercel.
 
-### Approved target architecture
+### Implemented target architecture
 
 ```text
 Visitor browser
@@ -72,13 +72,18 @@ Visitor browser
                    └─ managed submission dashboard + staff notifications
 
 Client editor
-  └─ Cloudinary Media Library (MFA; no Tourvir admin page)
+  ├─ Cloudinary Media Library (MFA) → Uploads gallery photos with tags
+  └─ Tourvir Admin (Sveltia CMS) → Edits Testimonials locally; pushes JSON directly to GitHub repository
 
 Deployment
   └─ Git → Vercel Preview → validated Production deployment
 ```
 
-There is no Tourvir application server or database in the target. Firebase Hosting, SDKs, Firestore, Storage, rules, configuration and deployment automation are removed after legacy data is exported or explicitly approved for disposal.
+There is no Tourvir application server or database in the target. Firebase Hosting, SDKs, Firestore, Storage, rules, configuration and deployment automation have been completely removed. We have implemented three distinct external services to handle all dynamic requirements:
+
+1. **Formspree:** We integrated Formspree to handle three separate forms: Contact, Inquiry, and Feedback. All submissions are processed securely through Formspree's backend, providing bot protection and staff email notifications without needing a backend server.
+2. **Cloudinary:** We integrated the Cloudinary Client-side Asset List API. The gallery page dynamically fetches images tagged with `tourvir-gallery` directly from Cloudinary, providing on-the-fly responsive image resizing and compression (`f_auto,q_auto`).
+3. **Sveltia CMS:** We implemented a serverless Git-based CMS (Sveltia) at `/admin`. This allows the client to manage Testimonials through a visual dashboard, which serializes the data into local JSON files and commits them directly to the GitHub repository, triggering a static rebuild.
 
 ## 4. What is already good
 
