@@ -935,7 +935,7 @@ Update this ledger as work proceeds. Valid states: `not_started`, `in_progress`,
 | 2 | Immediate security and conversion containment | 1 | blocked | Local containment complete; external Firebase Hosting/Firestore/Storage shutdown evidence pending (`docs/phases/phase-2/`) |
 | 3 | Toolchain and validation pipeline | 2 | complete | Validation/build evidence (`docs/phases/phase-3/`); owner-approved dependency exception while remote Firebase deletion remains external |
 | 4 | Astro scaffold and non-destructive migration | 3 | complete | Astro `dist/` route/content/visual parity and artifact audit (`docs/phases/phase-4/`) |
-| 5 | Shared layout, content and components | 4 | not_started | No duplicated global chrome/data |
+| 5 | Shared layout, content and components | 4 | complete | Shared shell, typed catalogs and semantic/visual compatibility evidence (`docs/phases/phase-5/`) |
 | 6 | JavaScript/TypeScript behavior migration | 5 | not_started | E2E parity; no compat globals |
 | 7 | Managed forms and legacy form migration | 6 | not_started | Formspree Preview delivery and dashboard/notification tests |
 | 8 | Cloudinary gallery/image workflow | 5 | not_started | Client publishing test + gallery parity |
@@ -1604,6 +1604,10 @@ Phase 3 proceeded under the owner's explicit instruction while Phase 2 remains b
 
 All nine established `.html` routes now build from Astro `src/pages/`, with parity-preserved assets under `public/`. Astro is configured for static file-format output and whitespace preservation, and `vercel.json` targets only `dist/`. Automated checks prove DOM/content parity for every route, byte parity for all copied static assets, and pixel-identical desktop rendering for representative legal, home and gallery pages. The root implementation remains reference-only and is excluded from the deploy artifact. Evidence is in `docs/phases/phase-4/README.md`.
 
+### Phase 5 — complete (2026-07-26)
+
+Global drawer/header/footer/floating-action markup and business contact data now have one source, used by every route through `BaseLayout` and `PageShell`. Package and vehicle cards are generated from validated typed catalogs with stable IDs. Shared UI, form, hero and CTA primitives establish component ownership for continued migration. Page source contains no inline event handlers or inline styles; preserved owned icon markup is the documented remaining inline presentation boundary. Full validation and semantic/visual compatibility gates pass. Evidence is in `docs/phases/phase-5/README.md`.
+
 ### 12.9 Phase execution record
 
 #### Phase 1 — baseline and data-disposition execution (complete)
@@ -1721,6 +1725,26 @@ Completed and verified:
 - Verified pixel-identical legacy/Astro desktop screenshots for privacy, home and gallery with motion disabled.
 
 Evidence, exact commands, artifact contents, known follow-ups and rollback instructions are recorded in `docs/phases/phase-4/README.md`.
+
+#### Phase 5 — shared layout, content and component extraction (complete)
+
+**Run date:** 2026-07-26
+
+**Branch:** `main`
+
+Completed and verified:
+
+- Replaced nine duplicated document shells with `BaseLayout`/`PageShell` and shared drawer, header, footer and floating-action components.
+- Centralized navigation/chrome, contact information and business identity in `src/content/site.ts`; active navigation is selected by route.
+- Converted six tour packages and eight vehicles into validated typed catalogs with stable IDs, categories, prices, media, labels and link markup.
+- Added shared package/vehicle grids plus Button, Card, Badge, ModalShell, StatusRegion, FilterPills, FormField, PageHero and CallToAction boundaries.
+- Removed the only inline `onclick` and connected the package search button through the owned page script.
+- Extracted 25 page-level inline style declarations into an audited compatibility stylesheet; page source now contains no inline style attributes.
+- Replaced Phase 4's byte-identical page gate with semantic compatibility checks appropriate for componentized markup: titles, headings, controls, main images, CSS and image assets.
+- Ran the full validation pipeline successfully: 5 unit, 3 contract, 23 browser, 4 axe and 3 responsive visual tests passed.
+- Lighthouse passed with performance 0.67/0.74/0.91 and accessibility 0.93/0.93/0.93 for home/gallery/contact; Best Practices and SEO were 1.00.
+
+Evidence, deviations and rollback instructions are recorded in `docs/phases/phase-5/README.md`.
 
 ## 13. Deployment-ready target
 

@@ -1,0 +1,24 @@
+---
+import { tourPackages } from '../../content/catalogs';
+import Badge from '../ui/Badge.astro';
+---
+<div class="packages-grid" id="packages-grid">
+  {tourPackages.map((item) => (
+    <div class="package-card reveal" data-category={item.category} data-duration={item.duration} data-price={item.price}>
+      <div class="package-card__image-wrapper">
+        <img loading="lazy" src={item.image} alt={item.alt} class="package-card__image" />
+        <span class="package-card__duration" set:html={item.durationMarkup} />
+        <Badge class="package-card__category">{item.categoryLabel}</Badge>
+      </div>
+      <div class="package-card__body">
+        <h3 class="package-card__title">{item.title}</h3>
+        <div class="package-card__rating" set:html={item.ratingMarkup} />
+        <div class="package-card__highlights">{item.highlights.map((highlight) => <span class="package-card__highlight">{highlight}</span>)}</div>
+        <div class="package-card__footer">
+          <div class="package-card__price" set:html={item.priceMarkup} />
+          <Fragment set:html={item.linkMarkup} />
+        </div>
+      </div>
+    </div>
+  ))}
+</div>

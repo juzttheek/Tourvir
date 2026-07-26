@@ -1,0 +1,5 @@
+---
+interface Props { title: string; text: string }
+const { title, text } = Astro.props;
+---
+<section class="cta-section"><div class="container"><div class="cta-content"><h2>{title}</h2><p>{text}</p><slot /></div></div></section>

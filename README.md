@@ -1,6 +1,6 @@
 # Tourvir
 
-Tourvir is a static tourism and lead-generation website built with Astro. The Phase 4 source lives in `src/` and `public/`; the root HTML/CSS/JavaScript files are retained temporarily as a reference-only parity and rollback source.
+Tourvir is a static tourism and lead-generation website built with Astro. Shared layouts/components and typed site/package/vehicle content live in `src/`, while deployable static assets live in `public/`. The root HTML/CSS/JavaScript files remain temporarily as a reference-only compatibility and rollback source.
 
 ## Requirements
 

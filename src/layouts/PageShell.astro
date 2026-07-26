@@ -1,0 +1,28 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import SharedChrome from '../components/layout/SharedChrome.astro';
+import Footer from '../components/layout/Footer.astro';
+import FloatingActions from '../components/layout/FloatingActions.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  pageStyles: string[];
+  activeRoute: string;
+  scripts: string[];
+}
+
+const { title, description, pageStyles, activeRoute, scripts } = Astro.props;
+const scriptMarkup = scripts.map((src) => `<script src="${src}"></script>`).join('');
+---
+
+<BaseLayout {title} {description} {pageStyles}>
+  <SharedChrome {activeRoute} />
+  <div class="page-wrapper">
+    <slot />
+    <Footer />
+  </div>
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up"><path d="m5 12 7-7 7 7"></path><path d="M12 19V5"></path></svg></button>
+  <Fragment set:html={scriptMarkup} />
+  <FloatingActions />
+</BaseLayout>

@@ -18,7 +18,7 @@
     "typecheck": "tsc --noEmit",
     "test:unit": "vitest run tests/unit",
     "test:contract": "vitest run tests/contract",
-    "test:e2e": "npm run build && playwright test tests/e2e",
+    "test:e2e": "npm run build && playwright test tests/e2e --workers=2",
     "test:a11y": "npm run build && playwright test tests/accessibility --workers=1",
     "test:visual": "npm run build && playwright test tests/visual",
     "test:lighthouse": "npm run build && node scripts/run-lighthouse.mjs",

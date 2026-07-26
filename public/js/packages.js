@@ -40,6 +40,7 @@ function initPackageSearch() {
   const searchInput = document.getElementById('package-search');
   const durationSelect = document.getElementById('package-duration');
   const priceSelect = document.getElementById('package-price');
+  const searchButton = document.getElementById('package-search-button');
   const cards = document.querySelectorAll('.package-card');
   
   function filterCards() {
@@ -76,6 +77,7 @@ function initPackageSearch() {
   if (searchInput) searchInput.addEventListener('input', filterCards);
   if (durationSelect) durationSelect.addEventListener('change', filterCards);
   if (priceSelect) priceSelect.addEventListener('change', filterCards);
+  if (searchButton) searchButton.addEventListener('click', filterCards);
 }
 
 // Animation

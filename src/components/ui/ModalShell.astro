@@ -1,0 +1,5 @@
+---
+interface Props { id: string; label: string; class?: string }
+const { id, label, class: className = 'modal' } = Astro.props;
+---
+<div {id} class={className} role="dialog" aria-modal="true" aria-label={label} hidden><slot /></div>

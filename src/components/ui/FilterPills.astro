@@ -1,0 +1,6 @@
+---
+interface Option { value: string; label: string }
+interface Props { options: Option[]; active?: string; class?: string }
+const { options, active = 'all', class: className = 'filter-pills' } = Astro.props;
+---
+<div class={className}>{options.map((option) => <button type="button" class:list={['filter-pill', { active: option.value === active }]} data-filter={option.value}>{option.label}</button>)}</div>

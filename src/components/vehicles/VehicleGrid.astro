@@ -1,0 +1,22 @@
+---
+import { vehicles } from '../../content/catalogs';
+import Badge from '../ui/Badge.astro';
+---
+<div class="vehicles-grid">
+  {vehicles.map((item) => (
+    <div class={item.revealClass}>
+      <div class="vehicle-card__image-wrapper">
+        <img loading="lazy" src={item.image} alt={item.alt} class="vehicle-card__image" />
+        <Badge class="vehicle-card__badge">{item.badge}</Badge>
+      </div>
+      <div class="vehicle-card__body">
+        <h3 class="vehicle-card__name">{item.name}</h3>
+        <div class="vehicle-card__specs">{item.specs.map((spec) => <div class="vehicle-card__spec" set:html={spec} />)}</div>
+        <div class="vehicle-card__footer">
+          <div class="vehicle-card__price" set:html={item.priceMarkup} />
+          <Fragment set:html={item.linkMarkup} />
+        </div>
+      </div>
+    </div>
+  ))}
+</div>

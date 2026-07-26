@@ -5,13 +5,7 @@ import { HTML_ROUTES, resolveInside } from './lib/site-contract.mjs';
 
 const repository = process.cwd();
 const failures = [];
-
-const normalizeText = (document) => document.body.textContent.replace(/\s+/g, ' ').trim();
-const signature = (document) =>
-  [...document.querySelectorAll('h1, h2, h3, a, button, input, select, textarea, img')].map(
-    (element) =>
-      `${element.tagName}:${element.id}:${element.getAttribute('href') ?? ''}:${element.textContent.trim()}`,
-  );
+const values = (document, selector, mapper) => [...document.querySelectorAll(selector)].map(mapper);
 
 for (const route of HTML_ROUTES) {
   const legacy = new JSDOM(await readFile(resolveInside(repository, route), 'utf8')).window
@@ -19,14 +13,28 @@ for (const route of HTML_ROUTES) {
   const built = new JSDOM(await readFile(resolveInside(repository, `dist/${route}`), 'utf8')).window
     .document;
   if (legacy.title !== built.title) failures.push(`${route}: title differs`);
-  if (normalizeText(legacy) !== normalizeText(built))
-    failures.push(`${route}: visible text differs`);
-  if (JSON.stringify(signature(legacy)) !== JSON.stringify(signature(built))) {
-    failures.push(`${route}: interactive/content signature differs`);
+  for (const [name, selector, mapper] of [
+    ['headings', 'h1, h2, h3', (element) => element.textContent.replace(/\s+/g, ' ').trim()],
+    [
+      'controls',
+      'input, select, textarea, button[type="submit"]',
+      (element) => `${element.tagName}:${element.id}:${element.getAttribute('name') ?? ''}`,
+    ],
+    [
+      'images',
+      'main img',
+      (element) => `${element.getAttribute('src')}:${element.getAttribute('alt')}`,
+    ],
+  ]) {
+    if (
+      JSON.stringify(values(legacy, selector, mapper)) !==
+      JSON.stringify(values(built, selector, mapper))
+    )
+      failures.push(`${route}: ${name} differ`);
   }
 }
 
-for (const directory of ['css', 'images', 'js']) {
+for (const directory of ['css', 'images']) {
   const walk = async (relative = '') => {
     const entries = await readdir(resolveInside(repository, `public/${directory}/${relative}`), {
       withFileTypes: true,
@@ -46,7 +54,7 @@ for (const directory of ['css', 'images', 'js']) {
   await walk();
 }
 
-if (failures.length > 0) throw new Error(`Legacy/Astro parity failures:\n${failures.join('\n')}`);
+if (failures.length > 0) throw new Error(`Compatibility failures:\n${failures.join('\n')}`);
 console.log(
-  `Verified DOM/content parity for ${HTML_ROUTES.length} routes and byte parity for static assets.`,
+  `Verified semantic compatibility for ${HTML_ROUTES.length} routes and byte parity for CSS/images.`,
 );

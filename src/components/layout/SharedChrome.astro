@@ -1,0 +1,6 @@
+---
+import { renderChrome } from '../../content/site';
+interface Props { activeRoute: string }
+const { activeRoute } = Astro.props;
+---
+<Fragment set:html={renderChrome(activeRoute)} />
