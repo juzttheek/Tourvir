@@ -4,7 +4,7 @@ backend:
   branch: main
 
 media_libraries:
-  - name: cloudinary
+  cloudinary:
     config:
       cloud_name: xgme9clf
       api_key: 236693324451995
