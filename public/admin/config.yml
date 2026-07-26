@@ -1,0 +1,21 @@
+backend:
+  name: github
+  repo: juzttheek/Tourvir
+  branch: main
+
+media_folder: 'public/images/uploads'
+public_folder: '/images/uploads'
+
+collections:
+  - name: 'testimonials'
+    label: 'Testimonials'
+    folder: 'src/data/testimonials'
+    create: true
+    format: 'json'
+    extension: 'json'
+    slug: '{{slug}}'
+    fields:
+      - { label: 'Name', name: 'name', widget: 'string' }
+      - { label: 'Origin', name: 'origin', widget: 'string', hint: 'e.g. London, United Kingdom' }
+      - { label: 'Rating', name: 'rating', widget: 'number', min: 1, max: 5, default: 5 }
+      - { label: 'Quote', name: 'quote', widget: 'text' }
