@@ -1,7 +1,7 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SharedChrome from '../../components/layout/SharedChrome.astro';
-import { blogPosts } from '../../data/blog';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SharedChrome from '../components/layout/SharedChrome.astro';
+import { blogPosts } from '../data/blog';
 
 const sortedPosts = blogPosts.sort((a, b) => b.date.valueOf() - a.date.valueOf());
 
@@ -25,7 +25,7 @@ const description = 'Read the latest travel guides, tips, and stories about expl
           {sortedPosts.map((post) => (
             <a href={`/blog/${post.id}.html`} class="card" style="text-decoration: none; color: inherit;">
               <div class="card__image-wrapper">
-                <img src={post.coverImage || '/images/hero/sigiriya_hero.webp'} alt={post.title} class="card__image" loading="lazy" />
+                <img src={post.coverImage || '/images/hero/hero_main_hq.webp'} alt={post.title} class="card__image" loading="lazy" />
               </div>
               <div class="card__body">
                 <div class="card__meta">
