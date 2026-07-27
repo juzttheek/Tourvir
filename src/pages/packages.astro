@@ -152,7 +152,7 @@ import PackageGrid from '../components/packages/PackageGrid.astro';
         if (hasActiveFilters) {
           featuredPackage.style.display = 'none';
         } else {
-          featuredPackage.style.display = 'flex';
+          featuredPackage.style.display = '';
         }
       }
 
@@ -179,7 +179,7 @@ import PackageGrid from '../components/packages/PackageGrid.astro';
         else if (priceVal === 'luxury') matchPrice = price > 1000;
 
         if (matchSearch && matchDuration && matchPrice && matchCategory) {
-          card.style.display = 'flex';
+          card.style.display = '';
           visibleCount++;
         } else {
           card.style.display = 'none';
