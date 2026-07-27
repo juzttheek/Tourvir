@@ -1,0 +1,22 @@
+{
+  "category": "adventure",
+  "duration": 4,
+  "price": 549,
+  "image": "images/packages/hill_country_adventure.webp",
+  "alt": "Hill Country Adventure",
+  "durationMarkup": "<svg style=\"display:inline-block; vertical-align:text-bottom; margin-right:0.25rem;\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"16\" height=\"16\"><circle cx=\"12\" cy=\"12\" r=\"10\"></circle><polyline points=\"12 6 12 12 16 14\"></polyline></svg>4 Days / 3 Nights",
+  "categoryLabel": "Adventure",
+  "title": "Hill Country Adventure",
+  "ratingMarkup": "\n                  <div class=\"stars\">★★★★★</div>\n                  <span class=\"package-card__rating-text\">(112 reviews)</span>\n                ",
+  "highlights": ["Ella", "Nuwara Eliya", "Train Ride", "Tea Factory"],
+  "priceMarkup": "$549 <span>per person</span>",
+  "linkMarkup": "<a href=\"/packages/package-4-hill-country-adventure.html\" class=\"btn btn--primary btn--sm\">View Details</a>",
+  "routeMap": [
+    { "name": "Colombo", "coordinates": [6.9271, 79.8612] },
+    { "name": "Kandy", "coordinates": [7.2906, 80.6337] },
+    { "name": "Nuwara Eliya", "coordinates": [6.9497, 80.7828] },
+    { "name": "Ella", "coordinates": [6.8667, 81.0466] },
+    { "name": "Colombo", "coordinates": [6.9271, 79.8612] }
+  ],
+  "recommendedVehicles": ["Mini SUV", "Family Van"]
+}

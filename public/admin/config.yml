@@ -75,3 +75,31 @@ collections:
       - { label: 'Author', name: 'author', widget: 'string', default: 'Tourvir Team' }
       - { label: 'Publish Date', name: 'date', widget: 'datetime', format: 'YYYY-MM-DD' }
       - { label: 'Body', name: 'content', widget: 'text' }
+
+  - name: 'packages'
+    label: 'Packages'
+    folder: 'src/data/packages'
+    create: true
+    format: 'json'
+    extension: 'json'
+    slug: '{{slug}}'
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Category Name', name: 'category', widget: 'select', options: ['cultural', 'beach', 'wildlife', 'adventure', 'honeymoon'] }
+      - { label: 'Category Label', name: 'categoryLabel', widget: 'string', hint: 'e.g. Cultural, Beach' }
+      - { label: 'Duration (Days)', name: 'duration', widget: 'number' }
+      - { label: 'Duration Markup', name: 'durationMarkup', widget: 'string' }
+      - { label: 'Price (USD)', name: 'price', widget: 'number' }
+      - { label: 'Price Markup', name: 'priceMarkup', widget: 'string', hint: 'e.g. $899 <span>per person</span>' }
+      - { label: 'Cover Image', name: 'image', widget: 'image' }
+      - { label: 'Alt Text', name: 'alt', widget: 'string' }
+      - { label: 'Rating Markup', name: 'ratingMarkup', widget: 'text' }
+      - { label: 'Link Markup', name: 'linkMarkup', widget: 'string' }
+      - { label: 'Highlights', name: 'highlights', widget: 'list', field: { label: 'Highlight', name: 'highlight', widget: 'string' } }
+      - { label: 'Recommended Vehicles', name: 'recommendedVehicles', widget: 'list', required: false, field: { label: 'Vehicle Name', name: 'vehicle', widget: 'string' } }
+      - name: 'routeMap'
+        label: 'Route Map Points'
+        widget: 'list'
+        fields:
+          - { label: 'Stop Name', name: 'name', widget: 'string' }
+          - { label: 'Coordinates [Lat, Lng]', name: 'coordinates', widget: 'list', field: { label: 'Coordinate', name: 'coord', widget: 'number' } }
