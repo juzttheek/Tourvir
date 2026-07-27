@@ -1,8 +1,8 @@
 import { readdir, readFile } from 'node:fs/promises';
-import { HTML_ROUTES, resolveInside } from './lib/site-contract.mjs';
+import { HTML_ROUTES, DEPLOYABLE_DIRECTORIES, resolveInside } from './lib/site-contract.mjs';
 
 const root = resolveInside(process.cwd(), 'dist');
-const allowedDirectories = new Set(['_assets', 'css', 'images', 'js', 'admin']);
+const allowedDirectories = new Set(DEPLOYABLE_DIRECTORIES);
 const allowedFiles = new Set(HTML_ROUTES);
 const entries = await readdir(root, { withFileTypes: true });
 const failures = [];

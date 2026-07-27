@@ -1,57 +1,40 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SharedChrome from '../../components/layout/SharedChrome.astro';
+import { blogPosts } from '../../data/blog';
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('blog');
-  return blogEntries.map(entry => ({
+  return blogPosts.map(entry => ({
     params: { slug: entry.id },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
-
-const formattedDate = new Date(entry.data.date).toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric'
-});
 ---
 
 <BaseLayout 
-  title={`${entry.data.title} - Tourvir Blog`}
-  description={entry.data.description}
-  image={entry.data.coverImage}
+  title={`${entry.title} - Tourvir Blog`}
+  description={entry.description}
 >
   <SharedChrome activeRoute="blog.html" />
-
-  <main id="main-content">
-    <article class="section">
-      <div class="container" style="max-width: 800px;">
-        <div class="section__header" style="margin-bottom: 2rem; text-align: left;">
-          <a href="/blog/index.html" class="btn btn--ghost btn--sm" style="padding: 0; margin-bottom: 1rem;">&larr; Back to all posts</a>
-          <h1 class="heading-1" style="margin-bottom: 1rem;">{entry.data.title}</h1>
-          <div class="card__meta" style="margin-bottom: 2rem; font-size: 0.95rem;">
-            <span>By <strong>{entry.data.author}</strong></span>
-            <span>&bull;</span>
-            <span>{formattedDate}</span>
-          </div>
+  <main class="page-container" style="padding-top: var(--header-height);">
+    <article class="prose" style="max-width: 800px; margin: 0 auto; padding: var(--space-xl) var(--space-md);">
+      <header style="text-align: center; margin-bottom: var(--space-xl);">
+        <h1 style="font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; margin-bottom: var(--space-md);">{entry.title}</h1>
+        <div style="color: var(--text-tertiary); font-size: 0.95rem; margin-bottom: var(--space-lg);">
+          {new Date(entry.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} • By {entry.author}
         </div>
-
-        {entry.data.coverImage && (
+        {entry.coverImage && (
           <img 
-            src={entry.data.coverImage} 
-            alt={entry.data.title} 
-            style="width: 100%; height: auto; max-height: 450px; object-fit: cover; border-radius: var(--radius-lg); margin-bottom: 3rem; box-shadow: var(--shadow-md);" 
+            src={entry.coverImage} 
+            alt={entry.title} 
+            style="width: 100%; height: auto; max-height: 500px; object-fit: cover; border-radius: var(--radius-lg);"
           />
         )}
-
-        <div class="prose">
-          <Content />
-        </div>
+      </header>
+      <div class="content" style="font-size: 1.1rem; line-height: 1.8;">
+        <p>{entry.content}</p>
       </div>
     </article>
   </main>
