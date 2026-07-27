@@ -38,11 +38,11 @@ const socialImageURL = new URL(image, Astro.site);
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={socialImageURL} />
 
-    <link rel="stylesheet" href="/css/style.css?v=4" />
-    <link rel="stylesheet" href="/css/sidebar.css?v=4" />
-    <link rel="stylesheet" href="/css/components.css?v=4" />
-    <link rel="stylesheet" href="/css/legacy-utilities.css?v=4" />
-    {pageStyles.map((href) => <link rel="stylesheet" href={`${href.startsWith('/') ? '' : '/'}${href}${href.includes('?') ? '&' : '?'}v=4`} />)}
+    <link rel="stylesheet" href="/css/style.css?v=5" />
+    <link rel="stylesheet" href="/css/sidebar.css?v=5" />
+    <link rel="stylesheet" href="/css/components.css?v=5" />
+    <link rel="stylesheet" href="/css/legacy-utilities.css?v=5" />
+    {pageStyles.map((href) => <link rel="stylesheet" href={`${href.startsWith('/') ? '' : '/'}${href}${href.includes('?') ? '&' : '?'}v=5`} />)}
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>" />
     <script is:inline>
       (() => {
