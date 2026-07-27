@@ -8,7 +8,7 @@ import PageShell from '../layouts/PageShell.astro';
   pageStyles={["css/pages/inquiry.css?v=2"]}
   activeRoute="inquiry.html"
 >
-<main class="main-content">
+<main class="main-content" id="main-content">
 
       <!-- Page Hero -->
       <section class="page-hero">
@@ -66,18 +66,18 @@ import PageShell from '../layouts/PageShell.astro';
                   <div class="form-row">
                     <div class="form-group">
                       <label class="form-label" for="full-name">Full Name *</label>
-                      <input type="text" class="form-input" id="full-name" placeholder="John Smith" required>
+                      <input type="text" class="form-input" id="full-name" placeholder="John Smith" required aria-required="true">
                     </div>
                     <div class="form-group">
                       <label class="form-label" for="email">Email Address *</label>
-                      <input type="email" class="form-input" id="email" placeholder="john@example.com" required>
+                      <input type="email" class="form-input" id="email" placeholder="john@example.com" required aria-required="true">
                     </div>
                   </div>
 
                   <div class="form-row">
                     <div class="form-group">
                       <label class="form-label" for="nationality">Nationality *</label>
-                      <select class="form-select" id="nationality" required>
+                      <select class="form-select" id="nationality" required aria-required="true">
                         <option value="">Select your country</option>
                         <option value="AU">Australia</option>
                         <option value="CA">Canada</option>
@@ -113,17 +113,17 @@ import PageShell from '../layouts/PageShell.astro';
                   <div class="form-row">
                     <div class="form-group">
                       <label class="form-label" for="arrival-date">Arrival Date *</label>
-                      <input type="date" class="form-input" id="arrival-date" required>
+                      <input type="date" class="form-input" id="arrival-date" required aria-required="true">
                     </div>
                     <div class="form-group">
                       <label class="form-label" for="departure-date">Departure Date *</label>
-                      <input type="date" class="form-input" id="departure-date" required>
+                      <input type="date" class="form-input" id="departure-date" required aria-required="true">
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label class="form-label" for="travelers">Number of Travelers *</label>
-                    <select class="form-select" id="travelers" required>
+                    <select class="form-select" id="travelers" required aria-required="true">
                       <option value="">Select number</option>
                       <option value="1">1 - Solo Traveler</option>
                       <option value="2">2 - Couple</option>
@@ -268,7 +268,7 @@ import PageShell from '../layouts/PageShell.astro';
                   </div>
 
                   <div class="form-group checkbox-group" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
-                    <input type="checkbox" id="terms-consent" required>
+                    <input type="checkbox" id="terms-consent" required aria-required="true">
                     <label for="terms-consent">I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a>. *</label>
                   </div>
                   

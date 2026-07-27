@@ -15,18 +15,4 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',
   },
-  webServer: [
-    {
-      command: 'node scripts/serve-static.mjs dist 4173',
-      url: 'http://127.0.0.1:4173',
-      reuseExistingServer: false,
-      timeout: 15_000,
-    },
-    {
-      command: 'node scripts/serve-static.mjs . 4174',
-      url: 'http://127.0.0.1:4174',
-      reuseExistingServer: false,
-      timeout: 15_000,
-    },
-  ],
 });

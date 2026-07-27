@@ -11,7 +11,32 @@ const testimonials = Object.values(testimonialFiles).map((file: any) => file.def
   pageStyles={["css/pages/home.css"]}
   activeRoute="index.html"
 >
-<main class="main-content">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": "TravelAgency",
+        "name": "Tourvir",
+        "image": "https://tourvir.lk/images/hero/hero_main_hq.webp",
+        "description": "Your premier Sri Lanka travel companion. Discover the Pearl of the Indian Ocean with curated tour packages, expert guides, and unforgettable experiences.",
+        "url": "https://tourvir.lk",
+        "telephone": "+94112345678",
+        "email": "hello@tourvir.lk",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "42 Galle Road",
+          "addressLocality": "Colombo 03",
+          "addressCountry": "LK"
+        },
+        "sameAs": [
+          "https://facebook.com/tourvir",
+          "https://instagram.com/tourvir"
+        ]
+      }
+    </script>
+  </Fragment>
+
+<main class="main-content" id="main-content">
 
       <!-- ===== HERO SECTION ===== -->
       <section class="hero" id="hero">
@@ -352,7 +377,7 @@ const testimonials = Object.values(testimonialFiles).map((file: any) => file.def
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                     Full Name
                   </label>
-                  <input type="text" id="feedback-name" class="feedback-form__input" placeholder="e.g. Sarah Mitchell" required>
+                  <input type="text" id="feedback-name" class="feedback-form__input" placeholder="e.g. Sarah Mitchell" required aria-required="true">
                 </div>
                 <div class="feedback-form__group">
                   <label for="feedback-email" class="feedback-form__label">
@@ -368,7 +393,7 @@ const testimonials = Object.values(testimonialFiles).map((file: any) => file.def
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
                     Country
                   </label>
-                  <input type="text" id="feedback-country" class="feedback-form__input" placeholder="e.g. United Kingdom" required>
+                  <input type="text" id="feedback-country" class="feedback-form__input" placeholder="e.g. United Kingdom" required aria-required="true">
                 </div>
               </div>
               <div class="feedback-form__group">
@@ -376,7 +401,7 @@ const testimonials = Object.values(testimonialFiles).map((file: any) => file.def
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
                   Tour Package
                 </label>
-                <select id="feedback-tour" class="feedback-form__input feedback-form__select" required>
+                <select id="feedback-tour" class="feedback-form__input feedback-form__select" required aria-required="true">
                   <option value="" disabled selected>Select the package you experienced</option>
                   <option value="cultural-triangle">Cultural Triangle Tour</option>
                   <option value="beach-paradise">Beach Paradise Tour</option>
@@ -416,10 +441,10 @@ const testimonials = Object.values(testimonialFiles).map((file: any) => file.def
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                   Your Experience
                 </label>
-                <textarea id="feedback-message" class="feedback-form__input feedback-form__textarea" placeholder="Tell us what you loved about your trip, your favourite moments, or anything we could improve..." rows="5" required></textarea>
+                <textarea id="feedback-message" class="feedback-form__input feedback-form__textarea" placeholder="Tell us what you loved about your trip, your favourite moments, or anything we could improve..." rows="5" required aria-required="true"></textarea>
               </div>
               <div class="feedback-form__group checkbox-group" style="margin-top: 1.5rem; align-items: flex-start; gap: 0.5rem; display: flex;">
-                <input type="checkbox" id="feedback-consent" required style="margin-top: 0.25rem;">
+                <input type="checkbox" id="feedback-consent" required aria-required="true" style="margin-top: 0.25rem;">
                 <label for="feedback-consent" style="font-size: 0.875rem; color: var(--color-gray-600); line-height: 1.4;">I consent to Tourvir using my feedback and name as a testimonial on the website. *</label>
               </div>
               <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />

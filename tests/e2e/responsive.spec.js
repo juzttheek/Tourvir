@@ -28,7 +28,7 @@ for (const route of routes) {
         const overflowingElements = await page.evaluate(() => {
           const clientWidth = document.documentElement.clientWidth;
           const offenders = [];
-          
+
           function isInsideOverflowContainer(element) {
             let parent = element.parentElement;
             while (parent && parent !== document.body) {
@@ -45,18 +45,23 @@ for (const route of routes) {
             const rect = el.getBoundingClientRect();
             if (rect.right > clientWidth || rect.width > clientWidth) {
               // Ignore script, style tags, and SVG internals
-              if (['SCRIPT', 'STYLE', 'META', 'LINK', 'PATH', 'G', 'DEFS'].includes(el.tagName.toUpperCase())) return;
-              
+              if (
+                ['SCRIPT', 'STYLE', 'META', 'LINK', 'PATH', 'G', 'DEFS'].includes(
+                  el.tagName.toUpperCase(),
+                )
+              )
+                return;
+
               // Ignore elements intentionally placed inside a scrolling/clipped container
               if (isInsideOverflowContainer(el)) return;
-              
+
               offenders.push({
                 tag: el.tagName,
                 class: el.className,
                 id: el.id,
                 right: rect.right,
                 width: rect.width,
-                clientWidth
+                clientWidth,
               });
             }
           });
@@ -66,7 +71,7 @@ for (const route of routes) {
         // Use custom message for better debugging output
         expect(
           overflowingElements.length,
-          `Found overflowing elements: ${JSON.stringify(overflowingElements, null, 2)}`
+          `Found overflowing elements: ${JSON.stringify(overflowingElements, null, 2)}`,
         ).toBe(0);
 
         // Final sanity check on document width

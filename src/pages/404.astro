@@ -1,0 +1,27 @@
+---
+import PageShell from '../layouts/PageShell.astro';
+---
+
+<PageShell
+  title="Page Not Found - Tourvir"
+  description="The page you are looking for does not exist. Explore our Sri Lanka tour packages instead."
+  pageStyles={["css/pages/404.css"]}
+  activeRoute="404.html"
+>
+  <main class="main-content not-found-page" id="main-content">
+    <section class="page-hero">
+      <div class="page-hero__bg">
+        <img src="images/hero/sigiriya_hero.webp" alt="Sri Lanka Landscape">
+      </div>
+      <div class="page-hero__overlay"></div>
+      <div class="page-hero__content">
+        <h1 class="page-hero__title" style="font-size: 6rem; margin-bottom: 0;">404</h1>
+        <p class="page-hero__subtitle" style="font-size: 1.5rem;">Looks like you wandered off the map.</p>
+        <div class="not-found-actions" style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center;">
+          <a href="index.html" class="btn btn--primary btn--lg">Back to Home</a>
+          <a href="packages.html" class="btn btn--outline btn--lg" style="color: white; border-color: white;">View Packages</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</PageShell>

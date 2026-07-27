@@ -1,0 +1,21 @@
+/* 404 Page Specific Styles */
+.not-found-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.not-found-page .page-hero {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.not-found-actions a {
+  transition: all 0.3s ease;
+}
+
+.not-found-actions a:hover {
+  transform: translateY(-2px);
+}

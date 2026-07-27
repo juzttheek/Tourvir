@@ -9,12 +9,14 @@ interface Props {
   description: string;
   pageStyles: string[];
   activeRoute: string;
+  image?: string;
 }
 
-const { title, description, pageStyles, activeRoute } = Astro.props;
+const { title, description, pageStyles, activeRoute, image } = Astro.props;
 ---
 
-<BaseLayout {title} {description} {pageStyles}>
+<BaseLayout {title} {description} {pageStyles} {image}>
+  <slot name="head" slot="head" />
   <SharedChrome {activeRoute} />
   <div class="page-wrapper">
     <slot />

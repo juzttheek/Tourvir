@@ -103,7 +103,10 @@ export class GalleryController {
     };
 
     // Use View Transitions API if supported and user hasn't requested reduced motion
-    if ('startViewTransition' in document && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (
+      'startViewTransition' in document &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
       (document as any).startViewTransition(() => performOpen());
     } else {
       performOpen();
@@ -112,7 +115,7 @@ export class GalleryController {
 
   public closeLightbox(): void {
     if (!this.lightbox) return;
-    
+
     const performClose = () => {
       this.lightbox!.classList.remove('active');
       this.lightbox!.setAttribute('aria-hidden', 'true');
@@ -123,7 +126,10 @@ export class GalleryController {
       }
     };
 
-    if ('startViewTransition' in document && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (
+      'startViewTransition' in document &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
       (document as any).startViewTransition(() => performClose());
     } else {
       performClose();

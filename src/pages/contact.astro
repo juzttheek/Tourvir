@@ -8,7 +8,7 @@ import PageShell from '../layouts/PageShell.astro';
   pageStyles={["css/pages/contact.css"]}
   activeRoute="contact.html"
 >
-<main class="main-content">
+<main class="main-content" id="main-content">
 
       <!-- Page Hero -->
       <section class="page-hero">
@@ -63,11 +63,11 @@ import PageShell from '../layouts/PageShell.astro';
                 <div class="form-row legacy-util-1">
                   <div class="form-group">
                     <label class="form-label" for="contact-name">Your Name *</label>
-                    <input type="text" class="form-input" id="contact-name" placeholder="John Smith" required>
+                    <input type="text" class="form-input" id="contact-name" placeholder="John Smith" required aria-required="true">
                   </div>
                   <div class="form-group">
                     <label class="form-label" for="contact-email">Email Address *</label>
-                    <input type="email" class="form-input" id="contact-email" placeholder="john@example.com" required>
+                    <input type="email" class="form-input" id="contact-email" placeholder="john@example.com" required aria-required="true">
                   </div>
                 </div>
 
@@ -78,7 +78,7 @@ import PageShell from '../layouts/PageShell.astro';
                   </div>
                   <div class="form-group">
                     <label class="form-label" for="contact-subject">Subject *</label>
-                    <select class="form-select" id="contact-subject" required>
+                    <select class="form-select" id="contact-subject" required aria-required="true">
                       <option value="">Select a subject</option>
                       <option value="general">General Inquiry</option>
                       <option value="booking">Booking Question</option>
@@ -95,11 +95,11 @@ import PageShell from '../layouts/PageShell.astro';
 
                 <div class="form-group">
                   <label class="form-label" for="contact-message">Your Message *</label>
-                  <textarea class="form-textarea" id="contact-message" placeholder="Write your message here..." required></textarea>
+                  <textarea class="form-textarea" id="contact-message" placeholder="Write your message here..." required aria-required="true"></textarea>
                 </div>
 
                 <div class="form-group checkbox-group" style="margin-top: 1rem;">
-                  <input type="checkbox" id="contact-consent" required>
+                  <input type="checkbox" id="contact-consent" required aria-required="true">
                   <label for="contact-consent">I consent to my data being processed according to the <a href="privacy.html">Privacy Policy</a>. *</label>
                 </div>
 

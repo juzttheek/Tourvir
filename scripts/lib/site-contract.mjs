@@ -11,6 +11,10 @@ export const HTML_ROUTES = Object.freeze([
   'privacy.html',
   'terms.html',
   'cookies.html',
+  '404.html',
+  'robots.txt',
+  'sitemap-0.xml',
+  'sitemap-index.xml',
 ]);
 
 export function isExternalReference(reference) {
