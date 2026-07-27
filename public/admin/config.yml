@@ -60,3 +60,18 @@ collections:
           default: 'standard',
           hint: 'Controls how much space the image takes in the masonry grid',
         }
+
+  - name: 'blog'
+    label: 'Blog'
+    folder: 'src/content/blog'
+    create: true
+    format: 'frontmatter'
+    extension: 'md'
+    slug: '{{slug}}'
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Description', name: 'description', widget: 'text' }
+      - { label: 'Cover Image', name: 'coverImage', widget: 'image', required: false }
+      - { label: 'Author', name: 'author', widget: 'string', default: 'Tourvir Team' }
+      - { label: 'Publish Date', name: 'date', widget: 'datetime', format: 'YYYY-MM-DD' }
+      - { label: 'Body', name: 'body', widget: 'markdown' }

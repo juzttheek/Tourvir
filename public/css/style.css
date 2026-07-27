@@ -1596,19 +1596,6 @@ button {
   }
 }
 
-/* Spinner animation */
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* ============================================
-   MOTION OVERRIDES (ACCESSIBILITY)
-   ============================================ */
-@media (prefers-reduced-motion: reduce) {
-  *,
-}
 
 /* ============================================
    RESPONSIVE BREAKPOINTS

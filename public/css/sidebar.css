@@ -25,6 +25,7 @@
   top: 0;
   width: var(--sidebar-width);
   height: 100dvh;
+
   /* Enhanced Glassmorphism */
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(20px) saturate(180%);

@@ -345,6 +345,76 @@
   line-height: 1.7;
 }
 
+/* ============================================
+   PROSE / MARKDOWN STYLES (Blog)
+   ============================================ */
+.prose {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.prose h2, .prose h3, .prose h4 {
+  color: var(--text-primary);
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+  font-weight: 700;
+  font-family: 'Outfit', sans-serif;
+}
+
+.prose h2 { font-size: 1.8rem; }
+.prose h3 { font-size: 1.4rem; }
+.prose h4 { font-size: 1.2rem; }
+
+.prose p {
+  margin-bottom: 1.25em;
+}
+
+.prose ul, .prose ol {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-left: 1.5em;
+}
+
+.prose li {
+  margin-bottom: 0.5em;
+}
+
+.prose a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-decoration-color: rgba(var(--primary-rgb), 0.3);
+  text-underline-offset: 3px;
+  transition: all var(--transition-fast);
+}
+
+.prose a:hover {
+  text-decoration-color: var(--primary);
+}
+
+.prose blockquote {
+  border-left: 4px solid var(--primary);
+  margin-left: 0;
+  margin-right: 0;
+  font-style: italic;
+  color: var(--text-tertiary);
+  background: var(--bg-tertiary);
+  padding: var(--space-md);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  margin: 2em 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.prose strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
 /* ---------- Progress Steps ---------- */
 .progress-steps {
   display: flex;
