@@ -1818,3 +1818,9 @@ button {
   object-fit: contain;
   margin-right: 8px;
 }
+
+@media (max-width: 768px) {
+  .brand-logo {
+    height: 40px;
+  }
+}
