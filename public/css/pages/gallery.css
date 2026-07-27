@@ -98,6 +98,7 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   transform: scale(0.95);
   transition: transform 0.3s ease;
+  border-radius: var(--radius-lg);
 }
 
 .lightbox.is-active .lightbox__image {
@@ -109,7 +110,12 @@
   text-align: center;
   margin-top: var(--space-lg);
   max-width: 800px;
-  padding: 0 var(--space-md);
+  padding: var(--space-sm) var(--space-lg);
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .lightbox__caption h4 {
