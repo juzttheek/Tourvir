@@ -23,9 +23,8 @@
 .sidebar {
   position: fixed;
   top: 0;
-  left: 0;
   width: var(--sidebar-width);
-  height: 100vh;
+  height: 100dvh;
   background: var(--sidebar-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
@@ -43,9 +42,9 @@
   transform: translateX(0);
 }
 
-/* Sidebar Header */
 .sidebar__header {
   padding: var(--space-xl) var(--space-lg);
+  padding-top: calc(var(--space-xl) + var(--safe-top));
   border-bottom: 1px solid var(--divider);
   display: flex;
   align-items: center;

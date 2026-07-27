@@ -16,18 +16,20 @@ const testimonials = Object.values(testimonialFiles).map((file: any) => file.def
       <!-- ===== HERO SECTION ===== -->
       <section class="hero" id="hero">
         <div class="hero__bg" id="hero-slider">
-          <img src="images/hero/hero_main_hq.webp" class="active" alt="Sigiriya rock fortress at sunset">
-          <img src="images/hero/hero_train_hq.webp" alt="Beautiful Ella train journey">
-          <img src="images/hero/hero_ocean_hq.webp" alt="Pristine Sri Lankan beach">
-          <img src="images/hero/hero_18bends_hq.webp" alt="Spectacular 18 bends mountain road">
-          <img src="images/hero/hero_wild_hq.webp" alt="Majestic wild elephant at sunset">
-          <img src="images/hero/hero_kandy_hq.webp" alt="Temple of the Sacred Tooth Relic">
-          <img src="images/hero/hero_dancer_hq.webp" alt="Traditional Kandyan dancer">
-          <img src="images/hero/hero_lotus_hq.webp" alt="Lotus Tower">
-          <img src="images/hero/hero_mountains_hq.webp" alt="Sri Lankan Mountains">
-          <img src="images/hero/hero_tea_hq.webp" alt="Tea Plantation">
-          <img src="images/hero/hero_temple_hq.webp" alt="Ancient Temple">
+          <!-- Eagerly loaded first asset -->
+          <img src="images/hero/hero_main_hq.webp" class="active" alt="Sigiriya rock fortress at sunset" fetchpriority="high">
+          <!-- Subsequent lazy assets for slider -->
+          <img src="images/hero/hero_train_hq.webp" alt="Beautiful Ella train journey" loading="lazy">
+          <img src="images/hero/hero_wild_hq.webp" alt="Majestic wild elephant at sunset" loading="lazy">
         </div>
+        
+        <!-- Hero Slider Controls -->
+        <button class="hero__pause-btn" id="hero-pause-btn" aria-label="Pause slider" title="Pause slider">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+            <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+          </svg>
+        </button>
         <div class="hero__overlay"></div>
         <div class="hero__particles">
           <div class="hero__particle"></div>
@@ -50,6 +52,8 @@ const testimonials = Object.values(testimonialFiles).map((file: any) => file.def
         </div>
         <div class="hero__scroll-indicator">↓</div>
       </section>
+
+
 
       <!-- ===== ABOUT SECTION ===== -->
       <section class="section" id="about">

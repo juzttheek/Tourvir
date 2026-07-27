@@ -8,8 +8,8 @@
 
 .gallery-grid--masonry {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-md);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--gutter);
 }
 
 .gallery-item--tall {
@@ -49,10 +49,6 @@
 }
 
 @media (max-width: 768px) {
-  .gallery-grid--masonry {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .gallery-item--tall {
     grid-row: span 1;
     aspect-ratio: 4/3;
@@ -66,11 +62,5 @@
 
   .gallery-stats {
     gap: var(--space-xl);
-  }
-}
-
-@media (max-width: 480px) {
-  .gallery-grid--masonry {
-    grid-template-columns: 1fr;
   }
 }

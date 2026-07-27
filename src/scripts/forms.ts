@@ -190,8 +190,15 @@ export function initMultiStepForm(): void {
   let currentStep = 0;
 
   function showStep(index: number) {
+    const isForward = index >= currentStep;
     steps.forEach((step, i) => {
-      step.classList.toggle('active', i === index);
+      if (i === index) {
+        step.classList.add('active');
+        step.setAttribute('data-direction', isForward ? 'forward' : 'backward');
+      } else {
+        step.classList.remove('active');
+        step.removeAttribute('data-direction');
+      }
     });
 
     progressSteps.forEach((step, i) => {

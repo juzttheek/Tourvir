@@ -91,8 +91,34 @@ export function initHeroSlider(): CarouselController | null {
       const nextImg = images[currentIndex];
       if (nextImg) nextImg.classList.add('active');
     },
-    5000,
+    6000,
   );
+
+  const pauseBtn = document.getElementById('hero-pause-btn') as HTMLButtonElement | null;
+  if (pauseBtn) {
+    let isManuallyPaused = false;
+    pauseBtn.addEventListener('click', () => {
+      isManuallyPaused = !isManuallyPaused;
+      if (isManuallyPaused) {
+        controller.pause();
+        pauseBtn.setAttribute('aria-label', 'Play slider');
+        pauseBtn.innerHTML = `
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        `;
+      } else {
+        controller.resume();
+        pauseBtn.setAttribute('aria-label', 'Pause slider');
+        pauseBtn.innerHTML = `
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+            <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+          </svg>
+        `;
+      }
+    });
+  }
 
   controller.start();
   return controller;

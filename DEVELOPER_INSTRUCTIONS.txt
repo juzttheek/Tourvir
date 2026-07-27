@@ -1,0 +1,27 @@
+# Tourvir Project Setup & Execution Guide
+
+Welcome to the Tourvir project! Please follow these simple steps to fetch the latest changes, install all required dependencies, and run the preview server locally.
+
+## Step 1: Fetch the Latest Changes
+If you haven't already cloned the repository or need to pull the latest changes, run:
+  git pull origin main
+
+## Step 2: Install Dependencies
+This project uses npm for package management. Install all necessary dependencies (including Astro, Vite, etc.) by running:
+  npm install
+
+## Step 3: Build the Project
+Before previewing, you must build the static site assets. This ensures that the newly updated CSS, color palettes, and components are correctly bundled into the `dist` folder:
+  npm run build
+
+## Step 4: Run the Preview Server
+Once the build is complete, you can start the local preview server to view the site as it will appear in production:
+  npm run preview
+
+The terminal will provide a local URL (usually http://localhost:4173/ or http://127.0.0.1:4173/). Open this URL in your web browser to view the site!
+
+---
+
+### Additional Notes:
+- **Development Mode:** If you wish to make further code changes with hot-reloading enabled, use `npm run dev` instead.
+- **Images:** Any new images or assets added directly to `public/images` will be automatically served.

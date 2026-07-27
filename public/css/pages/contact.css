@@ -4,14 +4,14 @@
 
 .contact-cards-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: var(--space-xl);
   margin-bottom: var(--space-3xl);
 }
 
 .contact-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: var(--space-3xl);
   align-items: start;
 }
@@ -91,7 +91,7 @@
 
 .emergency-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--space-xl);
 }
 
@@ -136,7 +136,7 @@
 /* Social Media Grid */
 .social-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: var(--space-md);
   margin-top: var(--space-xl);
 }
@@ -176,36 +176,4 @@
   color: var(--text-tertiary);
 }
 
-@media (max-width: 1024px) {
-  .contact-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .emergency-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .contact-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .contact-cards-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .emergency-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .social-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .social-grid {
-    grid-template-columns: 1fr;
-  }
-}
+/* Responsive handling via auto-fit */

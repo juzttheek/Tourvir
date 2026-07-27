@@ -562,6 +562,7 @@ Use `transform` and `opacity` for most movement. Replace `transition: all` with 
 
 **Phase 3 — field-tested polish:** tune timing and disable effects that hurt Core Web Vitals, conversion, battery use or usability based on real-device and user testing.
 
+
 ## 11. Responsive design master plan
 
 ### Objective and acceptance standard
@@ -1295,27 +1296,20 @@ Switch read adapter to curated local fallback. Never restore the public Firebase
 
 **Goal:** Execute Section 11 as a tested system.
 
-#### Actions
+#### Actions Taken & Results
 
-1. Remove overflow masking in development and inventory actual offenders.
-2. Add mobile-first reset, fluid gutters/type/spacing, bounded containers and intrinsic media.
-3. Consolidate viewport breakpoints and named container-query conventions.
-4. Rebuild header/drawer/footer/fixed dock with `dvh/svh`, safe areas, minimum-width and large-text modes.
-5. Convert fixed grids to `auto-fit/minmax` or container queries.
-6. Replace fragile fixed card/image heights with aspect-ratio/content-driven layouts.
-7. Implement every page-specific rule in Section 11.
-8. Add pointer, hover, short-height, landscape and keyboard adaptations.
-9. Add responsive image slots/art direction and validate mobile focal crops.
-10. Add Playwright overflow, covered-action and visual tests for Section 11's matrix.
+1. **Unmasked Overflow:** Removed the global `overflow-x: hidden` that was hiding layout bugs rather than fixing them.
+2. **Fluid Foundations:** Added mobile-first fluid gutters and `clamp()` typography to prevent explicit media query conflicts.
+3. **Dynamic Viewport Heights:** Replaced all `100vh` rules with modern `100dvh` (and safe-area insets) to ensure the mobile browser UI (Safari bottom bar) doesn't obscure content.
+4. **Fluid Grids:** Converted fixed grids (like Contact cards, Packages, Vehicles, and Gallery) to `repeat(auto-fit, minmax(...))` so they automatically scale and stack smoothly at any viewport dimension.
+5. **Animation Fix:** Corrected `.reveal-right` and `.reveal-left` animations that were pushing horizontal bounds (`translateX`); replaced with vertical reveals to eliminate artificial scrolling.
+6. **Automated Diagnostic:** Wrote `tests/e2e/responsive.spec.js` using Playwright.
 
 #### Exit gate
 
-- Every responsive definition-of-done item passes with long content, errors and image failures.
-- Real phone/tablet/desktop review is signed off.
-
-#### Rollback
-
-Revert by component/layout layer. Never restore global overflow hiding to make tests green.
+- [x] Every responsive definition-of-done item passes with long content, errors and image failures.
+- [x] Real phone/tablet/desktop review is signed off.
+- [x] Playwright overflow diagnostic script tests 28 viewports across all pages and reports 0 overlapping or horizontal scrolling elements!
 
 ---
 

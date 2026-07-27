@@ -85,30 +85,48 @@ export class GalleryController {
     const visibleItems = this.getVisibleItems();
     if (!visibleItems.length || visibleIndex < 0 || visibleIndex >= visibleItems.length) return;
 
-    this.previousActiveElement = document.activeElement as HTMLElement | null;
-    this.currentIndex = visibleIndex;
-    this.updateLightboxImage();
+    const performOpen = () => {
+      this.previousActiveElement = document.activeElement as HTMLElement | null;
+      this.currentIndex = visibleIndex;
+      this.updateLightboxImage();
 
-    if (this.lightbox) {
-      this.lightbox.classList.add('active');
-      this.lightbox.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
+      if (this.lightbox) {
+        this.lightbox.classList.add('active');
+        this.lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
 
-      const focusables = this.lightbox.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
-      if (focusables.length > 0 && focusables[0]) {
-        focusables[0].focus();
+        const focusables = this.lightbox.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
+        if (focusables.length > 0 && focusables[0]) {
+          focusables[0].focus();
+        }
       }
+    };
+
+    // Use View Transitions API if supported and user hasn't requested reduced motion
+    if ('startViewTransition' in document && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      (document as any).startViewTransition(() => performOpen());
+    } else {
+      performOpen();
     }
   }
 
   public closeLightbox(): void {
     if (!this.lightbox) return;
-    this.lightbox.classList.remove('active');
-    this.lightbox.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
+    
+    const performClose = () => {
+      this.lightbox!.classList.remove('active');
+      this.lightbox!.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
 
-    if (this.previousActiveElement && typeof this.previousActiveElement.focus === 'function') {
-      this.previousActiveElement.focus();
+      if (this.previousActiveElement && typeof this.previousActiveElement.focus === 'function') {
+        this.previousActiveElement.focus();
+      }
+    };
+
+    if ('startViewTransition' in document && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      (document as any).startViewTransition(() => performClose());
+    } else {
+      performClose();
     }
   }
 

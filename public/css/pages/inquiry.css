@@ -24,11 +24,23 @@
 
 .form-step.active {
   display: block;
-  animation: fadeInStep 0.4s ease;
 }
 
-@keyframes fadeInStep {
+.form-step.active[data-direction="forward"] {
+  animation: slideInRight var(--motion-base) var(--ease-standard);
+}
+
+.form-step.active[data-direction="backward"] {
+  animation: slideInLeft var(--motion-base) var(--ease-standard);
+}
+
+@keyframes slideInRight {
   from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
   to { opacity: 1; transform: translateX(0); }
 }
 
