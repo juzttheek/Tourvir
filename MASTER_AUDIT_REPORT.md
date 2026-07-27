@@ -85,6 +85,8 @@ There is no Tourvir application server or database in the target. Firebase Hosti
 1. **Formspree:** We integrated Formspree to handle three separate forms: Contact, Inquiry, and Feedback. All submissions are processed securely through Formspree's backend, providing bot protection and staff email notifications without needing a backend server.
 2. **Cloudinary:** We integrated Cloudinary as our Media Library within the CMS. Images are served on-the-fly with responsive resizing and compression (`f_auto,q_auto`).
 3. **Sveltia CMS:** We implemented a serverless Git-based CMS (Sveltia) at `/admin`. This provides a single panel for the client to manage Testimonials and Gallery items visually. The CMS serializes the data into local JSON files and commits them directly to the GitHub repository, triggering a static rebuild on Vercel.
+4. **Content Collections Blog:** We implemented an Astro Content Collection for the Travel Blog (`/blog`). Blog posts are managed via Markdown/TypeScript data sources and built statically at deploy time, eliminating the need for a database.
+5. **Vercel Analytics & Speed Insights:** We integrated Vercel's native tracking for traffic and performance (Core Web Vitals). These tools automatically run on the deployed production domain to monitor visitor engagement without relying on third-party tracking scripts like Google Analytics.
 
 ### 3.1 Client Handover Guide (Service Ownership Transfer)
 
@@ -105,8 +107,8 @@ If you transfer the actual GitHub repository ownership to the client (e.g., chan
 - File: `public/admin/config.yml`
 - Field: Change `repo: juzttheek/Tourvir` to `repo: client-name/Tourvir`
 
-#### 4. Vercel (Hosting)
-You can either invite the client's email to your Vercel Team, or they can create their own Vercel account and simply "Import" the GitHub repository from their own dashboard.
+#### 4. Vercel (Hosting & Analytics)
+You can either invite the client's email to your Vercel Team, or they can create their own Vercel account and simply "Import" the GitHub repository from their own dashboard. The Web Analytics and Speed Insights features are tied to the Vercel project, so transferring the project transfers the analytics data.
 
 ## 4. What is already good
 
