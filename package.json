@@ -46,6 +46,7 @@
     "vitest": "4.1.10"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.3"
+    "@astrojs/sitemap": "^3.7.3",
+    "@vercel/analytics": "^2.0.1"
   }
 }
