@@ -103,6 +103,14 @@ import PackageGrid from '../components/packages/PackageGrid.astro';
             <button class="filter-pill" data-filter="honeymoon">Honeymoon</button>
           </div>
 
+          <!-- Empty State (Hidden by default) -->
+          <div id="packages-empty-state" class="reveal" style="display: none; text-align: center; padding: var(--space-3xl) 0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 64px; height: 64px; color: var(--text-muted); margin-bottom: var(--space-md);"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <h3 style="margin-bottom: var(--space-sm);">No packages found</h3>
+            <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">We couldn't find any packages matching your current filters.</p>
+            <button class="btn btn--primary" id="clear-filters-btn">Clear All Filters</button>
+          </div>
+
           <!-- Packages Grid -->
           <PackageGrid />
 
@@ -116,4 +124,120 @@ import PackageGrid from '../components/packages/PackageGrid.astro';
       </section>
 
 </main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('package-search');
+    const durationSelect = document.getElementById('package-duration');
+    const priceSelect = document.getElementById('package-price');
+    const categorySelect = document.getElementById('package-category');
+    const filterPills = document.querySelectorAll('.filter-pill');
+    const packageCards = document.querySelectorAll('.package-card');
+    const featuredPackage = document.querySelector('.featured-package');
+    const emptyState = document.getElementById('packages-empty-state');
+    const clearFiltersBtn = document.getElementById('clear-filters-btn');
+    const searchButton = document.getElementById('package-search-button');
+
+    function applyFilters() {
+      const searchTerm = searchInput.value.toLowerCase().trim();
+      const durationVal = durationSelect.value;
+      const priceVal = priceSelect.value;
+      const categoryVal = categorySelect.value;
+
+      // Check if any filter is active
+      const hasActiveFilters = searchTerm !== '' || durationVal !== 'all' || priceVal !== 'all' || categoryVal !== 'all';
+
+      // Hide or show featured package
+      if (featuredPackage) {
+        if (hasActiveFilters) {
+          featuredPackage.style.display = 'none';
+        } else {
+          featuredPackage.style.display = 'flex';
+        }
+      }
+
+      let visibleCount = 0;
+
+      packageCards.forEach(card => {
+        const title = card.getAttribute('data-title') || '';
+        const duration = card.getAttribute('data-duration') || '';
+        const price = parseInt(card.getAttribute('data-price') || '0', 10);
+        const category = card.getAttribute('data-category') || '';
+
+        let matchSearch = title.includes(searchTerm);
+        let matchDuration = true;
+        let matchPrice = true;
+        let matchCategory = categoryVal === 'all' || category === categoryVal;
+
+        const days = parseInt(duration, 10);
+        if (durationVal === 'short') matchDuration = days <= 4;
+        else if (durationVal === 'medium') matchDuration = days >= 5 && days <= 7;
+        else if (durationVal === 'long') matchDuration = days >= 8;
+
+        if (priceVal === 'budget') matchPrice = price < 500;
+        else if (priceVal === 'mid') matchPrice = price >= 500 && price <= 1000;
+        else if (priceVal === 'luxury') matchPrice = price > 1000;
+
+        if (matchSearch && matchDuration && matchPrice && matchCategory) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (emptyState) {
+        if (visibleCount === 0) {
+          emptyState.style.display = 'block';
+        } else {
+          emptyState.style.display = 'none';
+        }
+      }
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+    durationSelect.addEventListener('change', applyFilters);
+    priceSelect.addEventListener('change', applyFilters);
+    categorySelect.addEventListener('change', (e) => {
+      filterPills.forEach(pill => {
+        if (pill.getAttribute('data-filter') === e.target.value) {
+          pill.classList.add('active');
+        } else {
+          pill.classList.remove('active');
+        }
+      });
+      applyFilters();
+    });
+
+    searchButton.addEventListener('click', applyFilters);
+
+    filterPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        filterPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        const filterVal = pill.getAttribute('data-filter');
+        categorySelect.value = filterVal;
+        applyFilters();
+      });
+    });
+
+    if (clearFiltersBtn) {
+      clearFiltersBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        durationSelect.value = 'all';
+        priceSelect.value = 'all';
+        categorySelect.value = 'all';
+        filterPills.forEach(p => {
+          if (p.getAttribute('data-filter') === 'all') {
+            p.classList.add('active');
+          } else {
+            p.classList.remove('active');
+          }
+        });
+        applyFilters();
+      });
+    }
+  });
+</script>
+
 </PageShell>
