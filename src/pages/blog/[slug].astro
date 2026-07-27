@@ -1,6 +1,5 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SharedChrome from '../../components/layout/SharedChrome.astro';
+import PageShell from '../../layouts/PageShell.astro';
 import { blogPosts } from '../../data/blog';
 
 export async function getStaticPaths() {
@@ -13,11 +12,11 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 ---
 
-<BaseLayout 
+<PageShell 
   title={`${entry.title} - Tourvir Blog`}
   description={entry.description}
+  activeRoute="blog.html"
 >
-  <SharedChrome activeRoute="blog.html" />
   <main class="page-container" style="padding-top: var(--header-height);">
     <article class="prose" style="max-width: 800px; margin: 0 auto; padding: var(--space-xl) var(--space-md);">
       <header style="text-align: center; margin-bottom: var(--space-xl);">
@@ -38,4 +37,4 @@ const { entry } = Astro.props;
       </div>
     </article>
   </main>
-</BaseLayout>
+</PageShell>

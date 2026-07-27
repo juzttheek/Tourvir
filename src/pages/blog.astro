@@ -1,6 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import SharedChrome from '../components/layout/SharedChrome.astro';
+import PageShell from '../layouts/PageShell.astro';
 import { blogPosts } from '../data/blog';
 
 const sortedPosts = blogPosts.sort((a, b) => b.date.valueOf() - a.date.valueOf());
@@ -9,8 +8,7 @@ const title = 'Travel Blog & Guides - Tourvir';
 const description = 'Read the latest travel guides, tips, and stories about exploring the incredible landscapes of Sri Lanka with Tourvir.';
 ---
 
-<BaseLayout title={title} description={description}>
-  <SharedChrome activeRoute="blog.html" />
+<PageShell title={title} description={description} activeRoute="blog.html">
 
   <main id="main-content">
     <section class="section">
@@ -47,4 +45,4 @@ const description = 'Read the latest travel guides, tips, and stories about expl
       </div>
     </section>
   </main>
-</BaseLayout>
+</PageShell>
