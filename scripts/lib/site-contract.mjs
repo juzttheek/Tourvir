@@ -1,6 +1,6 @@
 import path from 'node:path';
 
-export const DEPLOYABLE_DIRECTORIES = Object.freeze(['_assets', 'css', 'images', 'js', 'admin', 'blog', 'packages']);
+export const DEPLOYABLE_DIRECTORIES = Object.freeze(['_assets', 'css', 'images', 'js', 'admin', 'blog', 'packages', 'videos']);
 export const HTML_ROUTES = Object.freeze([
   'index.html',
   'packages.html',

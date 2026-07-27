@@ -40,21 +40,18 @@ const testimonials = Object.values(testimonialFiles).map((file: any) => file.def
 
       <!-- ===== HERO SECTION ===== -->
       <section class="hero" id="hero">
-        <div class="hero__bg" id="hero-slider">
-          <!-- Eagerly loaded first asset -->
-          <img src="images/hero/hero_main_hq.webp" class="active" alt="Sigiriya rock fortress at sunset" fetchpriority="high">
-          <!-- Subsequent lazy assets for slider -->
-          <img src="images/hero/hero_train_hq.webp" alt="Beautiful Ella train journey" loading="lazy">
-          <img src="images/hero/hero_wild_hq.webp" alt="Majestic wild elephant at sunset" loading="lazy">
+        <div class="hero__bg">
+          <video 
+            src="/videos/hero-bg.mp4" 
+            poster="/images/hero/hero_main_hq.webp" 
+            autoplay 
+            loop 
+            muted 
+            playsinline 
+            class="hero__video"
+          ></video>
         </div>
         
-        <!-- Hero Slider Controls -->
-        <button class="hero__pause-btn" id="hero-pause-btn" aria-label="Pause slider" title="Pause slider">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-            <rect x="6" y="4" width="4" height="16" rx="1"></rect>
-            <rect x="14" y="4" width="4" height="16" rx="1"></rect>
-          </svg>
-        </button>
         <div class="hero__overlay"></div>
         <div class="hero__particles">
           <div class="hero__particle"></div>
