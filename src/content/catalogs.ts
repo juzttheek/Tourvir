@@ -12,6 +12,7 @@ export interface TourPackage {
   highlights: string[];
   priceMarkup: string;
   linkMarkup: string;
+  routeMap?: { name: string; coordinates: [number, number] }[];
 }
 export interface Vehicle {
   id: string;
@@ -40,7 +41,15 @@ export const tourPackages = [
       '\n                  <div class="stars">★★★★★</div>\n                  <span class="package-card__rating-text">(128 reviews)</span>\n                ',
     highlights: ['Sigiriya', 'Dambulla', 'Kandy', 'Polonnaruwa'],
     priceMarkup: '$649 <span>per person</span>',
-    linkMarkup: '<a href="inquiry.html" class="btn btn--primary btn--sm">Book Now</a>',
+    linkMarkup: '<a href="/packages/package-1-cultural-triangle-explorer.html" class="btn btn--primary btn--sm">View Details</a>',
+    routeMap: [
+      { name: 'Colombo', coordinates: [6.9271, 79.8612] },
+      { name: 'Sigiriya', coordinates: [7.9570, 80.7603] },
+      { name: 'Polonnaruwa', coordinates: [7.9403, 81.0028] },
+      { name: 'Dambulla', coordinates: [7.8592, 80.6485] },
+      { name: 'Kandy', coordinates: [7.2906, 80.6337] },
+      { name: 'Colombo', coordinates: [6.9271, 79.8612] }
+    ]
   },
   {
     id: 'package-2-beach-paradise-retreat',
@@ -57,7 +66,15 @@ export const tourPackages = [
       '\n                  <div class="stars">★★★★★</div>\n                  <span class="package-card__rating-text">(96 reviews)</span>\n                ',
     highlights: ['Bentota', 'Mirissa', 'Unawatuna', 'Galle'],
     priceMarkup: '$799 <span>per person</span>',
-    linkMarkup: '<a href="inquiry.html" class="btn btn--primary btn--sm">Book Now</a>',
+    linkMarkup: '<a href="/packages/package-2-beach-paradise-retreat.html" class="btn btn--primary btn--sm">View Details</a>',
+    routeMap: [
+      { name: 'Colombo', coordinates: [6.9271, 79.8612] },
+      { name: 'Bentota', coordinates: [6.4200, 79.9967] },
+      { name: 'Galle', coordinates: [6.0535, 80.2210] },
+      { name: 'Unawatuna', coordinates: [6.0174, 80.2489] },
+      { name: 'Mirissa', coordinates: [5.9483, 80.4572] },
+      { name: 'Colombo', coordinates: [6.9271, 79.8612] }
+    ]
   },
   {
     id: 'package-3-wildlife-safari-adventure',
@@ -74,7 +91,13 @@ export const tourPackages = [
       '\n                  <div class="stars">★★★★☆</div>\n                  <span class="package-card__rating-text">(74 reviews)</span>\n                ',
     highlights: ['Yala Park', 'Udawalawe', 'Leopards', 'Elephants'],
     priceMarkup: '$399 <span>per person</span>',
-    linkMarkup: '<a href="inquiry.html" class="btn btn--primary btn--sm">Book Now</a>',
+    linkMarkup: '<a href="/packages/package-3-wildlife-safari-adventure.html" class="btn btn--primary btn--sm">View Details</a>',
+    routeMap: [
+      { name: 'Colombo', coordinates: [6.9271, 79.8612] },
+      { name: 'Udawalawe', coordinates: [6.4357, 80.8872] },
+      { name: 'Yala Park', coordinates: [6.3683, 81.5161] },
+      { name: 'Colombo', coordinates: [6.9271, 79.8612] }
+    ]
   },
   {
     id: 'package-4-hill-country-adventure',
@@ -91,7 +114,14 @@ export const tourPackages = [
       '\n                  <div class="stars">★★★★★</div>\n                  <span class="package-card__rating-text">(112 reviews)</span>\n                ',
     highlights: ['Ella', 'Nuwara Eliya', 'Train Ride', 'Tea Factory'],
     priceMarkup: '$549 <span>per person</span>',
-    linkMarkup: '<a href="inquiry.html" class="btn btn--primary btn--sm">Book Now</a>',
+    linkMarkup: '<a href="/packages/package-4-hill-country-adventure.html" class="btn btn--primary btn--sm">View Details</a>',
+    routeMap: [
+      { name: 'Colombo', coordinates: [6.9271, 79.8612] },
+      { name: 'Kandy', coordinates: [7.2906, 80.6337] },
+      { name: 'Nuwara Eliya', coordinates: [6.9497, 80.7828] },
+      { name: 'Ella', coordinates: [6.8667, 81.0466] },
+      { name: 'Colombo', coordinates: [6.9271, 79.8612] }
+    ]
   },
   {
     id: 'package-5-honeymoon-special',
@@ -108,7 +138,13 @@ export const tourPackages = [
       '\n                  <div class="stars">★★★★★</div>\n                  <span class="package-card__rating-text">(67 reviews)</span>\n                ',
     highlights: ['Couples Spa', 'Sunset Cruise', 'Private Villa', 'Candlelight Dinner'],
     priceMarkup: '$1,299 <span>per couple</span>',
-    linkMarkup: '<a href="inquiry.html" class="btn btn--primary btn--sm">Book Now</a>',
+    linkMarkup: '<a href="/packages/package-5-honeymoon-special.html" class="btn btn--primary btn--sm">View Details</a>',
+    routeMap: [
+      { name: 'Colombo', coordinates: [6.9271, 79.8612] },
+      { name: 'Nuwara Eliya', coordinates: [6.9497, 80.7828] },
+      { name: 'Bentota', coordinates: [6.4200, 79.9967] },
+      { name: 'Colombo', coordinates: [6.9271, 79.8612] }
+    ]
   },
   {
     id: 'package-6-ancient-cities-heritage',
@@ -125,7 +161,14 @@ export const tourPackages = [
       '\n                  <div class="stars">★★★★★</div>\n                  <span class="package-card__rating-text">(89 reviews)</span>\n                ',
     highlights: ['Anuradhapura', 'Polonnaruwa', 'Mihintale', '8 UNESCO Sites'],
     priceMarkup: '$899 <span>per person</span>',
-    linkMarkup: '<a href="inquiry.html" class="btn btn--primary btn--sm">Book Now</a>',
+    linkMarkup: '<a href="/packages/package-6-ancient-cities-heritage.html" class="btn btn--primary btn--sm">View Details</a>',
+    routeMap: [
+      { name: 'Colombo', coordinates: [6.9271, 79.8612] },
+      { name: 'Anuradhapura', coordinates: [8.3114, 80.4037] },
+      { name: 'Mihintale', coordinates: [8.3512, 80.5097] },
+      { name: 'Polonnaruwa', coordinates: [7.9403, 81.0028] },
+      { name: 'Colombo', coordinates: [6.9271, 79.8612] }
+    ]
   },
 ] satisfies TourPackage[];
 export const vehicles = [
