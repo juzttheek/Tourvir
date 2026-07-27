@@ -1043,46 +1043,56 @@
 .wavy-timeline {
   position: relative;
   margin-top: var(--space-xl);
-  padding: var(--space-md) 0;
+  padding: var(--space-xl) 0;
 }
 
-.wavy-timeline::before {
+.wavy-timeline--horizontal {
+  display: flex;
+  overflow-x: auto;
+  align-items: center;
+  padding: 4rem 1rem;
+  gap: 2rem;
+  scrollbar-width: thin;
+}
+
+.wavy-timeline--horizontal::-webkit-scrollbar {
+  height: 6px;
+}
+.wavy-timeline--horizontal::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 10px;
+}
+
+/* The dashed wave background line */
+.wavy-timeline--horizontal::before {
   content: '';
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  border-left: 2px dashed var(--border-color);
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-top: 2px dashed var(--border-color);
+  z-index: 0;
 }
 
 .wavy-item {
   position: relative;
-  margin-bottom: var(--space-xl);
-  width: 50%;
+  min-width: 280px;
+  flex-shrink: 0;
 }
 
-.wavy-item:last-child {
-  margin-bottom: 0;
+.wavy-item--top {
+  transform: translateY(-50%);
 }
 
-.wavy-item--left {
-  padding-right: 2.5rem;
-  left: 0;
-  text-align: right;
-}
-
-.wavy-item--right {
-  padding-left: 2.5rem;
-  left: 50%;
-  text-align: left;
+.wavy-item--bottom {
+  transform: translateY(50%);
 }
 
 .wavy-dot {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translateX(-50%);
   width: 14px;
   height: 14px;
   border-radius: 50%;
@@ -1092,12 +1102,32 @@
   z-index: 2;
 }
 
-.wavy-item--left .wavy-dot {
-  right: -7px;
+.wavy-item--top .wavy-dot {
+  bottom: -45px;
 }
 
-.wavy-item--right .wavy-dot {
-  left: -7px;
+.wavy-item--bottom .wavy-dot {
+  top: -45px;
+}
+
+/* Connecting small vertical lines to the main horizontal line */
+.wavy-item::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 2px;
+  height: 30px;
+  background-color: var(--border-color);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.wavy-item--top::before {
+  bottom: -35px;
+}
+
+.wavy-item--bottom::before {
+  top: -35px;
 }
 
 .wavy-content {
@@ -1106,7 +1136,6 @@
   border-radius: var(--radius-lg);
   padding: var(--space-md);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-  display: inline-block;
   width: 100%;
 }
 
@@ -1142,21 +1171,8 @@
 }
 
 @media (max-width: 768px) {
-  .wavy-timeline::before {
-    left: 1rem;
-    transform: none;
-  }
-  
-  .wavy-item {
-    width: 100%;
-    left: 0 !important;
-    padding-left: 3rem !important;
-    padding-right: 0 !important;
-    text-align: left !important;
-  }
-  
-  .wavy-dot {
-    left: calc(1rem - 7px) !important;
-    right: auto !important;
+  /* keep it horizontal on mobile but slightly smaller padding */
+  .wavy-timeline--horizontal {
+    padding: 3rem 1rem;
   }
 }
