@@ -66,14 +66,14 @@ const { pkg } = Astro.props;
             {pkg.itinerary && pkg.itinerary.length > 0 && (
               <div style="margin-top: var(--space-2xl);">
                 <h3 style="margin-bottom: var(--space-lg);">Itinerary</h3>
-                <div class="itinerary-timeline">
+                <div class="wavy-timeline">
                   {pkg.itinerary.map((item, index) => (
-                    <div class="timeline-item">
-                      <div class="timeline-dot"></div>
-                      <div class="timeline-content">
-                        <div class="timeline-day">{item.day}</div>
-                        <h4 class="timeline-title">{item.title}</h4>
-                        <p class="timeline-desc">{item.description}</p>
+                    <div class={`wavy-item wavy-item--${index % 2 === 0 ? 'left' : 'right'}`}>
+                      <div class="wavy-dot"></div>
+                      <div class="wavy-content">
+                        <div class="wavy-day">{item.day}</div>
+                        <h4 class="wavy-title">{item.title}</h4>
+                        <p class="wavy-desc">{item.description}</p>
                       </div>
                     </div>
                   ))}

@@ -1040,59 +1040,82 @@
 /* ============================================
    ITINERARY TIMELINE
    ============================================ */
-.itinerary-timeline {
+.wavy-timeline {
   position: relative;
-  padding-left: 1.5rem;
-  margin-top: var(--space-md);
+  margin-top: var(--space-xl);
+  padding: var(--space-md) 0;
 }
 
-.itinerary-timeline::before {
+.wavy-timeline::before {
   content: '';
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0.35rem;
+  left: 50%;
+  transform: translateX(-50%);
   width: 2px;
-  background-color: var(--border-color);
-  border-radius: 2px;
+  border-left: 2px dashed var(--border-color);
 }
 
-.timeline-item {
+.wavy-item {
   position: relative;
   margin-bottom: var(--space-xl);
+  width: 50%;
 }
 
-.timeline-item:last-child {
+.wavy-item:last-child {
   margin-bottom: 0;
 }
 
-.timeline-dot {
+.wavy-item--left {
+  padding-right: 2.5rem;
+  left: 0;
+  text-align: right;
+}
+
+.wavy-item--right {
+  padding-left: 2.5rem;
+  left: 50%;
+  text-align: left;
+}
+
+.wavy-dot {
   position: absolute;
-  left: -1.5rem;
-  top: 0.25rem;
-  width: 12px;
-  height: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background-color: var(--color-primary);
   border: 3px solid var(--bg-body);
-  box-shadow: 0 0 0 2px var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(2, 172, 92, 0.2);
   z-index: 2;
 }
 
-.timeline-content {
+.wavy-item--left .wavy-dot {
+  right: -7px;
+}
+
+.wavy-item--right .wavy-dot {
+  left: -7px;
+}
+
+.wavy-content {
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: var(--space-md) var(--space-lg);
+  padding: var(--space-md);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  display: inline-block;
+  width: 100%;
 }
 
-.timeline-content:hover {
-  transform: translateY(-2px);
+.wavy-content:hover {
+  transform: translateY(-3px);
   box-shadow: var(--shadow-md);
 }
 
-.timeline-day {
+.wavy-day {
   display: inline-block;
   font-size: 0.75rem;
   font-weight: 700;
@@ -1105,15 +1128,35 @@
   margin-bottom: var(--space-xs);
 }
 
-.timeline-title {
-  font-size: 1.15rem;
-  margin-bottom: var(--space-sm);
+.wavy-title {
+  font-size: 1.1rem;
+  margin-bottom: var(--space-xs);
   color: var(--text-primary);
 }
 
-.timeline-desc {
-  font-size: 0.95rem;
-  line-height: 1.6;
+.wavy-desc {
+  font-size: 0.9rem;
+  line-height: 1.5;
   color: var(--text-secondary);
   margin: 0;
+}
+
+@media (max-width: 768px) {
+  .wavy-timeline::before {
+    left: 1rem;
+    transform: none;
+  }
+  
+  .wavy-item {
+    width: 100%;
+    left: 0 !important;
+    padding-left: 3rem !important;
+    padding-right: 0 !important;
+    text-align: left !important;
+  }
+  
+  .wavy-dot {
+    left: calc(1rem - 7px) !important;
+    right: auto !important;
+  }
 }
