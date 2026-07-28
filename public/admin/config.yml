@@ -111,3 +111,21 @@ collections:
           - { label: 'Day Number', name: 'day', widget: 'string', hint: 'e.g. Day 1' }
           - { label: 'Title', name: 'title', widget: 'string' }
           - { label: 'Description', name: 'description', widget: 'text' }
+
+  - name: 'vehicles'
+    label: 'Vehicles'
+    folder: 'src/data/vehicles'
+    create: true
+    format: 'json'
+    extension: 'json'
+    slug: '{{slug}}'
+    fields:
+      - { label: 'ID', name: 'id', widget: 'string' }
+      - { label: 'Name', name: 'name', widget: 'string' }
+      - { label: 'Badge', name: 'badge', widget: 'string', hint: 'e.g. Popular, Premium' }
+      - { label: 'Image', name: 'image', widget: 'image' }
+      - { label: 'Alt Text', name: 'alt', widget: 'string' }
+      - { label: 'Price Markup', name: 'priceMarkup', widget: 'string', hint: 'e.g. $90 <span>/day</span>' }
+      - { label: 'Specs (HTML markup)', name: 'specs', widget: 'list', field: { label: 'Spec HTML', name: 'spec', widget: 'string' } }
+      - { label: 'Link Markup', name: 'linkMarkup', widget: 'string', default: '<a href="inquiry.html" class="btn btn--primary btn--sm">Reserve</a>' }
+      - { label: 'Reveal Class', name: 'revealClass', widget: 'string', default: 'vehicle-card reveal delay-1' }
