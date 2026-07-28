@@ -11,14 +11,23 @@ const description = 'Read the latest travel guides, tips, and stories about expl
 <PageShell title={title} description={description} activeRoute="blog.html">
 
   <main id="main-content">
+    <!-- Page Hero -->
+    <section class="page-hero">
+      <div class="page-hero__bg">
+        <img src="images/hero/hero_tea_hq.webp" alt="Tourvir Blog - Travel Guides">
+      </div>
+      <div class="page-hero__overlay"></div>
+      <div class="page-hero__content">
+        <h1 class="page-hero__title">Tourvir Blog</h1>
+        <p class="page-hero__subtitle">Discover hidden gems, packing tips, and inspiring stories from our adventures across Sri Lanka.</p>
+        <div class="page-hero__breadcrumb">
+          <a href="index.html">Home</a><span>→</span><span>Blog</span>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="container">
-        <div class="section__header">
-          <span class="section__label">Travel Guides</span>
-          <h1 class="heading-1">Tourvir Blog</h1>
-          <p class="text-lead text-secondary">Discover hidden gems, packing tips, and inspiring stories from our adventures across Sri Lanka.</p>
-        </div>
-
         <div class="grid grid--3">
           {sortedPosts.map((post) => (
             <a href={`/blog/${post.id}.html`} class="card" style="text-decoration: none; color: inherit;">
