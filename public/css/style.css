@@ -1442,7 +1442,7 @@ button {
 
 @media (max-width: 768px) {
   :root {
-    --header-height: 60px;
+    --header-height: 70px;
   }
 
   /* Mobile header: hamburger far-left, logo center, CTA far-right */
@@ -1808,6 +1808,6 @@ button {
 
 @media (max-width: 768px) {
   .brand-logo {
-    height: 40px;
+    height: 55px;
   }
 }
