@@ -568,6 +568,7 @@ button {
 
 .btn--primary:hover {
   background: var(--primary-light);
+  color: var(--text-inverse);
   transform: translateY(-2px);
   box-shadow: 0 6px 25px rgba(var(--primary-rgb), 0.4);
 }
