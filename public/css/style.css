@@ -187,7 +187,7 @@
 
   /* Layout */
   --sidebar-width: 280px;
-  --header-height: 70px;
+  --header-height: 110px;
   --container-max: 1280px;
   --container-narrow: 960px;
   
@@ -1800,7 +1800,7 @@ button {
 }
 
 .brand-logo {
-  height: 75px;
+  height: 95px;
   width: auto;
   object-fit: contain;
   margin-right: 8px;
