@@ -213,7 +213,16 @@ export function initMultiStepForm(): void {
 
     currentStep = index;
 
-    if (index === steps.length - 1) {
+    const progressContainer = document.querySelector('.progress-steps') as HTMLElement | null;
+    if (progressContainer) {
+      if (index === steps.length - 1) {
+        progressContainer.style.display = 'none';
+      } else {
+        progressContainer.style.display = '';
+      }
+    }
+
+    if (steps[index].hasAttribute('data-is-review')) {
       populateReview();
     }
   }
@@ -434,14 +443,10 @@ export function initMultiStepForm(): void {
         (payload.interests && payload.interests.length > 0 ? `*Interests:* ${payload.interests.join(', ')}%0A` : '') +
         (payload.specialRequirements ? `*Special Req:* ${payload.specialRequirements}%0A` : '');
 
-      window.open(`https://wa.me/94773328848?text=${waMessage}`, '_blank');
+      const waBtn = document.getElementById('whatsapp-success-btn') as HTMLAnchorElement;
+      if (waBtn) waBtn.href = `https://wa.me/94773328848?text=${waMessage}`;
 
-      form.reset();
-      document.querySelectorAll('.interest-tag').forEach((t) => t.classList.remove('selected'));
-      document
-        .querySelectorAll('.accommodation-option')
-        .forEach((o) => o.classList.remove('selected'));
-      showStep(0);
+      showStep(steps.length - 1);
     } else {
       showToast(result.message, 'error');
     }
