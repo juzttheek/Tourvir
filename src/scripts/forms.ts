@@ -55,7 +55,7 @@ export function initFeedbackForm(): void {
 
     if (!isFormConfigured('feedbackId')) {
       showToast(
-        'Online feedback is temporarily unavailable. Please email prathibhatheekshana2021@gmail.com.',
+        'Online feedback is temporarily unavailable. Please email sssrajapakshe@gmail.com.',
         'error',
       );
       return;
@@ -120,7 +120,7 @@ export function initContactForm(): void {
 
     if (!isFormConfigured('contactId')) {
       showToast(
-        'Online messaging is temporarily unavailable. Please email prathibhatheekshana2021@gmail.com.',
+        'Online messaging is temporarily unavailable. Please email sssrajapakshe@gmail.com.',
         'error',
       );
       return;
@@ -342,7 +342,7 @@ export function initMultiStepForm(): void {
 
     if (!isFormConfigured('inquiryId')) {
       showToast(
-        'Online inquiries are temporarily unavailable. Please email prathibhatheekshana2021@gmail.com.',
+        'Online inquiries are temporarily unavailable. Please email sssrajapakshe@gmail.com.',
         'error',
       );
       return;
@@ -444,7 +444,7 @@ export function initMultiStepForm(): void {
         (payload.specialRequirements ? `*Special Req:* ${payload.specialRequirements}%0A` : '');
 
       const waBtn = document.getElementById('whatsapp-success-btn') as HTMLAnchorElement;
-      if (waBtn) waBtn.href = `https://wa.me/94773328848?text=${waMessage}`;
+      if (waBtn) waBtn.href = `https://wa.me/940729430500?text=${waMessage}`;
 
       showStep(steps.length - 1);
     } else {
