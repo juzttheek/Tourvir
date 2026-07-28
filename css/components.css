@@ -523,8 +523,8 @@
 }
 
 .vehicle-card__specs {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: var(--space-sm);
   margin-bottom: var(--space-lg);
 }

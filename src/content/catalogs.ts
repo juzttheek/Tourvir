@@ -62,7 +62,7 @@ export const vehicles = [
       '\n                    <span class="vehicle-card__spec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></span> 2 Large Bags\n                  ',
       '\n                    <span class="vehicle-card__spec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" x2="12.01" y1="20" y2="20"></line></svg></span> WiFi Available\n                  ',
     ],
-    priceMarkup: '$55 <span>/day</span>',
+    priceMarkup: '$90 <span>/day</span>',
     linkMarkup: '<a href="inquiry.html" class="btn btn--primary btn--sm">Reserve</a>',
   },
   {
@@ -94,7 +94,7 @@ export const vehicles = [
       '\n                    <span class="vehicle-card__spec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></span> 2 Large Bags\n                  ',
       '\n                    <span class="vehicle-card__spec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" x2="12.01" y1="20" y2="20"></line></svg></span> WiFi Available\n                  ',
     ],
-    priceMarkup: '$65 <span>/day</span>',
+    priceMarkup: '$100 <span>/day</span>',
     linkMarkup: '<a href="inquiry.html" class="btn btn--primary btn--sm">Reserve</a>',
   },
   {
@@ -110,7 +110,7 @@ export const vehicles = [
       '\n                    <span class="vehicle-card__spec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></span> 3 Large Bags\n                  ',
       '\n                    <span class="vehicle-card__spec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></span> Off-Road Ready\n                  ',
     ],
-    priceMarkup: '$85 <span>/day</span>',
+    priceMarkup: '$130 <span>/day</span>',
     linkMarkup: '<a href="inquiry.html" class="btn btn--primary btn--sm">Reserve</a>',
   },
   {
@@ -126,7 +126,7 @@ export const vehicles = [
       '\n                    <span class="vehicle-card__spec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></span> 4 Large Bags\n                  ',
       '\n                    <span class="vehicle-card__spec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span> Premium Interior\n                  ',
     ],
-    priceMarkup: '$120 <span>/day</span>',
+    priceMarkup: '$150 <span>/day</span>',
     linkMarkup: '<a href="inquiry.html" class="btn btn--primary btn--sm">Reserve</a>',
   },
   {

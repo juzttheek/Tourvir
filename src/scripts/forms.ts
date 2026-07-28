@@ -55,7 +55,7 @@ export function initFeedbackForm(): void {
 
     if (!isFormConfigured('feedbackId')) {
       showToast(
-        'Online feedback is temporarily unavailable. Please email info@tourvir.com.',
+        'Online feedback is temporarily unavailable. Please email prathibhatheekshana2021@gmail.com.',
         'error',
       );
       return;
@@ -120,7 +120,7 @@ export function initContactForm(): void {
 
     if (!isFormConfigured('contactId')) {
       showToast(
-        'Online messaging is temporarily unavailable. Please email info@tourvir.com.',
+        'Online messaging is temporarily unavailable. Please email prathibhatheekshana2021@gmail.com.',
         'error',
       );
       return;
@@ -291,8 +291,8 @@ export function initMultiStepForm(): void {
     if (reviewInterests) {
       reviewInterests.textContent = selectedInterests.length
         ? Array.from(selectedInterests)
-            .map((t) => t.textContent)
-            .join(', ')
+          .map((t) => t.textContent)
+          .join(', ')
         : '—';
     }
 
@@ -333,7 +333,7 @@ export function initMultiStepForm(): void {
 
     if (!isFormConfigured('inquiryId')) {
       showToast(
-        'Online inquiries are temporarily unavailable. Please email info@tourvir.com.',
+        'Online inquiries are temporarily unavailable. Please email prathibhatheekshana2021@gmail.com.',
         'error',
       );
       return;
@@ -422,6 +422,20 @@ export function initMultiStepForm(): void {
 
     if (result.success) {
       showToast(result.message, 'success');
+
+      const waMessage = `*New Inquiry via Website*%0A` +
+        `*Name:* ${payload.fullName}%0A` +
+        `*Email:* ${payload.email}%0A` +
+        `*Nationality:* ${payload.nationality}%0A` +
+        `*Phone:* ${payload.phone}%0A` +
+        `*Dates:* ${payload.arrivalDate} to ${payload.departureDate}%0A` +
+        `*Travelers:* ${payload.travelers}%0A` +
+        (payload.accommodation ? `*Accommodation:* ${payload.accommodation}%0A` : '') +
+        (payload.interests && payload.interests.length > 0 ? `*Interests:* ${payload.interests.join(', ')}%0A` : '') +
+        (payload.specialRequirements ? `*Special Req:* ${payload.specialRequirements}%0A` : '');
+
+      window.open(`https://wa.me/94773328848?text=${waMessage}`, '_blank');
+
       form.reset();
       document.querySelectorAll('.interest-tag').forEach((t) => t.classList.remove('selected'));
       document

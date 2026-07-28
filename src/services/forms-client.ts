@@ -70,7 +70,7 @@ export async function submitToFormspree(
     return {
       success: false,
       message:
-        'The form service is currently unavailable. Please try again later or contact us directly at info@tourvir.com.',
+        'The form service is currently unavailable. Please try again later or contact us directly at prathibhatheekshana2021@gmail.com.',
     };
   } catch (error: any) {
     if (error.name === 'AbortError') {
@@ -84,7 +84,7 @@ export async function submitToFormspree(
     return {
       success: false,
       message:
-        'Network error. Please check your connection or contact us directly at info@tourvir.com.',
+        'Network error. Please check your connection or contact us directly at prathibhatheekshana2021@gmail.com.',
     };
   }
 }
