@@ -365,7 +365,7 @@ button {
 
 .main-content {
   flex: 1;
-  padding-top: var(--header-height);
+  padding-top: calc(var(--header-height) + 36px);
   position: relative;
 }
 
@@ -374,7 +374,7 @@ button {
    ============================================ */
 .header {
   position: fixed;
-  top: 0;
+  top: 36px;
   left: 0;
   right: 0;
   height: var(--header-height);

@@ -954,6 +954,50 @@
 
 }
 
+/* ---------- Top Bar ---------- */
+.top-bar {
+  background-color: var(--primary-dark);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.85rem;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  z-index: 1001;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.top-bar__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 0 var(--space-xl);
+}
+
+.top-bar__left, .top-bar__right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.top-bar__icon {
+  display: flex;
+  opacity: 0.8;
+  color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .top-bar__container { 
+    padding: 0 var(--space-sm); 
+    font-size: 0.75rem; 
+  }
+  .hide-mobile { display: none; }
+}
+
 /* Floating Contact Buttons */
 .floating-contact {
   position: fixed;

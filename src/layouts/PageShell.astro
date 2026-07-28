@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import TopBar from '../components/layout/TopBar.astro';
 import SharedChrome from '../components/layout/SharedChrome.astro';
 import Footer from '../components/layout/Footer.astro';
 import FloatingActions from '../components/layout/FloatingActions.astro';
@@ -17,6 +18,7 @@ const { title, description, pageStyles, activeRoute, image } = Astro.props;
 
 <BaseLayout {title} {description} {pageStyles} {image}>
   <slot name="head" slot="head" />
+  <TopBar />
   <SharedChrome {activeRoute} />
   <div class="page-wrapper">
     <slot />
