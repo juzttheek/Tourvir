@@ -20,5 +20,22 @@
     { "name": "Mirissa", "coordinates": [5.9483, 80.4572] },
     { "name": "Colombo", "coordinates": [6.9271, 79.8612] }
   ],
-  "recommendedVehicles": ["Luxury Sedan", "Family Van"]
+  "recommendedVehicles": ["Luxury Sedan", "Family Van"],
+  "itinerary": [
+    {
+      "day": "Day 1",
+      "title": "Arrival in Colombo",
+      "description": "Welcome to Sri Lanka! Transfer to your hotel in Colombo to relax."
+    },
+    {
+      "day": "Day 2",
+      "title": "Sigiriya Rock Fortress",
+      "description": "Head to the Cultural Triangle and climb the iconic Sigiriya Rock Fortress."
+    },
+    {
+      "day": "Day 3",
+      "title": "Sacred City of Kandy",
+      "description": "Travel to Kandy, visit the sacred Temple of the Tooth Relic, and enjoy a cultural dance."
+    }
+  ]
 }

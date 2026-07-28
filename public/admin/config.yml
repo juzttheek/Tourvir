@@ -103,3 +103,11 @@ collections:
         fields:
           - { label: 'Stop Name', name: 'name', widget: 'string' }
           - { label: 'Coordinates [Lat, Lng]', name: 'coordinates', widget: 'list', field: { label: 'Coordinate', name: 'coord', widget: 'number' } }
+      - name: 'itinerary'
+        label: 'Day-by-Day Itinerary'
+        widget: 'list'
+        required: false
+        fields:
+          - { label: 'Day Number', name: 'day', widget: 'string', hint: 'e.g. Day 1' }
+          - { label: 'Title', name: 'title', widget: 'string' }
+          - { label: 'Description', name: 'description', widget: 'text' }

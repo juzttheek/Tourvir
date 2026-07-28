@@ -14,6 +14,7 @@ export interface TourPackage {
   linkMarkup: string;
   routeMap?: { name: string; coordinates: [number, number] }[];
   recommendedVehicles?: string[];
+  itinerary?: { day: string; title: string; description: string }[];
 }
 export interface Vehicle {
   id: string;
@@ -45,7 +46,8 @@ export const tourPackages = Object.entries(packageModules).map(([path, mod]: [st
     priceMarkup: mod.priceMarkup,
     linkMarkup: mod.linkMarkup,
     routeMap: mod.routeMap,
-    recommendedVehicles: mod.recommendedVehicles
+    recommendedVehicles: mod.recommendedVehicles,
+    itinerary: mod.itinerary
   };
 }) satisfies TourPackage[];
 export const vehicles = [

@@ -4,7 +4,7 @@ import Badge from '../ui/Badge.astro';
 ---
 <div class="packages-grid" id="packages-grid">
   {tourPackages.map((item) => (
-    <div class="package-card reveal" data-category={item.category} data-duration={item.duration} data-price={item.price}>
+    <div class="package-card reveal" data-title={item.title.toLowerCase()} data-category={item.category} data-duration={item.duration} data-price={item.price}>
       <div class="package-card__image-wrapper">
         <img loading="lazy" src={item.image} alt={item.alt} class="package-card__image" />
         <span class="package-card__duration" set:html={item.durationMarkup} />

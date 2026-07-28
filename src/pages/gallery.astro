@@ -110,3 +110,123 @@ const galleryItems = Object.values(galleryFiles).map((file: any) => file.default
 
     
 </PageShell>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // --- Gallery Filtering ---
+    const filterPills = document.querySelectorAll('.filter-pill');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    function applyFilter(category) {
+      galleryItems.forEach(item => {
+        const itemCat = item.getAttribute('data-category');
+        if (category === 'all' || itemCat === category) {
+          item.style.display = ''; // Let grid layout handle it
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    filterPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        filterPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        applyFilter(pill.getAttribute('data-filter'));
+      });
+    });
+
+    // --- Lightbox Functionality ---
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('.lightbox__image');
+    const lightboxTitle = lightbox.querySelector('.lightbox__caption h4');
+    const lightboxLoc = lightbox.querySelector('.lightbox__caption p');
+    const closeBtn = lightbox.querySelector('.lightbox__close');
+    const prevBtn = lightbox.querySelector('.lightbox__prev');
+    const nextBtn = lightbox.querySelector('.lightbox__next');
+
+    let currentItemIndex = -1;
+    let visibleItems = []; // Only the items that match the current filter
+
+    function getVisibleItems() {
+      return Array.from(galleryItems).filter(item => item.style.display !== 'none');
+    }
+
+    function openLightbox(index) {
+      visibleItems = getVisibleItems();
+      currentItemIndex = index;
+      
+      const item = visibleItems[currentItemIndex];
+      const img = item.querySelector('img');
+      const title = item.querySelector('.gallery-item__title').textContent;
+      const loc = item.querySelector('.gallery-item__location').textContent;
+
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightboxTitle.textContent = title;
+      lightboxLoc.textContent = loc;
+
+      lightbox.classList.add('is-active');
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('is-active');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        lightboxImg.src = '';
+      }, 300); // Clear after fade out
+    }
+
+    function showNext() {
+      if (visibleItems.length === 0) return;
+      currentItemIndex = (currentItemIndex + 1) % visibleItems.length;
+      openLightbox(currentItemIndex);
+    }
+
+    function showPrev() {
+      if (visibleItems.length === 0) return;
+      currentItemIndex = (currentItemIndex - 1 + visibleItems.length) % visibleItems.length;
+      openLightbox(currentItemIndex);
+    }
+
+    // Attach click to items
+    galleryItems.forEach(item => {
+      item.addEventListener('click', () => {
+        visibleItems = getVisibleItems();
+        const index = visibleItems.indexOf(item);
+        if (index !== -1) {
+          openLightbox(index);
+        }
+      });
+      // Keyboard support for items
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          visibleItems = getVisibleItems();
+          const index = visibleItems.indexOf(item);
+          if (index !== -1) openLightbox(index);
+        }
+      });
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+    nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
+    prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
+
+    // Allow clicking background to close
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('is-active')) return;
+      
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowRight') showNext();
+      else if (e.key === 'ArrowLeft') showPrev();
+    });
+  });
+</script>
