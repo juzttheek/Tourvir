@@ -1772,6 +1772,17 @@ Implemented rigorous structural accessibility upgrades across the site based on 
 ### Phase 12 — complete (2026-07-27)
 
 Solidified the production deployment architecture with extensive SEO and security enhancements. The Astro configuration was updated to automatically generate an XML Sitemap across all routes using `@astrojs/sitemap`, tied directly to `https://tourvir.lk`. Standardized the document head across `BaseLayout` to dynamically generate Canonical URLs, Open Graph tags, and Twitter Card metadata for social sharing. Injected a `TravelAgency` JSON-LD schema payload on the homepage. Deployed a custom styled `404.html` error page and a static `robots.txt`. Finally, fortified the `vercel.json` deployment file with strict HTTP headers including Content-Security-Policy, HSTS, `nosniff`, `DENY` frames, and rigid caching rules (`immutable` on built assets), passing all strict internal deployment audits.
+
+### Post-Audit Feature Updates (2026-07-28)
+
+Implemented several user-facing enhancements and administrative capabilities:
+- **Decap CMS Integration**: Added a static Git-based CMS (`admin/config.yml` and `admin/index.html`) to allow non-technical staff to seamlessly edit content data collections (Blogs, Packages, Gallery, Services, Team, and Vehicles) directly from the browser.
+- **Dynamic Data Models**: Refactored static elements (like vehicles in the fleet page) to use dynamically typed `.json` collections manageable by the new CMS.
+- **Immersive Gallery**: Upgraded the Gallery view to feature an immersive, full-screen lightbox overlay on image click, with seamless backdrop click-to-close behavior.
+- **Streamlined Inquiry Flow**: Fixed abrupt WhatsApp redirections on form submissions, ensuring native app intent links (`tel:`, `mailto:`, `https://wa.me/...`) are triggered reliably and only through explicit user action.
+- **Global Contact Update**: Propagated new contact information across all pages and configurations, replacing generic checkbox graphics with professional Lucide icons.
+- **Map Enhancements & CSP Resolution**: Upgraded the static placeholder map in the Contact page with a fully interactive Google Maps iframe. Overcame strict `Content-Security-Policy` iframe blocking by explicitly whitelisting Google Maps domains in `vercel.json`.
+- **Branding Polish**: Integrated new custom `logo.png` and `favicon.png` assets, precisely adjusting mobile CSS parameters (header height and logo scale) for optimal responsive legibility.
 ## 13. Deployment-ready target
 
 A production release should meet all of these gates:
