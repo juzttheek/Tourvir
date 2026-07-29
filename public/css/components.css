@@ -956,8 +956,11 @@
 
 /* ---------- Top Bar ---------- */
 .top-bar {
-  background-color: var(--primary-dark);
-  color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.95);
   font-size: 0.85rem;
   height: 36px;
   display: flex;
