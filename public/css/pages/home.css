@@ -98,16 +98,60 @@
 }
 
 .about__highlight-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: var(--radius-full);
-  background: var(--badge-bg);
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: var(--primary-soft);
   color: var(--primary);
+  border-radius: 50%;
   font-size: 0.8rem;
   flex-shrink: 0;
+}
+
+/* Vision & Mission Cards */
+.vision-card {
+  background: var(--bg-secondary);
+  padding: var(--space-xl);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-base);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.vision-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-light);
+}
+
+.vision-card__icon {
+  width: 64px;
+  height: 64px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-lg);
+}
+
+.vision-card__title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.vision-card__text {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0;
 }
 
 /* Why Choose Us (Features) */
