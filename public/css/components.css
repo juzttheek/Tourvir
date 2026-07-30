@@ -962,10 +962,11 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.95);
   font-size: 0.85rem;
-  height: 36px;
+  height: calc(var(--top-bar-height) + var(--safe-top));
+  padding-top: var(--safe-top);
   display: flex;
   align-items: center;
-  z-index: 1001;
+  z-index: calc(var(--z-sticky) + 1);
   position: fixed;
   top: 0;
   left: 0;
@@ -1004,12 +1005,12 @@
 /* Floating Contact Buttons */
 .floating-contact {
   position: fixed;
-  bottom: 2rem;
-  left: 2rem;
+  bottom: calc(2rem + var(--safe-bottom));
+  left: calc(2rem + var(--safe-left));
   display: flex;
   flex-direction: column;
   gap: 15px;
-  z-index: 1000;
+  z-index: var(--z-dropdown);
 }
 
 .floating-btn {
@@ -1071,8 +1072,8 @@
 
 @media (max-width: 768px) {
   .floating-contact {
-    bottom: 1.5rem;
-    left: 1.5rem;
+    bottom: calc(1.5rem + var(--safe-bottom));
+    left: calc(1.5rem + var(--safe-left));
     gap: 12px;
   }
   

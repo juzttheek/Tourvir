@@ -1,5 +1,6 @@
 ---
 import PageShell from '../layouts/PageShell.astro';
+import ResponsiveImage from '../components/ui/ResponsiveImage.astro';
 
 const testimonialFiles = import.meta.glob('../data/testimonials/*.json', { eager: true });
 const testimonials = Object.values(testimonialFiles).map((file: any) => file.default);
@@ -42,18 +43,18 @@ const testimonials = Object.values(testimonialFiles).map((file: any) => file.def
       <section class="hero" id="hero">
         <div class="hero__bg" id="hero-slider">
           <!-- Eagerly loaded first asset -->
-          <img src="images/hero/hero_main_hq.webp" class="active" alt="Sigiriya rock fortress at sunset" fetchpriority="high">
+          <ResponsiveImage src="images/hero/hero_main_hq.webp" sourceWidth={1024} sizes="100vw" class="active" alt="Sigiriya rock fortress at sunset" fetchpriority="high" />
           <!-- Subsequent lazy assets for slider -->
-          <img src="images/hero/hero_train_hq.webp" alt="Beautiful Ella train journey" loading="lazy">
-          <img src="images/hero/hero_wild_hq.webp" alt="Majestic wild elephant at sunset" loading="lazy">
-          <img src="images/hero/hero_tea_hq.webp" alt="Lush green tea plantations" loading="lazy">
-          <img src="images/hero/hero_mountains_hq.webp" alt="Scenic mountain landscape" loading="lazy">
-          <img src="images/hero/hero_kandy_hq.webp" alt="Cultural city of Kandy" loading="lazy">
-          <img src="images/hero/hero_18bends_hq.webp" alt="Famous 18 bends road" loading="lazy">
-          <img src="images/hero/hero_dancer_hq.webp" alt="Traditional Sri Lankan dancer" loading="lazy">
-          <img src="images/hero/hero_ocean_hq.webp" alt="Pristine Sri Lankan beaches" loading="lazy">
-          <img src="images/hero/hero_lotus_hq.webp" alt="Lotus Tower Colombo" loading="lazy">
-          <img src="images/hero/hero_temple_hq.webp" alt="Ancient Buddhist temple" loading="lazy">
+          <ResponsiveImage src="images/hero/hero_train_hq.webp" sourceWidth={1920} sizes="100vw" alt="Beautiful Ella train journey" loading="lazy" />
+          <ResponsiveImage src="images/hero/hero_wild_hq.webp" sourceWidth={1920} sizes="100vw" alt="Majestic wild elephant at sunset" loading="lazy" />
+          <ResponsiveImage src="images/hero/hero_tea_hq.webp" sourceWidth={1920} sizes="100vw" alt="Lush green tea plantations" loading="lazy" />
+          <ResponsiveImage src="images/hero/hero_mountains_hq.webp" sourceWidth={1920} sizes="100vw" alt="Scenic mountain landscape" loading="lazy" />
+          <ResponsiveImage src="images/hero/hero_kandy_hq.webp" sourceWidth={1920} sizes="100vw" alt="Cultural city of Kandy" loading="lazy" />
+          <ResponsiveImage src="images/hero/hero_18bends_hq.webp" sourceWidth={1920} sizes="100vw" alt="Famous 18 bends road" loading="lazy" />
+          <ResponsiveImage src="images/hero/hero_dancer_hq.webp" sourceWidth={1024} sizes="100vw" alt="Traditional Sri Lankan dancer" loading="lazy" />
+          <ResponsiveImage src="images/hero/hero_ocean_hq.webp" sourceWidth={1920} sizes="100vw" alt="Pristine Sri Lankan beaches" loading="lazy" />
+          <ResponsiveImage src="images/hero/hero_lotus_hq.webp" sourceWidth={1920} sizes="100vw" alt="Lotus Tower Colombo" loading="lazy" />
+          <ResponsiveImage src="images/hero/hero_temple_hq.webp" sourceWidth={1920} sizes="100vw" alt="Ancient Buddhist temple" loading="lazy" />
         </div>
         
         <!-- Hero Slider Controls -->
@@ -451,19 +452,19 @@ const testimonials = Object.values(testimonialFiles).map((file: any) => file.def
                   Your Rating
                 </label>
                 <div class="feedback-form__stars" id="feedback-stars">
-                  <button type="button" class="feedback-form__star" data-rating="1" aria-label="1 star">
+                  <button type="button" class="feedback-form__star" data-rating="1" aria-label="1 star" aria-pressed="false">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                   </button>
-                  <button type="button" class="feedback-form__star" data-rating="2" aria-label="2 stars">
+                  <button type="button" class="feedback-form__star" data-rating="2" aria-label="2 stars" aria-pressed="false">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                   </button>
-                  <button type="button" class="feedback-form__star" data-rating="3" aria-label="3 stars">
+                  <button type="button" class="feedback-form__star" data-rating="3" aria-label="3 stars" aria-pressed="false">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                   </button>
-                  <button type="button" class="feedback-form__star" data-rating="4" aria-label="4 stars">
+                  <button type="button" class="feedback-form__star" data-rating="4" aria-label="4 stars" aria-pressed="false">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                   </button>
-                  <button type="button" class="feedback-form__star" data-rating="5" aria-label="5 stars">
+                  <button type="button" class="feedback-form__star" data-rating="5" aria-label="5 stars" aria-pressed="false">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                   </button>
                 </div>

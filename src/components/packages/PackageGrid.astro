@@ -1,22 +1,29 @@
 ---
 import { tourPackages } from '../../content/catalogs';
 import Badge from '../ui/Badge.astro';
+import ResponsiveImage from '../ui/ResponsiveImage.astro';
 ---
 <div class="packages-grid" id="packages-grid">
   {tourPackages.map((item) => (
     <div class="package-card reveal" data-title={item.title.toLowerCase()} data-category={item.category} data-duration={item.duration} data-price={item.price}>
       <div class="package-card__image-wrapper">
-        <img loading="lazy" src={item.image} alt={item.alt} class="package-card__image" />
-        <span class="package-card__duration" set:html={item.durationMarkup} />
+        <ResponsiveImage loading="lazy" src={item.image} alt={item.alt} sourceWidth={item.imageWidth} sizes="(max-width: 767px) 100vw, (max-width: 1100px) 50vw, 33vw" class="package-card__image" />
+        <span class="package-card__duration">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          {item.durationLabel}
+        </span>
         <Badge class="package-card__category">{item.categoryLabel}</Badge>
       </div>
       <div class="package-card__body">
         <h3 class="package-card__title">{item.title}</h3>
-        <div class="package-card__rating" set:html={item.ratingMarkup} />
+        <div class="package-card__rating">
+          <div class="stars" role="img" aria-label={`${item.rating} out of 5 stars`}>{'★'.repeat(item.rating)}{'☆'.repeat(5 - item.rating)}</div>
+          <span class="package-card__rating-text">({item.reviewCount} reviews)</span>
+        </div>
         <div class="package-card__highlights">{item.highlights.map((highlight) => <span class="package-card__highlight">{highlight}</span>)}</div>
         <div class="package-card__footer">
-          <div class="package-card__price" set:html={item.priceMarkup} />
-          <Fragment set:html={item.linkMarkup} />
+          <div class="package-card__price">${item.price.toLocaleString('en-US')} <span>{item.priceSuffix}</span></div>
+          <a href={item.href} class="btn btn--primary btn--sm">View Details</a>
         </div>
       </div>
     </div>

@@ -55,8 +55,13 @@ const { routeMap } = Astro.props;
           // Marker
           const marker = L.marker(latlng).addTo(map);
           
-          // Popup
-          marker.bindPopup(`<b>${point.name}</b><br>Stop ${index + 1}`);
+          // Build popup content with text nodes so CMS content is never interpreted as HTML.
+          const popup = document.createElement('div');
+          const name = document.createElement('strong');
+          name.textContent = String(point.name || 'Tour stop');
+          popup.append(name, document.createElement('br'));
+          popup.append(document.createTextNode(`Stop ${index + 1}`));
+          marker.bindPopup(popup);
         });
 
         // Add polyline connecting the points

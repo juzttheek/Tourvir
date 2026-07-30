@@ -53,7 +53,11 @@ export class GalleryController {
 
   public filterCategory(filter: string): void {
     this.activeFilter = filter;
-    this.pills.forEach((p) => p.classList.toggle('active', p.dataset.filter === filter));
+    this.pills.forEach((pill) => {
+      const active = pill.dataset.filter === filter;
+      pill.classList.toggle('active', active);
+      pill.setAttribute('aria-pressed', String(active));
+    });
 
     Array.from(this.items).forEach((item, index) => {
       const category = item.dataset.category || '';
@@ -91,8 +95,9 @@ export class GalleryController {
       this.updateLightboxImage();
 
       if (this.lightbox) {
-        this.lightbox.classList.add('active');
+        this.lightbox.classList.add('is-active');
         this.lightbox.setAttribute('aria-hidden', 'false');
+        this.lightbox.removeAttribute('inert');
         document.body.style.overflow = 'hidden';
 
         const focusables = this.lightbox.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
@@ -117,8 +122,9 @@ export class GalleryController {
     if (!this.lightbox) return;
 
     const performClose = () => {
-      this.lightbox!.classList.remove('active');
+      this.lightbox!.classList.remove('is-active');
       this.lightbox!.setAttribute('aria-hidden', 'true');
+      this.lightbox!.setAttribute('inert', '');
       document.body.style.overflow = '';
 
       if (this.previousActiveElement && typeof this.previousActiveElement.focus === 'function') {
@@ -224,7 +230,7 @@ export class GalleryController {
 
     // Keyboard navigation & focus trap
     document.addEventListener('keydown', (e: KeyboardEvent) => {
-      if (!this.lightbox?.classList.contains('active')) return;
+      if (!this.lightbox?.classList.contains('is-active')) return;
 
       if (e.key === 'Escape') {
         this.closeLightbox();

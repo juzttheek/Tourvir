@@ -4,7 +4,8 @@ export const site = Object.freeze({
   phoneDisplay: '072 943 0500',
   phoneHref: 'tel:0729430500',
   whatsappDisplay: '072 943 0500',
-  whatsappHref: 'https://wa.me/940729430500?text=Hello!%20I%20would%20like%20to%20inquire%20about%20planning%20a%20trip%20with%20Tourvir.',
+  whatsappHref:
+    'https://wa.me/94729430500?text=Hello!%20I%20would%20like%20to%20inquire%20about%20planning%20a%20trip%20with%20Tourvir.',
   address: 'No. 36/15, 4th Lane, Ramanayaka Road, Hokandara South, Hokandara, Sri Lanka',
   verificationStatus: 'placeholder_pending_owner',
   copyright: '© 2026 Tourvir',
@@ -18,14 +19,27 @@ export const floatingActionsMarkup =
   '<div class="floating-contact">\r\n    <a href="tel:0729430500" class="floating-btn phone-btn" aria-label="Call Us">\r\n      <svg viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>\r\n    </a>\r\n    <a href="https://wa.me/940729430500?text=Hello!%20I%20would%20like%20to%20inquire%20about%20planning%20a%20trip%20with%20Tourvir." target="_blank" rel="noopener noreferrer" class="floating-btn whatsapp-btn" aria-label="WhatsApp Us">\r\n      <svg viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M12.031 0C5.385 0 0 5.388 0 12.036c0 2.124.553 4.195 1.603 6.015L.175 23.364l5.456-1.43c1.764.954 3.747 1.455 5.768 1.455h.004c6.645 0 12.034-5.387 12.034-12.035C23.437 5.388 18.049 0 12.031 0zm0 21.434h-.003c-1.802 0-3.568-.485-5.116-1.401l-.367-.217-3.805.998.996-3.712-.238-.378C2.518 15.176 1.956 13.25 1.956 11.23c0-5.556 4.52-10.076 10.076-10.076 5.558 0 10.079 4.522 10.079 10.08s-4.521 10.1-10.08 10.1zm5.526-7.552c-.303-.152-1.794-.886-2.074-.988-.28-.101-.484-.152-.687.151-.202.304-.783.988-.959 1.19-.177.202-.353.228-.657.076-1.285-.644-2.455-1.455-3.376-2.476-.714-.795-1.168-1.636-1.306-1.875-.138-.239-.015-.368.136-.519.136-.137.304-.355.456-.532.152-.178.203-.304.304-.507.101-.202.05-.38-.026-.532-.075-.152-.687-1.656-.942-2.267-.247-.591-.498-.51-.687-.52-.178-.01-.383-.01-.586-.01-.203 0-.532.076-.811.38-.279.304-1.063 1.039-1.063 2.533s1.089 2.939 1.24 3.141c.152.203 2.143 3.272 5.192 4.587 1.258.542 2.052.756 2.825.968.835.228 1.595.196 2.193.118.673-.087 2.074-.847 2.365-1.664.29-.817.29-1.518.202-1.664-.088-.146-.316-.222-.619-.374z"/></svg>\r\n    </a>\r\n  </div>';
 
 export function renderChrome(activeRoute: string) {
+  const normalizedRoute = activeRoute ? `/${activeRoute.replace(/^\/+/, '')}` : '';
   const inactive = chromeMarkup.replaceAll(' active', '');
   return inactive
+    .replaceAll('940729430500', '94729430500')
+    .replaceAll('/images/logo.png?v=2', '/images/logo-display.png?v=1')
     .replace(
-      `href="${activeRoute}" class="sidebar__nav-link"`,
-      `href="${activeRoute}" class="sidebar__nav-link active"`,
+      `href="${normalizedRoute}" class="sidebar__nav-link"`,
+      `href="${normalizedRoute}" class="sidebar__nav-link active" aria-current="page"`,
     )
     .replace(
-      `href="${activeRoute}" class="header__nav-link"`,
-      `href="${activeRoute}" class="header__nav-link active"`,
+      `href="${normalizedRoute}" class="header__nav-link"`,
+      `href="${normalizedRoute}" class="header__nav-link active" aria-current="page"`,
     );
+}
+
+export function renderFooter() {
+  return footerMarkup
+    .replaceAll('940729430500', '94729430500')
+    .replaceAll('/images/logo.png?v=2', '/images/logo-display.png?v=1');
+}
+
+export function renderFloatingActions() {
+  return floatingActionsMarkup.replaceAll('940729430500', '94729430500');
 }

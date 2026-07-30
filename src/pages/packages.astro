@@ -1,6 +1,7 @@
 ---
 import PageShell from '../layouts/PageShell.astro';
 import PackageGrid from '../components/packages/PackageGrid.astro';
+import ResponsiveImage from '../components/ui/ResponsiveImage.astro';
 ---
 
 <PageShell
@@ -14,7 +15,7 @@ import PackageGrid from '../components/packages/PackageGrid.astro';
       <!-- Page Hero -->
       <section class="page-hero">
         <div class="page-hero__bg">
-          <img src="images/hero/packages_hero_bg.png" alt="Sri Lanka Tour">
+          <ResponsiveImage src="images/hero/packages_hero_bg.png" sourceWidth={1024} sizes="100vw" alt="Sri Lanka Tour" />
         </div>
         <div class="page-hero__overlay"></div>
         <div class="page-hero__content">
@@ -32,11 +33,11 @@ import PackageGrid from '../components/packages/PackageGrid.astro';
 
           <div class="packages-filter reveal">
             <div class="form-group">
-              <label class="form-label">Search</label>
+              <label class="form-label" for="package-search">Search</label>
               <input type="text" class="form-input" id="package-search" placeholder="Search packages...">
             </div>
             <div class="form-group">
-              <label class="form-label">Duration</label>
+              <label class="form-label" for="package-duration">Duration</label>
               <select class="form-select" id="package-duration">
                 <option value="all">All Durations</option>
                 <option value="short">1–4 Days</option>
@@ -45,7 +46,7 @@ import PackageGrid from '../components/packages/PackageGrid.astro';
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">Price Range</label>
+              <label class="form-label" for="package-price">Price Range</label>
               <select class="form-select" id="package-price">
                 <option value="all">All Prices</option>
                 <option value="budget">Under $500</option>
@@ -54,7 +55,7 @@ import PackageGrid from '../components/packages/PackageGrid.astro';
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">Category</label>
+              <label class="form-label" for="package-category">Category</label>
               <select class="form-select" id="package-category">
                 <option value="all">All Categories</option>
                 <option value="cultural">Cultural</option>
@@ -70,7 +71,7 @@ import PackageGrid from '../components/packages/PackageGrid.astro';
           <!-- Featured Package -->
           <div class="featured-package reveal">
             <div class="featured-package__image-wrapper">
-              <img loading="lazy" src="images/packages/complete_srilanka_experience.webp" alt="Complete Sri Lanka Tour" class="featured-package__image">
+              <ResponsiveImage loading="lazy" src="images/packages/complete_srilanka_experience.webp" sourceWidth={1920} sizes="(max-width: 767px) 100vw, 50vw" alt="Complete Sri Lanka Tour" class="featured-package__image" />
               <span class="featured-package__badge"><svg class="legacy-util-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Most Popular</span>
             </div>
             <div class="featured-package__body">
@@ -95,13 +96,15 @@ import PackageGrid from '../components/packages/PackageGrid.astro';
 
           <!-- Category Filters -->
           <div class="filter-pills legacy-util-22">
-            <button class="filter-pill active" data-filter="all">All Packages</button>
-            <button class="filter-pill" data-filter="cultural">Cultural</button>
-            <button class="filter-pill" data-filter="adventure">Adventure</button>
-            <button class="filter-pill" data-filter="beach">Beach</button>
-            <button class="filter-pill" data-filter="wildlife">Wildlife</button>
-            <button class="filter-pill" data-filter="honeymoon">Honeymoon</button>
+            <button class="filter-pill active" data-filter="all" aria-pressed="true">All Packages</button>
+            <button class="filter-pill" data-filter="cultural" aria-pressed="false">Cultural</button>
+            <button class="filter-pill" data-filter="adventure" aria-pressed="false">Adventure</button>
+            <button class="filter-pill" data-filter="beach" aria-pressed="false">Beach</button>
+            <button class="filter-pill" data-filter="wildlife" aria-pressed="false">Wildlife</button>
+            <button class="filter-pill" data-filter="honeymoon" aria-pressed="false">Honeymoon</button>
           </div>
+
+          <div class="filter-status sr-only" role="status" aria-live="polite"></div>
 
           <!-- Empty State (Hidden by default) -->
           <div id="packages-empty-state" class="reveal" style="display: none; text-align: center; padding: var(--space-3xl) 0;">
@@ -125,119 +128,5 @@ import PackageGrid from '../components/packages/PackageGrid.astro';
 
 </main>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.getElementById('package-search');
-    const durationSelect = document.getElementById('package-duration');
-    const priceSelect = document.getElementById('package-price');
-    const categorySelect = document.getElementById('package-category');
-    const filterPills = document.querySelectorAll('.filter-pill');
-    const packageCards = document.querySelectorAll('.package-card');
-    const featuredPackage = document.querySelector('.featured-package');
-    const emptyState = document.getElementById('packages-empty-state');
-    const clearFiltersBtn = document.getElementById('clear-filters-btn');
-    const searchButton = document.getElementById('package-search-button');
-
-    function applyFilters() {
-      const searchTerm = searchInput.value.toLowerCase().trim();
-      const durationVal = durationSelect.value;
-      const priceVal = priceSelect.value;
-      const categoryVal = categorySelect.value;
-
-      // Check if any filter is active
-      const hasActiveFilters = searchTerm !== '' || durationVal !== 'all' || priceVal !== 'all' || categoryVal !== 'all';
-
-      // Hide or show featured package
-      if (featuredPackage) {
-        if (hasActiveFilters) {
-          featuredPackage.style.display = 'none';
-        } else {
-          featuredPackage.style.display = '';
-        }
-      }
-
-      let visibleCount = 0;
-
-      packageCards.forEach(card => {
-        const title = card.getAttribute('data-title') || '';
-        const duration = card.getAttribute('data-duration') || '';
-        const price = parseInt(card.getAttribute('data-price') || '0', 10);
-        const category = card.getAttribute('data-category') || '';
-
-        let matchSearch = title.includes(searchTerm);
-        let matchDuration = true;
-        let matchPrice = true;
-        let matchCategory = categoryVal === 'all' || category === categoryVal;
-
-        const days = parseInt(duration, 10);
-        if (durationVal === 'short') matchDuration = days <= 4;
-        else if (durationVal === 'medium') matchDuration = days >= 5 && days <= 7;
-        else if (durationVal === 'long') matchDuration = days >= 8;
-
-        if (priceVal === 'budget') matchPrice = price < 500;
-        else if (priceVal === 'mid') matchPrice = price >= 500 && price <= 1000;
-        else if (priceVal === 'luxury') matchPrice = price > 1000;
-
-        if (matchSearch && matchDuration && matchPrice && matchCategory) {
-          card.style.display = '';
-          visibleCount++;
-        } else {
-          card.style.display = 'none';
-        }
-      });
-
-      if (emptyState) {
-        if (visibleCount === 0) {
-          emptyState.style.display = 'block';
-        } else {
-          emptyState.style.display = 'none';
-        }
-      }
-    }
-
-    searchInput.addEventListener('input', applyFilters);
-    durationSelect.addEventListener('change', applyFilters);
-    priceSelect.addEventListener('change', applyFilters);
-    categorySelect.addEventListener('change', (e) => {
-      filterPills.forEach(pill => {
-        if (pill.getAttribute('data-filter') === e.target.value) {
-          pill.classList.add('active');
-        } else {
-          pill.classList.remove('active');
-        }
-      });
-      applyFilters();
-    });
-
-    searchButton.addEventListener('click', applyFilters);
-
-    filterPills.forEach(pill => {
-      pill.addEventListener('click', () => {
-        filterPills.forEach(p => p.classList.remove('active'));
-        pill.classList.add('active');
-        const filterVal = pill.getAttribute('data-filter');
-        categorySelect.value = filterVal;
-        applyFilters();
-      });
-    });
-
-    if (clearFiltersBtn) {
-      clearFiltersBtn.addEventListener('click', () => {
-        searchInput.value = '';
-        durationSelect.value = 'all';
-        priceSelect.value = 'all';
-        categorySelect.value = 'all';
-        filterPills.forEach(p => {
-          if (p.getAttribute('data-filter') === 'all') {
-            p.classList.add('active');
-          } else {
-            p.classList.remove('active');
-          }
-        });
-        applyFilters();
-      });
-    }
-  });
-</script>
 
 </PageShell>

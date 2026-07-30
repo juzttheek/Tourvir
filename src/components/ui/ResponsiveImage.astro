@@ -1,0 +1,27 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'img'> {
+  src: string;
+  alt: string;
+  sourceWidth: number;
+  sizes?: string;
+}
+
+const { src, alt, sourceWidth, sizes = '100vw', ...attributes } = Astro.props;
+const isLocalImage = /^(?:\/?images\/)/.test(src);
+const normalizedSrc = src.startsWith('/') ? src : `/${src}`;
+const match = normalizedSrc.match(/^\/images\/(.+)\.([a-zA-Z0-9]+)$/);
+const candidateWidths = [480, 960, 1440].filter((width) => width < sourceWidth);
+const responsiveBase = match
+  ? `/images/responsive/${match[1]}--${match[2].toLowerCase()}`
+  : '';
+const srcset = isLocalImage && responsiveBase
+  ? [
+      ...candidateWidths.map((width) => `${encodeURI(responsiveBase)}-${width}.webp ${width}w`),
+      `${encodeURI(normalizedSrc)} ${sourceWidth}w`,
+    ].join(', ')
+  : undefined;
+---
+
+<img src={src} {srcset} sizes={srcset ? sizes : undefined} {alt} {...attributes} />

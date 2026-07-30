@@ -188,6 +188,7 @@
   /* Layout */
   --sidebar-width: 280px;
   --header-height: 70px;
+  --top-bar-height: 36px;
   --container-max: 1280px;
   --container-narrow: 960px;
   
@@ -365,7 +366,7 @@ button {
 
 .main-content {
   flex: 1;
-  padding-top: calc(var(--header-height) + 36px);
+  padding-top: calc(var(--header-height) + var(--top-bar-height) + var(--safe-top));
   position: relative;
 }
 
@@ -374,7 +375,7 @@ button {
    ============================================ */
 .header {
   position: fixed;
-  top: 36px;
+  top: calc(var(--top-bar-height) + var(--safe-top));
   left: 0;
   right: 0;
   height: var(--header-height);
@@ -1360,7 +1361,7 @@ button {
    ============================================ */
 .toast-container {
   position: fixed;
-  top: calc(var(--header-height) + 1rem);
+  top: calc(var(--header-height) + var(--top-bar-height) + var(--safe-top) + 1rem);
   right: 1rem;
   z-index: var(--z-toast);
   display: flex;
@@ -1377,7 +1378,8 @@ button {
   display: flex;
   align-items: center;
   gap: var(--space-md);
-  min-width: 300px;
+  width: min(24rem, calc(100vw - 2rem));
+  min-width: 0;
   transform: translateX(120%);
   transition: transform var(--transition-spring);
   color: var(--text-primary);
@@ -1801,7 +1803,7 @@ button {
 }
 
 .brand-logo {
-  height: 95px;
+  height: 92px;
   width: auto;
   object-fit: contain;
   margin-right: 8px;
@@ -1809,6 +1811,6 @@ button {
 
 @media (max-width: 768px) {
   .brand-logo {
-    height: 75px;
+    height: 84px;
   }
 }

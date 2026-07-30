@@ -47,7 +47,7 @@ describe('Gallery Controller & Lightbox', () => {
     controller.openLightbox(0);
 
     const lightbox = document.querySelector('.lightbox');
-    expect(lightbox?.classList.contains('active')).toBe(true);
+    expect(lightbox?.classList.contains('is-active')).toBe(true);
 
     const img = document.querySelector('.lightbox__image');
     expect(img?.getAttribute('src')).toContain('img1.jpg');
@@ -78,7 +78,7 @@ describe('Gallery Controller & Lightbox', () => {
     document.dispatchEvent(escEvent);
 
     const lightbox = document.querySelector('.lightbox');
-    expect(lightbox?.classList.contains('active')).toBe(false);
+    expect(lightbox?.classList.contains('is-active')).toBe(false);
   });
 
   it('traps focus and restores focus after closing', async () => {

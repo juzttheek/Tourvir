@@ -17,7 +17,7 @@ const { entry } = Astro.props;
   description={entry.description}
   activeRoute="blog.html"
 >
-  <main class="page-container" style="padding-top: var(--header-height);">
+  <main class="page-container" id="main-content" style="padding-top: calc(var(--header-height) + var(--top-bar-height) + var(--safe-top));">
     <article class="prose" style="max-width: 800px; margin: 0 auto; padding: var(--space-xl) var(--space-md);">
       <header style="text-align: center; margin-bottom: var(--space-xl);">
         <h1 style="font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; margin-bottom: var(--space-md);">{entry.title}</h1>

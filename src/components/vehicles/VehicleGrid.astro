@@ -1,20 +1,26 @@
 ---
 import { vehicles } from '../../content/catalogs';
 import Badge from '../ui/Badge.astro';
+import ResponsiveImage from '../ui/ResponsiveImage.astro';
 ---
 <div class="vehicles-grid">
   {vehicles.map((item) => (
-    <div class={item.revealClass}>
+    <div class="vehicle-card reveal delay-1">
       <div class="vehicle-card__image-wrapper">
-        <img loading="lazy" src={item.image} alt={item.alt} class="vehicle-card__image" />
+        <ResponsiveImage loading="lazy" src={item.image} alt={item.alt} sourceWidth={item.imageWidth} sizes="(max-width: 767px) 100vw, (max-width: 1100px) 50vw, 33vw" class="vehicle-card__image" />
         <Badge class="vehicle-card__badge">{item.badge}</Badge>
       </div>
       <div class="vehicle-card__body">
         <h3 class="vehicle-card__name">{item.name}</h3>
-        <div class="vehicle-card__specs">{item.specs.map((spec) => <div class="vehicle-card__spec" set:html={spec} />)}</div>
+        <div class="vehicle-card__specs">{item.specs.map((spec) => (
+          <div class="vehicle-card__spec">
+            <span class="vehicle-card__spec-icon" aria-hidden="true">✓</span>
+            {spec}
+          </div>
+        ))}</div>
         <div class="vehicle-card__footer">
-          <div class="vehicle-card__price" set:html={item.priceMarkup} />
-          <Fragment set:html={item.linkMarkup} />
+          <div class="vehicle-card__price">${item.price.toLocaleString('en-US')} <span>{item.priceSuffix}</span></div>
+          <a href={item.href} class="btn btn--primary btn--sm">Reserve</a>
         </div>
       </div>
     </div>

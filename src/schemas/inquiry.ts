@@ -23,6 +23,12 @@ export type Interest = (typeof APPROVED_INTERESTS)[number];
 export const APPROVED_ACCOMMODATIONS = ['budget', 'standard', 'luxury'] as const;
 export type Accommodation = (typeof APPROVED_ACCOMMODATIONS)[number];
 
+export const APPROVED_TRAVELER_RANGES = ['1', '2', '3-4', '5-8', '9+'] as const;
+export type TravelerRange = (typeof APPROVED_TRAVELER_RANGES)[number];
+
+export const APPROVED_VEHICLES = ['sedan', 'suv', 'van', 'luxury', 'coach'] as const;
+export type PreferredVehicle = (typeof APPROVED_VEHICLES)[number];
+
 export const ISO_COUNTRY_CODES = [
   'US',
   'GB',
@@ -62,8 +68,10 @@ export interface InquiryPayload {
   arrivalDate: string;
   departureDate: string;
   travelers: number;
+  travelerRange?: TravelerRange;
   interests: Interest[];
   accommodation: Accommodation;
+  preferredVehicle?: PreferredVehicle;
   specialRequirements?: string;
   termsConsent: boolean;
 }
@@ -124,6 +132,13 @@ export function validateInquiry(payload: Partial<InquiryPayload>): ValidationErr
     errors.push({ field: 'travelers', message: 'Number of travelers must be between 1 and 50.' });
   }
 
+  if (
+    payload.travelerRange &&
+    !APPROVED_TRAVELER_RANGES.includes(payload.travelerRange as TravelerRange)
+  ) {
+    errors.push({ field: 'travelerRange', message: 'Please select a valid traveler range.' });
+  }
+
   if (!payload.interests || !Array.isArray(payload.interests) || payload.interests.length === 0) {
     errors.push({ field: 'interests', message: 'Please select at least one interest.' });
   } else {
@@ -139,6 +154,16 @@ export function validateInquiry(payload: Partial<InquiryPayload>): ValidationErr
     errors.push({
       field: 'accommodation',
       message: 'Please select a valid accommodation preference.',
+    });
+  }
+
+  if (
+    payload.preferredVehicle &&
+    !APPROVED_VEHICLES.includes(payload.preferredVehicle as PreferredVehicle)
+  ) {
+    errors.push({
+      field: 'preferredVehicle',
+      message: 'Please select a valid vehicle preference.',
     });
   }
 

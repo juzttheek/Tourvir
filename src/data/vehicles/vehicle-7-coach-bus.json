@@ -1,1 +1,15 @@
-{"image":"images/vehicles/coach_bus.png","linkMarkup":"\u003ca href=\"inquiry.html\" class=\"btn btn--primary btn--sm\"\u003eReserve\u003c/a\u003e","id":"vehicle-7-coach-bus","specs":["\u003cspan class=\"vehicle-card__spec-icon\"\u003e\u003csvg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"16\" height=\"16\"\u003e\u003cpath d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\"\u003e\u003c/path\u003e\u003ccircle cx=\"9\" cy=\"7\" r=\"4\"\u003e\u003c/circle\u003e\u003cpath d=\"M22 21v-2a4 4 0 0 0-3-3.87\"\u003e\u003c/path\u003e\u003cpath d=\"M16 3.13a4 4 0 0 1 0 7.75\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/span\u003e 20-40 Passengers","\u003cspan class=\"vehicle-card__spec-icon\"\u003e\u003csvg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"16\" height=\"16\"\u003e\u003cline x1=\"2\" x2=\"22\" y1=\"12\" y2=\"12\"\u003e\u003c/line\u003e\u003cline x1=\"12\" x2=\"12\" y1=\"2\" y2=\"22\"\u003e\u003c/line\u003e\u003cpath d=\"m20 16-4-4 4-4\"\u003e\u003c/path\u003e\u003cpath d=\"m4 8 4 4-4 4\"\u003e\u003c/path\u003e\u003cpath d=\"m16 4-4 4-4-4\"\u003e\u003c/path\u003e\u003cpath d=\"m8 20 4-4 4 4\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/span\u003e Air Conditioned","\u003cspan class=\"vehicle-card__spec-icon\"\u003e\u003csvg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"16\" height=\"16\"\u003e\u003crect width=\"20\" height=\"14\" x=\"2\" y=\"7\" rx=\"2\" ry=\"2\"\u003e\u003c/rect\u003e\u003cpath d=\"M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/span\u003e Large Storage","\u003cspan class=\"vehicle-card__spec-icon\"\u003e\u003csvg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"16\" height=\"16\"\u003e\u003cpath d=\"M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z\"\u003e\u003c/path\u003e\u003cpath d=\"M19 10v2a7 7 0 0 1-14 0v-2\"\u003e\u003c/path\u003e\u003cline x1=\"12\" x2=\"12\" y1=\"19\" y2=\"22\"\u003e\u003c/line\u003e\u003c/svg\u003e\u003c/span\u003e PA System"],"priceMarkup":"$200 \u003cspan\u003e/day\u003c/span\u003e","name":"Coach Bus","badge":"Groups","revealClass":"vehicle-card reveal delay-3","alt":"Coach Bus"}
+{
+  "image": "images/vehicles/coach_bus.png",
+  "id": "vehicle-7-coach-bus",
+  "specs": [
+    "20-40 Passengers",
+    "Air Conditioned",
+    "Large Storage",
+    "PA System"
+  ],
+  "name": "Coach Bus",
+  "badge": "Groups",
+  "alt": "Coach Bus",
+  "price": 200,
+  "priceSuffix": "/day"
+}

@@ -4,18 +4,49 @@
   "price": 1299,
   "image": "images/packages/honeymoon_special.webp",
   "alt": "Honeymoon Special",
-  "durationMarkup": "<svg style=\"display:inline-block; vertical-align:text-bottom; margin-right:0.25rem;\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"16\" height=\"16\"><circle cx=\"12\" cy=\"12\" r=\"10\"></circle><polyline points=\"12 6 12 12 16 14\"></polyline></svg>6 Days / 5 Nights",
   "categoryLabel": "Honeymoon",
   "title": "Honeymoon Special",
-  "ratingMarkup": "\n                  <div class=\"stars\">★★★★★</div>\n                  <span class=\"package-card__rating-text\">(67 reviews)</span>\n                ",
-  "highlights": ["Couples Spa", "Sunset Cruise", "Private Villa", "Candlelight Dinner"],
-  "priceMarkup": "$1,299 <span>per couple</span>",
-  "linkMarkup": "<a href=\"/packages/package-5-honeymoon-special.html\" class=\"btn btn--primary btn--sm\">View Details</a>",
-  "routeMap": [
-    { "name": "Colombo", "coordinates": [6.9271, 79.8612] },
-    { "name": "Nuwara Eliya", "coordinates": [6.9497, 80.7828] },
-    { "name": "Bentota", "coordinates": [6.42, 79.9967] },
-    { "name": "Colombo", "coordinates": [6.9271, 79.8612] }
+  "highlights": [
+    "Couples Spa",
+    "Sunset Cruise",
+    "Private Villa",
+    "Candlelight Dinner"
   ],
-  "recommendedVehicles": ["Luxury Sedan"]
+  "routeMap": [
+    {
+      "name": "Colombo",
+      "coordinates": [
+        6.9271,
+        79.8612
+      ]
+    },
+    {
+      "name": "Nuwara Eliya",
+      "coordinates": [
+        6.9497,
+        80.7828
+      ]
+    },
+    {
+      "name": "Bentota",
+      "coordinates": [
+        6.42,
+        79.9967
+      ]
+    },
+    {
+      "name": "Colombo",
+      "coordinates": [
+        6.9271,
+        79.8612
+      ]
+    }
+  ],
+  "recommendedVehicles": [
+    "Luxury Sedan"
+  ],
+  "durationLabel": "6 Days / 5 Nights",
+  "priceSuffix": "per couple",
+  "rating": 5,
+  "reviewCount": 67
 }

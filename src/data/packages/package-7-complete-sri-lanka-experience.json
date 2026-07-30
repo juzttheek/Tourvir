@@ -4,23 +4,71 @@
   "price": 1899,
   "image": "images/packages/complete_srilanka_experience.webp",
   "alt": "Complete Sri Lanka Tour",
-  "durationMarkup": "<svg style=\"display:inline-block; vertical-align:text-bottom; margin-right:0.25rem;\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"16\" height=\"16\"><circle cx=\"12\" cy=\"12\" r=\"10\"></circle><polyline points=\"12 6 12 12 16 14\"></polyline></svg>14 Days / 13 Nights",
   "categoryLabel": "Featured Package",
   "title": "Complete Sri Lanka Experience",
-  "ratingMarkup": "\n                  <div class=\"stars\">★★★★★</div>\n                  <span class=\"package-card__rating-text\">(245 reviews)</span>\n                ",
-  "highlights": ["Sigiriya", "Yala Safari", "Ella Train", "Mirissa", "Kandy", "Whale Watching"],
-  "priceMarkup": "$1,899 <span>per person</span>",
-  "linkMarkup": "<a href=\"/packages/package-7-complete-sri-lanka-experience.html\" class=\"btn btn--primary btn--sm\">View Details</a>",
-  "routeMap": [
-    { "name": "Colombo", "coordinates": [6.9271, 79.8612] },
-    { "name": "Sigiriya", "coordinates": [7.957, 80.7603] },
-    { "name": "Kandy", "coordinates": [7.2906, 80.6337] },
-    { "name": "Ella", "coordinates": [6.8667, 81.0466] },
-    { "name": "Yala Safari", "coordinates": [6.3683, 81.5161] },
-    { "name": "Mirissa", "coordinates": [5.9483, 80.4572] },
-    { "name": "Colombo", "coordinates": [6.9271, 79.8612] }
+  "highlights": [
+    "Sigiriya",
+    "Yala Safari",
+    "Ella Train",
+    "Mirissa",
+    "Kandy",
+    "Whale Watching"
   ],
-  "recommendedVehicles": ["Luxury Sedan", "Family Van"],
+  "routeMap": [
+    {
+      "name": "Colombo",
+      "coordinates": [
+        6.9271,
+        79.8612
+      ]
+    },
+    {
+      "name": "Sigiriya",
+      "coordinates": [
+        7.957,
+        80.7603
+      ]
+    },
+    {
+      "name": "Kandy",
+      "coordinates": [
+        7.2906,
+        80.6337
+      ]
+    },
+    {
+      "name": "Ella",
+      "coordinates": [
+        6.8667,
+        81.0466
+      ]
+    },
+    {
+      "name": "Yala Safari",
+      "coordinates": [
+        6.3683,
+        81.5161
+      ]
+    },
+    {
+      "name": "Mirissa",
+      "coordinates": [
+        5.9483,
+        80.4572
+      ]
+    },
+    {
+      "name": "Colombo",
+      "coordinates": [
+        6.9271,
+        79.8612
+      ]
+    }
+  ],
+  "recommendedVehicles": [
+    "Luxury Sedan",
+    "Family Van"
+  ],
   "itinerary": [
     {
       "day": "Day 1",
@@ -37,5 +85,9 @@
       "title": "Sacred City of Kandy",
       "description": "Travel to Kandy, visit the sacred Temple of the Tooth Relic, and enjoy a cultural dance."
     }
-  ]
+  ],
+  "durationLabel": "14 Days / 13 Nights",
+  "priceSuffix": "per person",
+  "rating": 5,
+  "reviewCount": 245
 }

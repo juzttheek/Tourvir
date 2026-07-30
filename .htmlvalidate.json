@@ -20,6 +20,7 @@
     "tel-non-breaking": "off",
     "unique-landmark": "off",
     "valid-id": "error",
+    "void-style": "off",
     "wcag/h30": "off"
   }
 }

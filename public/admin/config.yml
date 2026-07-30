@@ -88,13 +88,13 @@ collections:
       - { label: 'Category Name', name: 'category', widget: 'select', options: ['cultural', 'beach', 'wildlife', 'adventure', 'honeymoon'] }
       - { label: 'Category Label', name: 'categoryLabel', widget: 'string', hint: 'e.g. Cultural, Beach' }
       - { label: 'Duration (Days)', name: 'duration', widget: 'number' }
-      - { label: 'Duration Markup', name: 'durationMarkup', widget: 'string' }
+      - { label: 'Duration Label', name: 'durationLabel', widget: 'string', required: false, hint: 'Optional, e.g. 5 Days / 4 Nights' }
       - { label: 'Price (USD)', name: 'price', widget: 'number' }
-      - { label: 'Price Markup', name: 'priceMarkup', widget: 'string', hint: 'e.g. $899 <span>per person</span>' }
+      - { label: 'Price Suffix', name: 'priceSuffix', widget: 'string', default: 'per person' }
       - { label: 'Cover Image', name: 'image', widget: 'image' }
       - { label: 'Alt Text', name: 'alt', widget: 'string' }
-      - { label: 'Rating Markup', name: 'ratingMarkup', widget: 'text' }
-      - { label: 'Link Markup', name: 'linkMarkup', widget: 'string' }
+      - { label: 'Rating', name: 'rating', widget: 'number', min: 1, max: 5, default: 5 }
+      - { label: 'Review Count', name: 'reviewCount', widget: 'number', min: 0, default: 0 }
       - { label: 'Highlights', name: 'highlights', widget: 'list', field: { label: 'Highlight', name: 'highlight', widget: 'string' } }
       - { label: 'Recommended Vehicles', name: 'recommendedVehicles', widget: 'list', required: false, field: { label: 'Vehicle Name', name: 'vehicle', widget: 'string' } }
       - name: 'routeMap'
@@ -125,7 +125,6 @@ collections:
       - { label: 'Badge', name: 'badge', widget: 'string', hint: 'e.g. Popular, Premium' }
       - { label: 'Image', name: 'image', widget: 'image' }
       - { label: 'Alt Text', name: 'alt', widget: 'string' }
-      - { label: 'Price Markup', name: 'priceMarkup', widget: 'string', hint: 'e.g. $90 <span>/day</span>' }
-      - { label: 'Specs (HTML markup)', name: 'specs', widget: 'list', field: { label: 'Spec HTML', name: 'spec', widget: 'string' } }
-      - { label: 'Link Markup', name: 'linkMarkup', widget: 'string', default: '<a href="inquiry.html" class="btn btn--primary btn--sm">Reserve</a>' }
-      - { label: 'Reveal Class', name: 'revealClass', widget: 'string', default: 'vehicle-card reveal delay-1' }
+      - { label: 'Price (USD/day)', name: 'price', widget: 'number', min: 0 }
+      - { label: 'Price Suffix', name: 'priceSuffix', widget: 'string', default: '/day' }
+      - { label: 'Specs', name: 'specs', widget: 'list', field: { label: 'Specification', name: 'spec', widget: 'string' } }

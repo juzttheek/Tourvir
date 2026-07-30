@@ -4,19 +4,57 @@
   "price": 899,
   "image": "images/packages/ancient_cities_and_heritage.webp",
   "alt": "Ancient Cities Tour",
-  "durationMarkup": "<svg style=\"display:inline-block; vertical-align:text-bottom; margin-right:0.25rem;\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" width=\"16\" height=\"16\"><circle cx=\"12\" cy=\"12\" r=\"10\"></circle><polyline points=\"12 6 12 12 16 14\"></polyline></svg>8 Days / 7 Nights",
   "categoryLabel": "Cultural",
   "title": "Ancient Cities & Heritage",
-  "ratingMarkup": "\n                  <div class=\"stars\">★★★★★</div>\n                  <span class=\"package-card__rating-text\">(89 reviews)</span>\n                ",
-  "highlights": ["Anuradhapura", "Polonnaruwa", "Mihintale", "8 UNESCO Sites"],
-  "priceMarkup": "$899 <span>per person</span>",
-  "linkMarkup": "<a href=\"/packages/package-6-ancient-cities-heritage.html\" class=\"btn btn--primary btn--sm\">View Details</a>",
-  "routeMap": [
-    { "name": "Colombo", "coordinates": [6.9271, 79.8612] },
-    { "name": "Anuradhapura", "coordinates": [8.3114, 80.4037] },
-    { "name": "Mihintale", "coordinates": [8.3512, 80.5097] },
-    { "name": "Polonnaruwa", "coordinates": [7.9403, 81.0028] },
-    { "name": "Colombo", "coordinates": [6.9271, 79.8612] }
+  "highlights": [
+    "Anuradhapura",
+    "Polonnaruwa",
+    "Mihintale",
+    "8 UNESCO Sites"
   ],
-  "recommendedVehicles": ["Comfortable Sedan", "Mini SUV"]
+  "routeMap": [
+    {
+      "name": "Colombo",
+      "coordinates": [
+        6.9271,
+        79.8612
+      ]
+    },
+    {
+      "name": "Anuradhapura",
+      "coordinates": [
+        8.3114,
+        80.4037
+      ]
+    },
+    {
+      "name": "Mihintale",
+      "coordinates": [
+        8.3512,
+        80.5097
+      ]
+    },
+    {
+      "name": "Polonnaruwa",
+      "coordinates": [
+        7.9403,
+        81.0028
+      ]
+    },
+    {
+      "name": "Colombo",
+      "coordinates": [
+        6.9271,
+        79.8612
+      ]
+    }
+  ],
+  "recommendedVehicles": [
+    "Comfortable Sedan",
+    "Mini SUV"
+  ],
+  "durationLabel": "8 Days / 7 Nights",
+  "priceSuffix": "per person",
+  "rating": 5,
+  "reviewCount": 89
 }

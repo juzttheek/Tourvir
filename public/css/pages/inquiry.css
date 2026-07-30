@@ -11,6 +11,7 @@
 
 /* Multi-step Form */
 .inquiry-form-wrapper {
+  min-width: 0;
   background: var(--surface);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-xl);
@@ -111,6 +112,7 @@
 
 /* Sidebar FAQ + Quick Contact */
 .inquiry-sidebar {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-xl);
@@ -153,6 +155,7 @@
 }
 
 .quick-contact__info {
+  min-width: 0;
   flex: 1;
 }
 
@@ -162,6 +165,7 @@
 }
 
 .quick-contact__value {
+  overflow-wrap: anywhere;
   font-weight: 600;
   color: var(--text-primary);
   font-size: 0.92rem;
@@ -258,6 +262,11 @@
 }
 
 @media (max-width: 480px) {
+  .inquiry-form-wrapper,
+  .quick-contact-card {
+    padding: var(--space-lg);
+  }
+
   .form-actions {
     flex-direction: column-reverse;
     gap: var(--space-md);

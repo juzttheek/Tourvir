@@ -43,9 +43,9 @@ export function filterPackageCards(
 
     // Price filter
     if (show && state.price !== 'all') {
-      if (state.price === 'budget' && cardPrice > 500) show = false;
+      if (state.price === 'budget' && cardPrice >= 500) show = false;
       if (state.price === 'mid' && (cardPrice < 500 || cardPrice > 1000)) show = false;
-      if (state.price === 'luxury' && cardPrice < 1000) show = false;
+      if (state.price === 'luxury' && cardPrice <= 1000) show = false;
     }
 
     if (show) {
@@ -70,7 +70,11 @@ export function initPackagesFilter(): void {
   const searchInput = document.getElementById('package-search') as HTMLInputElement | null;
   const durationSelect = document.getElementById('package-duration') as HTMLSelectElement | null;
   const priceSelect = document.getElementById('package-price') as HTMLSelectElement | null;
+  const categorySelect = document.getElementById('package-category') as HTMLSelectElement | null;
   const searchButton = document.getElementById('package-search-button') as HTMLElement | null;
+  const clearButton = document.getElementById('clear-filters-btn') as HTMLElement | null;
+  const featuredPackage = document.querySelector<HTMLElement>('.featured-package');
+  const emptyState = document.getElementById('packages-empty-state');
 
   if (!cards.length) return;
   const root = document.querySelector<HTMLElement>('.packages-section, .packages-hero');
@@ -92,31 +96,28 @@ export function initPackagesFilter(): void {
     state.keyword = searchInput ? searchInput.value.trim() : '';
     state.duration = durationSelect ? durationSelect.value : 'all';
     state.price = priceSelect ? priceSelect.value : 'all';
+    state.category = categorySelect ? categorySelect.value : state.category;
 
     const result = filterPackageCards(cards, state);
+
+    const hasActiveFilters =
+      Boolean(state.keyword) ||
+      state.duration !== 'all' ||
+      state.price !== 'all' ||
+      state.category !== 'all';
+    if (featuredPackage) featuredPackage.style.display = hasActiveFilters ? 'none' : '';
 
     if (statusRegion) {
       statusRegion.textContent = `Showing ${result.visibleCount} of ${result.totalCount} packages`;
     }
 
-    // Empty state handling
-    const grid = document.querySelector('.packages-grid, .package-grid') as HTMLElement | null;
-    let emptyMsg = document.getElementById('packages-empty-message');
+    if (emptyState) emptyState.style.display = result.visibleCount === 0 ? 'block' : 'none';
 
-    if (result.visibleCount === 0) {
-      if (!emptyMsg && grid) {
-        emptyMsg = document.createElement('div');
-        emptyMsg.id = 'packages-empty-message';
-        emptyMsg.className = 'packages-empty-message';
-        emptyMsg.textContent =
-          'No package itineraries match your selected criteria. Try adjusting your search filters.';
-        grid.parentNode?.insertBefore(emptyMsg, grid.nextSibling);
-      } else if (emptyMsg) {
-        emptyMsg.style.display = 'block';
-      }
-    } else if (emptyMsg) {
-      emptyMsg.style.display = 'none';
-    }
+    pills.forEach((pill) => {
+      const active = pill.dataset.filter === state.category;
+      pill.classList.toggle('active', active);
+      pill.setAttribute('aria-pressed', String(active));
+    });
   }
 
   // Category pill listeners
@@ -125,6 +126,7 @@ export function initPackagesFilter(): void {
       pills.forEach((p) => p.classList.remove('active'));
       pill.classList.add('active');
       state.category = pill.dataset.filter || 'all';
+      if (categorySelect) categorySelect.value = state.category;
       update();
     });
   });
@@ -139,5 +141,20 @@ export function initPackagesFilter(): void {
 
   if (durationSelect) durationSelect.addEventListener('change', update);
   if (priceSelect) priceSelect.addEventListener('change', update);
+  if (categorySelect) categorySelect.addEventListener('change', update);
   if (searchButton) searchButton.addEventListener('click', update);
+
+  if (clearButton) {
+    clearButton.addEventListener('click', () => {
+      if (searchInput) searchInput.value = '';
+      if (durationSelect) durationSelect.value = 'all';
+      if (priceSelect) priceSelect.value = 'all';
+      if (categorySelect) categorySelect.value = 'all';
+      state.category = 'all';
+      update();
+      searchInput?.focus();
+    });
+  }
+
+  update();
 }

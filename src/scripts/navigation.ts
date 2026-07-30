@@ -17,6 +17,9 @@ export function initSidebar(): void {
 
   let previousActiveElement: HTMLElement | null = null;
 
+  hamburger.setAttribute('aria-controls', sidebar.id || 'sidebar');
+  hamburger.setAttribute('aria-expanded', String(sidebar.classList.contains('active')));
+
   function setAriaExpanded(expanded: boolean) {
     if (hamburger) hamburger.setAttribute('aria-expanded', String(expanded));
     document.querySelectorAll('.hamburger, [data-sidebar-toggle]').forEach((el) => {

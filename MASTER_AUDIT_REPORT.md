@@ -1783,6 +1783,21 @@ Implemented several user-facing enhancements and administrative capabilities:
 - **Global Contact Update**: Propagated new contact information across all pages and configurations, replacing generic checkbox graphics with professional Lucide icons.
 - **Map Enhancements & CSP Resolution**: Upgraded the static placeholder map in the Contact page with a fully interactive Google Maps iframe. Overcame strict `Content-Security-Policy` iframe blocking by explicitly whitelisting Google Maps domains in `vercel.json`.
 - **Branding Polish**: Integrated new custom `logo.png` and `favicon.png` assets, precisely adjusting mobile CSS parameters (header height and logo scale) for optimal responsive legibility.
+
+### Release Hardening Update (2026-07-30)
+
+Completed the final security, responsive-layout, performance and CMS hardening pass:
+
+- Corrected contact-action consistency, inquiry state preservation and cross-field validation, navigation state, social-preview metadata, route-map text rendering, and gallery/package controller behavior.
+- Enlarged and optimized the transparent Tourvir logo while preserving the compact header layout; added a dedicated display logo and lightweight favicon derivative.
+- Fixed the inquiry page's 320 px horizontal overflow and verified the principal routes across mobile, tablet and desktop viewports.
+- Generated responsive WebP derivatives for hero, vehicle, package, gallery and chauffeur images. Added native `srcset` and `sizes` output so browsers select an appropriate asset instead of downloading the largest original. Representative mobile reductions include the packages hero from approximately 1,006 KB to 61 KB and a vehicle card image from approximately 840 KB to 45 KB.
+- Removed retired duplicate inline gallery and package controllers; the maintained TypeScript controllers are now the only active implementations.
+- Replaced CMS-editable HTML snippets for package durations, ratings, prices, links and vehicle specifications with structured JSON fields and native Astro rendering. Migrated all existing package and vehicle records, eliminating the legacy raw-markup fields end-to-end.
+- Preserved every original image as a fallback and visually reviewed the optimized derivatives before enabling them.
+
+Verification completed locally with a successful Astro production build, TypeScript and lint checks, 39/39 unit tests, 11/11 focused catalog/contract tests, HTML/link/content validation, automated accessibility checks, responsive overflow checks and visual browser smoke tests. All 54 browser checks targeting the current site passed. Twelve legacy-comparison cases require the separate historical site server on port 4174 and were not current-site failures.
+
 ## 13. Deployment-ready target
 
 A production release should meet all of these gates:

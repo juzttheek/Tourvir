@@ -16,7 +16,7 @@ describe('typed catalogs', () => {
   });
 
   it('keeps filter values and prices valid', () => {
-    expect(tourPackages).toHaveLength(6);
+    expect(tourPackages).toHaveLength(7);
     for (const item of tourPackages) {
       expect(item.category).toMatch(/^(cultural|beach|wildlife|adventure|honeymoon)$/);
       expect(item.duration).toBeGreaterThan(0);

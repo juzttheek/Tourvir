@@ -11,6 +11,8 @@ import {
   type IsoCountryCode,
   type Interest,
   type Accommodation,
+  type PreferredVehicle,
+  type TravelerRange,
   type InquiryPayload,
 } from '../schemas/inquiry.js';
 import { validateFeedback } from '../schemas/feedback.js';
@@ -42,6 +44,7 @@ export function initFeedbackForm(): void {
       stars.forEach((s) => {
         const r = parseInt(s.dataset.rating || '0', 10);
         s.classList.toggle('active', r <= currentRating);
+        s.setAttribute('aria-pressed', String(r === currentRating));
       });
     });
   });
@@ -99,7 +102,10 @@ export function initFeedbackForm(): void {
       showToast(result.message, 'success');
       form.reset();
       currentRating = 0;
-      stars.forEach((s) => s.classList.remove('active', 'hovered'));
+      stars.forEach((s) => {
+        s.classList.remove('active', 'hovered');
+        s.setAttribute('aria-pressed', 'false');
+      });
     } else {
       showToast(result.message, 'error');
     }
@@ -187,7 +193,25 @@ export function initMultiStepForm(): void {
   const steps = form.querySelectorAll<HTMLElement>('.form-step');
   const progressSteps = document.querySelectorAll<HTMLElement>('.progress-step');
   const progressLines = document.querySelectorAll<HTMLElement>('.progress-step__line');
+  const arrivalInput = form.querySelector<HTMLInputElement>('#arrival-date');
+  const departureInput = form.querySelector<HTMLInputElement>('#departure-date');
+  const now = new Date();
+  const today = [
+    now.getFullYear(),
+    String(now.getMonth() + 1).padStart(2, '0'),
+    String(now.getDate()).padStart(2, '0'),
+  ].join('-');
   let currentStep = 0;
+
+  if (arrivalInput) arrivalInput.min = today;
+  if (departureInput) departureInput.min = today;
+  arrivalInput?.addEventListener('change', () => {
+    if (!departureInput) return;
+    departureInput.min = arrivalInput.value || today;
+    if (departureInput.value && departureInput.value <= arrivalInput.value) {
+      departureInput.value = '';
+    }
+  });
 
   function showStep(index: number) {
     const isForward = index >= currentStep;
@@ -222,7 +246,7 @@ export function initMultiStepForm(): void {
       }
     }
 
-    if (steps[index].hasAttribute('data-is-review')) {
+    if (steps[index]?.hasAttribute('data-is-review')) {
       populateReview();
     }
   }
@@ -262,10 +286,23 @@ export function initMultiStepForm(): void {
 
     const arrival = step.querySelector<HTMLInputElement>('#arrival-date');
     const departure = step.querySelector<HTMLInputElement>('#departure-date');
+    if (arrival?.value && arrival.value < today) {
+      arrival.classList.add('error');
+      showToast('Arrival date cannot be in the past', 'error');
+      valid = false;
+    }
     if (arrival?.value && departure?.value && departure.value <= arrival.value) {
       departure.classList.add('error');
       showToast('Departure date must be after the arrival date', 'error');
       valid = false;
+    }
+
+    const interestGroup = step.querySelector<HTMLElement>('.interest-tags');
+    if (interestGroup && !interestGroup.querySelector('.interest-tag.selected')) {
+      interestGroup.classList.add('error');
+      valid = false;
+    } else {
+      interestGroup?.classList.remove('error');
     }
 
     if (!valid) {
@@ -284,6 +321,7 @@ export function initMultiStepForm(): void {
       'review-arrival': 'arrival-date',
       'review-departure': 'departure-date',
       'review-travelers': 'travelers',
+      'review-vehicle': 'vehicle-pref',
     };
 
     Object.entries(fields).forEach(([reviewId, inputId]) => {
@@ -300,8 +338,8 @@ export function initMultiStepForm(): void {
     if (reviewInterests) {
       reviewInterests.textContent = selectedInterests.length
         ? Array.from(selectedInterests)
-          .map((t) => t.textContent)
-          .join(', ')
+            .map((t) => t.textContent)
+            .join(', ')
         : '—';
     }
 
@@ -377,6 +415,11 @@ export function initMultiStepForm(): void {
     );
     const selectedAccom = accommodationValues[(selectedAccomElement?.textContent || '').trim()];
 
+    const travelerRange = (form.querySelector('#travelers') as HTMLSelectElement)
+      ?.value as TravelerRange;
+    const preferredVehicle = (form.querySelector('#vehicle-pref') as HTMLSelectElement)
+      ?.value as PreferredVehicle;
+
     const payload: Partial<InquiryPayload> = {
       fullName: (form.querySelector('#full-name') as HTMLInputElement)?.value.trim() || '',
       email: (form.querySelector('#email') as HTMLInputElement)?.value.trim() || '',
@@ -386,13 +429,18 @@ export function initMultiStepForm(): void {
       phone: (form.querySelector('#phone') as HTMLInputElement)?.value.trim() || '',
       arrivalDate: (form.querySelector('#arrival-date') as HTMLInputElement)?.value || '',
       departureDate: (form.querySelector('#departure-date') as HTMLInputElement)?.value || '',
-      travelers: parseInt((form.querySelector('#travelers') as HTMLInputElement)?.value || '0', 10),
+      travelers: parseInt(travelerRange || '0', 10),
+      travelerRange,
       interests: selectedInterests,
       termsConsent: (form.querySelector('#terms-consent') as HTMLInputElement)?.checked || false,
     };
 
     if (selectedAccom) {
       payload.accommodation = selectedAccom;
+    }
+
+    if (preferredVehicle) {
+      payload.preferredVehicle = preferredVehicle;
     }
 
     const specialReq = (
@@ -432,19 +480,37 @@ export function initMultiStepForm(): void {
     if (result.success) {
       showToast(result.message, 'success');
 
-      const waMessage = `*New Inquiry via Website*%0A` +
-        `*Name:* ${payload.fullName}%0A` +
-        `*Email:* ${payload.email}%0A` +
-        `*Nationality:* ${payload.nationality}%0A` +
-        `*Phone:* ${payload.phone}%0A` +
-        `*Dates:* ${payload.arrivalDate} to ${payload.departureDate}%0A` +
-        `*Travelers:* ${payload.travelers}%0A` +
-        (payload.accommodation ? `*Accommodation:* ${payload.accommodation}%0A` : '') +
-        (payload.interests && payload.interests.length > 0 ? `*Interests:* ${payload.interests.join(', ')}%0A` : '') +
-        (payload.specialRequirements ? `*Special Req:* ${payload.specialRequirements}%0A` : '');
-
       const waBtn = document.getElementById('whatsapp-success-btn') as HTMLAnchorElement;
-      if (waBtn) waBtn.href = `https://wa.me/940729430500?text=${waMessage}`;
+      if (waBtn) {
+        const waMessage = [
+          '*New Inquiry via Website*',
+          `*Name:* ${payload.fullName}`,
+          `*Email:* ${payload.email}`,
+          `*Nationality:* ${payload.nationality}`,
+          `*Phone:* ${payload.phone || 'Not provided'}`,
+          `*Dates:* ${payload.arrivalDate} to ${payload.departureDate}`,
+          `*Travelers:* ${payload.travelerRange || payload.travelers}`,
+          payload.accommodation ? `*Accommodation:* ${payload.accommodation}` : '',
+          payload.preferredVehicle ? `*Preferred vehicle:* ${payload.preferredVehicle}` : '',
+          payload.interests?.length ? `*Interests:* ${payload.interests.join(', ')}` : '',
+          payload.specialRequirements
+            ? `*Special requirements:* ${payload.specialRequirements}`
+            : '',
+        ]
+          .filter(Boolean)
+          .join('\n');
+
+        waBtn.href = 'https://wa.me/94729430500';
+        waBtn.addEventListener(
+          'click',
+          () => {
+            const destination = new URL('https://wa.me/94729430500');
+            destination.searchParams.set('text', waMessage);
+            waBtn.href = destination.toString();
+          },
+          { once: true },
+        );
+      }
 
       showStep(steps.length - 1);
     } else {
@@ -462,25 +528,44 @@ export function initMultiStepForm(): void {
 
 export function initInterestTags(): void {
   document.querySelectorAll('.interest-tag').forEach((tag) => {
+    tag.setAttribute('aria-pressed', String(tag.classList.contains('selected')));
     tag.addEventListener('click', () => {
       tag.classList.toggle('selected');
+      tag.setAttribute('aria-pressed', String(tag.classList.contains('selected')));
     });
   });
 }
 
 export function initAccommodationOptions(): void {
   document.querySelectorAll('.accommodation-option').forEach((option) => {
+    option.setAttribute('role', 'radio');
+    option.setAttribute('aria-checked', String(option.classList.contains('selected')));
     option.addEventListener('click', () => {
-      document
-        .querySelectorAll('.accommodation-option')
-        .forEach((o) => o.classList.remove('selected'));
+      document.querySelectorAll('.accommodation-option').forEach((o) => {
+        o.classList.remove('selected');
+        o.setAttribute('aria-checked', 'false');
+      });
       option.classList.add('selected');
+      option.setAttribute('aria-checked', 'true');
     });
   });
 }
 
 export function initAccordion(): void {
-  document.querySelectorAll<HTMLElement>('.accordion__header').forEach((header) => {
+  document.querySelectorAll<HTMLElement>('.accordion__header').forEach((header, index) => {
+    const item = header.closest('.accordion__item') as HTMLElement | null;
+    const body = item?.querySelector<HTMLElement>('.accordion__body');
+    const headerId = header.id || `faq-header-${index + 1}`;
+    const bodyId = body?.id || `faq-panel-${index + 1}`;
+    header.id = headerId;
+    header.setAttribute('aria-controls', bodyId);
+    if (body) {
+      body.id = bodyId;
+      body.setAttribute('role', 'region');
+      body.setAttribute('aria-labelledby', headerId);
+      body.setAttribute('aria-hidden', String(!item?.classList.contains('active')));
+    }
+    header.setAttribute('aria-expanded', String(item?.classList.contains('active')));
     header.addEventListener('click', () => {
       const item = header.closest('.accordion__item') as HTMLElement | null;
       if (!item) return;
@@ -492,12 +577,18 @@ export function initAccordion(): void {
 
       document.querySelectorAll<HTMLElement>('.accordion__item').forEach((i) => {
         i.classList.remove('active');
+        i.querySelector<HTMLElement>('.accordion__header')?.setAttribute('aria-expanded', 'false');
         const b = i.querySelector('.accordion__body') as HTMLElement | null;
-        if (b) b.style.maxHeight = '';
+        if (b) {
+          b.style.maxHeight = '';
+          b.setAttribute('aria-hidden', 'true');
+        }
       });
 
       if (!isActive) {
         item.classList.add('active');
+        header.setAttribute('aria-expanded', 'true');
+        body.setAttribute('aria-hidden', 'false');
         body.style.maxHeight = body.scrollHeight + 'px';
       }
     });
