@@ -6,8 +6,8 @@ backend:
 media_libraries:
   cloudinary:
     config:
-      cloud_name: xgme9clf
-      api_key: 236693324451995
+      cloud_name: iglq8j73
+      api_key: 158278583556913
       default_transformations:
         - [{ fetch_format: auto, quality: auto }]
 
@@ -36,7 +36,7 @@ collections:
     extension: 'json'
     slug: '{{slug}}'
     fields:
-      - { label: 'Image', name: 'image', widget: 'image' }
+      - { label: 'Image', name: 'image', widget: 'image', media_library: { config: { default_transformations: [[ {fetch_format: auto, quality: auto} ]], tags: ['tourvir-gallery'], folder: 'tourvir-gallery' } } }
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Location', name: 'location', widget: 'string', hint: 'e.g. Southern Province' }
       - {
