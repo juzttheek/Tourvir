@@ -1,0 +1,138 @@
+---
+const measurementId = 'G-EJT9QBL4ZV';
+---
+
+<aside
+  class="analytics-consent"
+  id="analytics-consent"
+  role="region"
+  aria-label="Analytics cookie preferences"
+  hidden
+>
+  <div class="analytics-consent__content">
+    <p>
+      We use Google Analytics to understand how visitors use Tourvir. Analytics loads only if
+      you accept. <a href="/cookies.html">Cookie policy</a>
+    </p>
+    <div class="analytics-consent__actions">
+      <button class="btn btn--outline btn--sm" id="analytics-decline" type="button">Decline</button>
+      <button class="btn btn--primary btn--sm" id="analytics-accept" type="button">Accept analytics</button>
+    </div>
+  </div>
+</aside>
+
+<script is:inline define:vars={{ measurementId }}>
+  (() => {
+    const storageKey = 'tourvir-analytics-consent';
+    const banner = document.getElementById('analytics-consent');
+    const acceptButton = document.getElementById('analytics-accept');
+    const declineButton = document.getElementById('analytics-decline');
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function gtag() {
+      window.dataLayer.push(arguments);
+    };
+    window.gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+    });
+
+    const saveChoice = (choice) => {
+      try {
+        localStorage.setItem(storageKey, choice);
+      } catch {
+        // The choice remains active for this page when storage is unavailable.
+      }
+    };
+
+    const loadAnalytics = () => {
+      if (document.querySelector('script[data-tourvir-analytics]')) return;
+
+      window.gtag('consent', 'update', { analytics_storage: 'granted' });
+      window.gtag('js', new Date());
+      window.gtag('config', measurementId, { anonymize_ip: true });
+
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+      script.dataset.tourvirAnalytics = 'true';
+      document.head.append(script);
+    };
+
+    let savedChoice = null;
+    try {
+      savedChoice = localStorage.getItem(storageKey);
+    } catch {
+      // Show the choice when storage cannot be read.
+    }
+
+    if (savedChoice === 'granted') {
+      loadAnalytics();
+    } else if (savedChoice !== 'denied' && banner) {
+      banner.hidden = false;
+    }
+
+    acceptButton?.addEventListener('click', () => {
+      saveChoice('granted');
+      if (banner) banner.hidden = true;
+      loadAnalytics();
+    });
+
+    declineButton?.addEventListener('click', () => {
+      saveChoice('denied');
+      if (banner) banner.hidden = true;
+    });
+  })();
+</script>
+
+<style>
+  .analytics-consent {
+    position: fixed;
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    z-index: 1200;
+    width: min(28rem, calc(100vw - 2rem));
+    padding: 1rem;
+    color: var(--text-primary);
+    background: color-mix(in srgb, var(--surface) 94%, transparent);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    backdrop-filter: blur(14px);
+  }
+
+  .analytics-consent[hidden] {
+    display: none;
+  }
+
+  .analytics-consent p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .analytics-consent a {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .analytics-consent__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 0.9rem;
+  }
+
+  @media (max-width: 480px) {
+    .analytics-consent__actions {
+      flex-direction: column-reverse;
+    }
+
+    .analytics-consent__actions .btn {
+      justify-content: center;
+      width: 100%;
+    }
+  }
+</style>

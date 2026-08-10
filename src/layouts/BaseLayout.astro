@@ -1,6 +1,7 @@
 ---
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
+import AnalyticsConsent from '../components/layout/AnalyticsConsent.astro';
 interface Props {
   title: string;
   pageStyles?: string[];
@@ -57,21 +58,12 @@ const socialImageURL = new URL(image, Astro.site);
     <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="5BaBz-iCLLSpdliEoeY1aftJ2zTzFz7mTZkujwIgPRs" />
 
-    <!-- Google Analytics (replace G-XXXXXXXXXX with actual Measurement ID) -->
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('consent', 'default', { analytics_storage: 'denied' });
-      gtag('config', 'G-XXXXXXXXXX');
-    </script> -->
-
     <slot name="head" />
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <slot />
+    <AnalyticsConsent />
     <Analytics />
     <SpeedInsights />
   </body>
