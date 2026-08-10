@@ -54,6 +54,19 @@ const socialImageURL = new URL(image, Astro.site);
         }
       })();
     </script>
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="5BaBz-iCLLSpdliEoeY1aftJ2zTzFz7mTZkujwIgPRs" />
+
+    <!-- Google Analytics (replace G-XXXXXXXXXX with actual Measurement ID) -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('consent', 'default', { analytics_storage: 'denied' });
+      gtag('config', 'G-XXXXXXXXXX');
+    </script> -->
+
     <slot name="head" />
   </head>
   <body>

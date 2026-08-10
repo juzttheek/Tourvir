@@ -12,3 +12,7 @@ test-results/
 *.log
 .DS_Store
 Thumbs.db
+docs/guide-images/
+docs/pdf-style.css
+docs/tourvir_admin_user_guide.md
+docs/tourvir_admin_user_guide.pdf

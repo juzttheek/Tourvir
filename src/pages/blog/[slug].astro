@@ -16,7 +16,20 @@ const { entry } = Astro.props;
   title={`${entry.title} - Tourvir Blog`}
   description={entry.description}
   activeRoute="blog.html"
+  image={entry.coverImage}
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": entry.title,
+      "description": entry.description,
+      "author": { "@type": "Organization", "name": entry.author || "Tourvir Team" },
+      "datePublished": new Date(entry.date).toISOString(),
+      "image": entry.coverImage ? `https://tourvir.lk${entry.coverImage}` : "https://tourvir.lk/images/hero/hero_main_hq.webp",
+      "publisher": { "@type": "Organization", "name": "Tourvir", "url": "https://tourvir.lk" }
+    })} />
+  </Fragment>
   <main class="page-container" id="main-content" style="padding-top: calc(var(--header-height) + var(--top-bar-height) + var(--safe-top));">
     <article class="prose" style="max-width: 800px; margin: 0 auto; padding: var(--space-xl) var(--space-md);">
       <header style="text-align: center; margin-bottom: var(--space-xl);">
