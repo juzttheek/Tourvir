@@ -6,6 +6,7 @@ export const site = Object.freeze({
   whatsappDisplay: '072 943 0500',
   whatsappHref:
     'https://wa.me/94729430500?text=Hello!%20I%20would%20like%20to%20inquire%20about%20planning%20a%20trip%20with%20Tourvir.',
+  instagramHref: 'https://www.instagram.com/tourvir.lk?utm_source=qr&igsh=ZGR1a29xYXJwYTdj',
   address: 'No. 36/15, 4th Lane, Ramanayaka Road, Hokandara South, Hokandara, Sri Lanka',
   verificationStatus: 'placeholder_pending_owner',
   copyright: '© 2026 Tourvir',
@@ -23,7 +24,11 @@ export function renderChrome(activeRoute: string) {
   const inactive = chromeMarkup.replaceAll(' active', '');
   return inactive
     .replaceAll('940729430500', '94729430500')
-    .replaceAll('/images/logo.png?v=2', '/images/logo-display.png?v=1')
+    .replaceAll('/images/logo.png?v=2', '/images/logo-display.png?v=2')
+    .replace(
+      'href="#" class="sidebar__social-link" aria-label="Instagram"',
+      `href="${site.instagramHref}" class="sidebar__social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer"`,
+    )
     .replace(
       `href="${normalizedRoute}" class="sidebar__nav-link"`,
       `href="${normalizedRoute}" class="sidebar__nav-link active" aria-current="page"`,
@@ -37,7 +42,11 @@ export function renderChrome(activeRoute: string) {
 export function renderFooter() {
   return footerMarkup
     .replaceAll('940729430500', '94729430500')
-    .replaceAll('/images/logo.png?v=2', '/images/logo-display.png?v=1');
+    .replaceAll('/images/logo.png?v=2', '/images/logo-display.png?v=2')
+    .replace(
+      'href="#" class="footer__social-link" aria-label="Instagram"',
+      `href="${site.instagramHref}" class="footer__social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer"`,
+    );
 }
 
 export function renderFloatingActions() {
