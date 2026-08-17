@@ -4,7 +4,7 @@
 **Working branch:** `seo-remediation`
 **Production baseline:** `main` at `34aff26`
 **External audit:** `Tourvir_SEO_Audit_Report.pdf`
-**Status:** Phase 0 and Phase 1 complete; ready for Phase 2
+**Status:** Phase 1 Search Console redirect follow-up locally complete; Preview pending
 **Production deployments from this programme:** none
 
 ## Purpose and closure rules
@@ -44,16 +44,16 @@ The `.html` routes are retained to avoid an unnecessary migration. Extensions do
 
 ## Phase ledger
 
-| Phase | Scope                                                        | Status   | Completion gate                                                                          |
-| ----- | ------------------------------------------------------------ | -------- | ---------------------------------------------------------------------------------------- |
-| 0     | Protected baseline, finding register and test design         | COMPLETE | All audit claims registered; baseline, safety controls and executable URL tests recorded |
-| 1     | Canonicals, redirects, robots, sitemap and indexability      | COMPLETE | Every sitemap URL reaches one canonical `200`; host/path signals agree                   |
-| 2     | Titles, descriptions, social metadata and schema             | PENDING  | No unintended duplicates; supported schema validates and matches visible content         |
-| 3     | Package, destination, service, About and guide content       | PENDING  | Customer-approved pages are accurate, substantial and conversion-ready                   |
-| 4     | Gallery, reviews, licensing, email, social and trust         | PENDING  | No broken/placeholder media or unsupported trust claim remains                           |
-| 5     | Information architecture and internal linking                | PENDING  | No orphan priority page; contextual link model passes crawler checks                     |
-| 6     | Performance, mobile, media and accessibility                 | PENDING  | Performance/accessibility budgets pass without regressions                               |
-| 7     | Preview, production release, GSC resubmission and monitoring | PENDING  | Preview/production smoke gates pass; GSC/analytics evidence recorded                     |
+| Phase | Scope                                                        | Status          | Completion gate                                                                          |
+| ----- | ------------------------------------------------------------ | --------------- | ---------------------------------------------------------------------------------------- |
+| 0     | Protected baseline, finding register and test design         | COMPLETE        | All audit claims registered; baseline, safety controls and executable URL tests recorded |
+| 1     | Canonicals, redirects, robots, sitemap and indexability      | LOCAL FOLLOW-UP | Every sitemap URL reaches one canonical `200`; host/path signals agree                   |
+| 2     | Titles, descriptions, social metadata and schema             | PENDING         | No unintended duplicates; supported schema validates and matches visible content         |
+| 3     | Package, destination, service, About and guide content       | PENDING         | Customer-approved pages are accurate, substantial and conversion-ready                   |
+| 4     | Gallery, reviews, licensing, email, social and trust         | PENDING         | No broken/placeholder media or unsupported trust claim remains                           |
+| 5     | Information architecture and internal linking                | PENDING         | No orphan priority page; contextual link model passes crawler checks                     |
+| 6     | Performance, mobile, media and accessibility                 | PENDING         | Performance/accessibility budgets pass without regressions                               |
+| 7     | Preview, production release, GSC resubmission and monitoring | PENDING         | Preview/production smoke gates pass; GSC/analytics evidence recorded                     |
 
 ## Finding register
 
@@ -63,7 +63,7 @@ The `.html` routes are retained to avoid an unnecessary migration. Extensions do
 | ------- | ------------- | --------------------------------------------------- | ------------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------- |
 | SEO-001 | Crawlability  | Robots and sitemap “unverified”                     | Both return `200`; audit method was incomplete                            | P0       | COMPLETE — Preview files return `200` and use preferred origin                |
 | SEO-002 | Sitemap       | Sitemap health                                      | Audit missed that 20/21 listed page URLs return `404`                     | P0       | COMPLETE — all 21 declared Preview page URLs return `200`                     |
-| SEO-003 | Indexing      | No brand/site search result                         | Also not surfaced in current independent search; cause requires GSC       | P0       | OPEN-POTENTIAL — repair signals and record GSC evidence                       |
+| SEO-003 | Indexing      | No brand/site search result                         | GSC exposed 20 incorrect extensionless URLs from the production sitemap   | P0       | OPEN-MONITOR — branch fix ready; production/GSC validation remains            |
 | SEO-004 | Canonical     | Canonicals use apex while pages serve on www        | Confirmed; apex redirects to www but signals still conflict               | P0       | COMPLETE — Preview canonicals and OG URLs use exact www URLs                  |
 | SEO-005 | Canonical     | Homepage canonical is `/index.html` instead of `/`  | Confirmed                                                                 | P0       | COMPLETE — canonical `/`; Preview `/index.html` is `308` to `/`               |
 | SEO-006 | Redirects     | HTTP/HTTPS behavior unverified                      | Redirects exist; `http://tourvir.lk` currently takes two hops             | P1       | OPEN-RELEASE — path redirect passed; domain hops need production verification |
@@ -171,13 +171,18 @@ Command: `npm run test:lighthouse`
 
 Lighthouse SEO 1.00 covers only its technical checklist; it does not prove indexing, rankings, content depth, authority or backlinks.
 
-## Search Console follow-up — 2026-08-17
+## Search Console follow-up — 2026-08-18
 
-- Search Console reports one excluded URL with reason `Page with redirect`; validation has not been started.
+- Search Console identifies `https://tourvir.lk/` as the one excluded `Page with redirect`, last crawled 2026-08-13.
 - Google documents this state as a non-canonical URL that redirects, so the source URL is not indexed while the redirect target is evaluated separately.
 - Live `https://tourvir.lk/` returns permanent `308` to `https://www.tourvir.lk/`; the HTTP variants also redirect to HTTPS.
+- This homepage exclusion is intentional and should remain a redirect to the preferred www canonical.
+- Search Console also reports 20 `Discovered - currently not indexed` URLs, first detected 2026-08-15, with no last-crawled dates.
+- Those 20 examples exactly match the incorrect apex, extensionless URLs still advertised by the production sitemap, including `/blog`, four `/blog/...` routes, nine top-level routes and seven `/packages/...` routes.
+- Live verification confirms representative `/blog` ends at a `404`, while `/blog.html` reaches the real `200` page.
+- The branch sitemap already advertises the correct HTTPS www `.html` URLs; 20 exact permanent legacy redirects were added so every Google-discovered URL preserves its route and reaches the matching canonical page.
 - Live `https://www.tourvir.lk/index.html` still returns `200` because Phase 1 has not been deployed.
-- The single GSC exclusion is therefore likely an intentional host/protocol variant, but its exact example URL is still required before final classification.
+- Do not start Search Console validation until the corrected sitemap and redirects are deployed to production.
 
 ## Regression gate
 
@@ -264,7 +269,10 @@ Phase 1 must add automated checks that crawl every sitemap URL, compare final/ca
 | 2026-08-18 | 1     | Deployed robots and sitemap signal checks                       | PASS                | Sitemap index, 21-entry child sitemap and robots directive all use `https://www.tourvir.lk`                       |
 | 2026-08-18 | 1     | Deployed canonical and Open Graph URL checks                    | PASS                | Homepage `/` and representative `/packages.html` tags are exact, self-referencing and mutually consistent         |
 | 2026-08-18 | 1     | Phase 1 completion review                                       | COMPLETE            | Local regression and protected Preview gates passed; production/custom-domain verification remains in Phase 7     |
+| 2026-08-18 | 1     | Reconciled exact Search Console indexing examples               | FAIL FOUND          | Production sitemap advertises 20 apex extensionless URLs; representative `/blog` redirects to a final `404`       |
+| 2026-08-18 | 1     | Added exact legacy URL recovery redirects                       | LOCAL PASS          | 20 permanent extensionless-to-`.html` mappings; no wildcard redirects                                             |
+| 2026-08-18 | 1     | Expanded and ran the focused SEO URL contract                   | PASS                | Build passes; 21 sitemap routes, 21 indexable HTML files and all 20 legacy redirects validated                    |
 
 ## Current next action
 
-Begin Phase 2 metadata and schema work on `seo-remediation`. Keep production untouched until the later release gate, and verify the custom-domain redirect variants plus Search Console example URL in Phase 7.
+Commit and verify the 20 Search Console recovery redirects on a protected Preview. Then begin Phase 2 metadata and schema work while keeping production untouched until the later release gate.

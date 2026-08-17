@@ -115,11 +115,42 @@ if (
 ) {
   failures.push('vercel.json: missing permanent /index.html -> / redirect');
 }
+
+const configuredRedirects = vercelConfig.redirects ?? [];
+const duplicateRedirectSources = configuredRedirects
+  .map((redirect) => redirect.source)
+  .filter((source, index, sources) => sources.indexOf(source) !== index);
+if (duplicateRedirectSources.length > 0) {
+  failures.push(
+    `vercel.json: duplicate redirect sources ${[...new Set(duplicateRedirectSources)].join(', ')}`,
+  );
+}
+
+const expectedLegacyRedirects = sitemapUrls
+  .map((sitemapUrl) => new URL(sitemapUrl).pathname)
+  .filter((pathname) => pathname !== '/')
+  .map((destination) => ({ source: destination.replace(/\.html$/, ''), destination }));
+
+for (const expectedRedirect of expectedLegacyRedirects) {
+  const configuredRedirect = configuredRedirects.find(
+    (redirect) => redirect.source === expectedRedirect.source,
+  );
+  if (
+    !configuredRedirect ||
+    configuredRedirect.destination !== expectedRedirect.destination ||
+    configuredRedirect.permanent !== true
+  ) {
+    failures.push(
+      `vercel.json: missing permanent ${expectedRedirect.source} -> ${expectedRedirect.destination} redirect`,
+    );
+  }
+}
+
 if (vercelConfig.cleanUrls !== false) {
   failures.push('vercel.json: cleanUrls must remain false for the approved .html URL policy');
 }
 
 if (failures.length > 0) throw new Error(`SEO contract failures:\n${failures.join('\n')}`);
 console.log(
-  `Validated SEO URL contract across ${sitemapUrls.length} sitemap routes and ${expectedIndexableFiles.length} indexable HTML files.`,
+  `Validated SEO URL contract across ${sitemapUrls.length} sitemap routes, ${expectedIndexableFiles.length} indexable HTML files and ${expectedLegacyRedirects.length} legacy redirects.`,
 );

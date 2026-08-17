@@ -9,6 +9,106 @@
       "source": "/index.html",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/first-post",
+      "destination": "/blog/first-post.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/kandy-temple-of-tooth",
+      "destination": "/blog/kandy-temple-of-tooth.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tea-country-ella",
+      "destination": "/blog/tea-country-ella.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/yala-wildlife-safari",
+      "destination": "/blog/yala-wildlife-safari.html",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html",
+      "permanent": true
+    },
+    {
+      "source": "/cookies",
+      "destination": "/cookies.html",
+      "permanent": true
+    },
+    {
+      "source": "/gallery",
+      "destination": "/gallery.html",
+      "permanent": true
+    },
+    {
+      "source": "/inquiry",
+      "destination": "/inquiry.html",
+      "permanent": true
+    },
+    {
+      "source": "/packages",
+      "destination": "/packages.html",
+      "permanent": true
+    },
+    {
+      "source": "/packages/package-1-cultural-triangle-explorer",
+      "destination": "/packages/package-1-cultural-triangle-explorer.html",
+      "permanent": true
+    },
+    {
+      "source": "/packages/package-2-beach-paradise-retreat",
+      "destination": "/packages/package-2-beach-paradise-retreat.html",
+      "permanent": true
+    },
+    {
+      "source": "/packages/package-3-wildlife-safari-adventure",
+      "destination": "/packages/package-3-wildlife-safari-adventure.html",
+      "permanent": true
+    },
+    {
+      "source": "/packages/package-4-hill-country-adventure",
+      "destination": "/packages/package-4-hill-country-adventure.html",
+      "permanent": true
+    },
+    {
+      "source": "/packages/package-5-honeymoon-special",
+      "destination": "/packages/package-5-honeymoon-special.html",
+      "permanent": true
+    },
+    {
+      "source": "/packages/package-6-ancient-cities-heritage",
+      "destination": "/packages/package-6-ancient-cities-heritage.html",
+      "permanent": true
+    },
+    {
+      "source": "/packages/package-7-complete-sri-lanka-experience",
+      "destination": "/packages/package-7-complete-sri-lanka-experience.html",
+      "permanent": true
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy.html",
+      "permanent": true
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms.html",
+      "permanent": true
+    },
+    {
+      "source": "/vehicles",
+      "destination": "/vehicles.html",
+      "permanent": true
     }
   ],
   "headers": [
