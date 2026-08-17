@@ -4,7 +4,7 @@
 **Working branch:** `seo-remediation`
 **Production baseline:** `main` at `34aff26`
 **External audit:** `Tourvir_SEO_Audit_Report.pdf`
-**Status:** Phase 0 complete; Phase 1 locally complete, Preview pending
+**Status:** Phase 0 and Phase 1 complete; ready for Phase 2
 **Production deployments from this programme:** none
 
 ## Purpose and closure rules
@@ -44,83 +44,83 @@ The `.html` routes are retained to avoid an unnecessary migration. Extensions do
 
 ## Phase ledger
 
-| Phase | Scope                                                        | Status         | Completion gate                                                                          |
-| ----- | ------------------------------------------------------------ | -------------- | ---------------------------------------------------------------------------------------- |
-| 0     | Protected baseline, finding register and test design         | COMPLETE       | All audit claims registered; baseline, safety controls and executable URL tests recorded |
-| 1     | Canonicals, redirects, robots, sitemap and indexability      | LOCAL COMPLETE | Every sitemap URL reaches one canonical `200`; host/path signals agree                   |
-| 2     | Titles, descriptions, social metadata and schema             | PENDING        | No unintended duplicates; supported schema validates and matches visible content         |
-| 3     | Package, destination, service, About and guide content       | PENDING        | Customer-approved pages are accurate, substantial and conversion-ready                   |
-| 4     | Gallery, reviews, licensing, email, social and trust         | PENDING        | No broken/placeholder media or unsupported trust claim remains                           |
-| 5     | Information architecture and internal linking                | PENDING        | No orphan priority page; contextual link model passes crawler checks                     |
-| 6     | Performance, mobile, media and accessibility                 | PENDING        | Performance/accessibility budgets pass without regressions                               |
-| 7     | Preview, production release, GSC resubmission and monitoring | PENDING        | Preview/production smoke gates pass; GSC/analytics evidence recorded                     |
+| Phase | Scope                                                        | Status   | Completion gate                                                                          |
+| ----- | ------------------------------------------------------------ | -------- | ---------------------------------------------------------------------------------------- |
+| 0     | Protected baseline, finding register and test design         | COMPLETE | All audit claims registered; baseline, safety controls and executable URL tests recorded |
+| 1     | Canonicals, redirects, robots, sitemap and indexability      | COMPLETE | Every sitemap URL reaches one canonical `200`; host/path signals agree                   |
+| 2     | Titles, descriptions, social metadata and schema             | PENDING  | No unintended duplicates; supported schema validates and matches visible content         |
+| 3     | Package, destination, service, About and guide content       | PENDING  | Customer-approved pages are accurate, substantial and conversion-ready                   |
+| 4     | Gallery, reviews, licensing, email, social and trust         | PENDING  | No broken/placeholder media or unsupported trust claim remains                           |
+| 5     | Information architecture and internal linking                | PENDING  | No orphan priority page; contextual link model passes crawler checks                     |
+| 6     | Performance, mobile, media and accessibility                 | PENDING  | Performance/accessibility budgets pass without regressions                               |
+| 7     | Preview, production release, GSC resubmission and monitoring | PENDING  | Preview/production smoke gates pass; GSC/analytics evidence recorded                     |
 
 ## Finding register
 
 `P0` is release-critical, `P1` high, `P2` planned improvement, and `P3` low/monitor. Priorities reflect verified Tourvir risk, not automatically the audit company's label.
 
-| ID      | Area          | Finding                                             | Baseline result                                                           | Priority | State / closure target                                     |
-| ------- | ------------- | --------------------------------------------------- | ------------------------------------------------------------------------- | -------- | ---------------------------------------------------------- |
-| SEO-001 | Crawlability  | Robots and sitemap “unverified”                     | Both return `200`; audit method was incomplete                            | P0       | OPEN — keep valid and align to preferred origin            |
-| SEO-002 | Sitemap       | Sitemap health                                      | Audit missed that 20/21 listed page URLs return `404`                     | P0       | OPEN-CONFIRMED — all entries must reach canonical `200`    |
-| SEO-003 | Indexing      | No brand/site search result                         | Also not surfaced in current independent search; cause requires GSC       | P0       | OPEN-POTENTIAL — repair signals and record GSC evidence    |
-| SEO-004 | Canonical     | Canonicals use apex while pages serve on www        | Confirmed; apex redirects to www but signals still conflict               | P0       | OPEN-CONFIRMED — exact self-referencing www canonicals     |
-| SEO-005 | Canonical     | Homepage canonical is `/index.html` instead of `/`  | Confirmed                                                                 | P0       | OPEN-CONFIRMED — canonical `/`, redirect old route         |
-| SEO-006 | Redirects     | HTTP/HTTPS behavior unverified                      | Redirects exist; `http://tourvir.lk` currently takes two hops             | P1       | OPEN — one approved permanent path to final URL            |
-| SEO-007 | URL           | `/blog/first-post.html` is non-descriptive          | Confirmed                                                                 | P2       | OPEN — descriptive route only with safe redirect           |
-| SEO-008 | URL           | Numeric package prefixes unnecessary                | True but explicitly not harmful; migration risk outweighs benefit         | P3       | REJECTED-WITH-EVIDENCE — preserve stable URLs              |
-| SEO-009 | HTTPS         | Mixed content unverified                            | No failure observed in baseline browser checks                            | P1       | OPEN-VERIFY — automated production HTTPS scan              |
-| SEO-010 | Widgets       | Weather/currency/counters appeared unresolved       | All resolved in live browser                                              | P2       | OPEN-IMPROVEMENT — honest static/no-JS fallbacks           |
-| SEO-011 | Performance   | PSI/CWV not measured                                | Correct audit limitation; local Lighthouse exists, field CWV still needed | P1       | OPEN — Preview lab plus GSC/CrUX field evidence            |
-| SEO-012 | Mobile        | Viewport meta present                               | Confirmed                                                                 | P3       | VERIFIED-PASS — preserve in regression                     |
-| SEO-013 | On-page       | Homepage metadata and one H1 are strong             | Confirmed                                                                 | P3       | VERIFIED-PASS — preserve                                   |
-| SEO-014 | Metadata      | Privacy/Terms/Cookies duplicate Contact metadata    | Confirmed                                                                 | P1       | OPEN-CONFIRMED — unique accurate metadata                  |
-| SEO-015 | Metadata      | Package descriptions are generic                    | Confirmed on all seven                                                    | P1       | OPEN-CONFIRMED — unique verified package metadata          |
-| SEO-016 | Headings      | Sigiriya post lacks H2/H3                           | Confirmed; it is one short paragraph                                      | P2       | OPEN-CONFIRMED — expand with logical headings              |
-| SEO-017 | Destinations  | No destination pages                                | Confirmed                                                                 | P1       | BLOCKED-OWNER — genuine destination content required       |
-| SEO-018 | Destinations  | Build ten priority pages                            | Directionally good; audit did not validate volumes                        | P1       | BLOCKED-OWNER — confirm offerings and research priority    |
-| SEO-019 | Packages      | Seven pages lack overview/itinerary/inclusions/FAQs | Confirmed                                                                 | P1       | BLOCKED-OWNER — full approved package content              |
-| SEO-020 | Packages      | Route map is a placeholder                          | Incorrect; live map loaded six markers and tiles                          | P3       | VERIFIED-PASS — preserve and smoke-test                    |
-| SEO-021 | Packages      | Add category landing pages                          | Recommendation, not defect                                                | P2       | OPEN-DESIGN — evaluate after keyword research              |
-| SEO-022 | Packages      | Adventure/family interests lack matching offers     | Confirmed alignment gap                                                   | P2       | BLOCKED-OWNER — add truthful offering or remove promise    |
-| SEO-023 | Content       | Practical planning information is limited           | Confirmed                                                                 | P2       | BLOCKED-OWNER — accurate travel-guide hub                  |
-| SEO-024 | Content       | “Why Tourvir” evidence is thin                      | Confirmed                                                                 | P2       | BLOCKED-OWNER — real differentiators/team/process          |
-| SEO-025 | Blog          | Four posts; newest January 2024                     | Confirmed                                                                 | P2       | OPEN — improve existing posts, then quality-led plan       |
-| SEO-026 | Blog          | Posts are short and weakly linked                   | Confirmed                                                                 | P2       | OPEN-CONFIRMED — expand, add imagery/author/links          |
-| SEO-027 | Local         | NAP, office hours, map and emergency contacts       | Confirmed strengths                                                       | P3       | VERIFIED-PASS — preserve and owner-verify                  |
-| SEO-028 | Trust         | Personal Gmail instead of branded email             | Confirmed trust issue, not direct ranking defect                          | P2       | BLOCKED-OWNER — working branded mailbox required           |
-| SEO-029 | Local         | Google Business Profile unverified                  | Still unverified                                                          | P1       | BLOCKED-OWNER — official invite or evidence                |
-| SEO-030 | International | English/USD/nationality/ETA foundations             | Confirmed strengths                                                       | P3       | VERIFIED-PASS — preserve and validate claims               |
-| SEO-031 | International | LKR widget broken                                   | Not reproduced; fallback still useful                                     | P3       | OPEN-IMPROVEMENT — covered by SEO-010                      |
-| SEO-032 | International | Hreflang not needed                                 | Correct for current single-language site                                  | P3       | VERIFIED-PASS — do not add prematurely                     |
-| SEO-033 | Mobile        | Eight-column vehicle table may be difficult         | Potential; formal device evidence needed                                  | P1       | OPEN-VERIFY — test 320/390px and improve if needed         |
-| SEO-034 | Performance   | Eleven-image hero may cost bandwidth                | Confirmed design risk despite lazy attributes                             | P1       | OPEN-VERIFY — measure requests/LCP; demand-load slides     |
-| SEO-035 | UX            | About Us navigation routes home                     | Confirmed; homepage has partial About content                             | P2       | BLOCKED-OWNER — genuine dedicated About page               |
-| SEO-036 | Trust         | Only one testimonial                                | Confirmed                                                                 | P2       | BLOCKED-OWNER — permissioned/attributable reviews only     |
-| SEO-037 | Reviews       | Ratings/counts lack a visible source                | Confirmed; `AggregateRating` also emitted                                 | P0       | BLOCKED-OWNER — prove source or remove counts/schema       |
-| SEO-038 | Services      | Six service paths route to Contact                  | Confirmed except Vehicles                                                 | P1       | BLOCKED-OWNER — truthful service pages/routing             |
-| SEO-039 | Schema        | No TravelAgency/LocalBusiness detected              | Incorrect; homepage has `TravelAgency`                                    | P2       | OPEN-IMPROVEMENT — enrich one entity, avoid duplicates     |
-| SEO-040 | Schema        | No TouristTrip detected                             | Incorrect; package template emits it                                      | P2       | OPEN-IMPROVEMENT — align with visible expanded content     |
-| SEO-041 | Schema        | No BlogPosting detected                             | Incorrect; blog template emits it                                         | P2       | OPEN-IMPROVEMENT — enrich and validate                     |
-| SEO-042 | Schema        | BreadcrumbList absent                               | Confirmed                                                                 | P2       | OPEN-CONFIRMED — matching visible/schema breadcrumbs       |
-| SEO-043 | Schema        | FAQPage will earn rich snippets                     | Outdated for tourism; Google limits regular FAQ rich results              | P3       | REJECTED-WITH-EVIDENCE — useful visible FAQs, no promise   |
-| SEO-044 | Schema        | WebSite can enable sitelinks search box             | Obsolete; Google removed feature in November 2024                         | P3       | REJECTED-WITH-EVIDENCE — no obsolete implementation        |
-| SEO-045 | Gallery       | `asd`, `logo`, raw filenames and broken image       | Confirmed; `asd` is broken live                                           | P0       | OPEN-CONFIRMED — remove test/broken content, improve media |
-| SEO-046 | Images        | Package pages have one image                        | Confirmed                                                                 | P2       | BLOCKED-OWNER — licensed relevant images required          |
-| SEO-047 | Media         | File size/compression/lazy loading need measurement | Audit did not measure; repository has large/duplicate assets              | P1       | OPEN — reference inventory and safe optimization           |
-| SEO-048 | Links         | Homepage destination cards are not links            | Confirmed                                                                 | P1       | OPEN-CONFIRMED — link to approved destination pages        |
-| SEO-049 | Links         | Packages do not link vehicles/related/destinations  | Confirmed                                                                 | P1       | OPEN-CONFIRMED — contextual link model                     |
-| SEO-050 | Links         | Blog does not link packages/destinations            | Confirmed                                                                 | P2       | OPEN-CONFIRMED — add relevant contextual links             |
-| SEO-051 | Links         | Inquiry FAQ is isolated                             | Confirmed                                                                 | P2       | OPEN-CONFIRMED — link from relevant contexts               |
-| SEO-052 | E-E-A-T       | No guide/driver profiles                            | Confirmed                                                                 | P2       | BLOCKED-OWNER — approved real profiles                     |
-| SEO-053 | E-E-A-T       | SLTDA claim lacks number/verification               | Confirmed presentation gap; licence itself unverified                     | P0       | BLOCKED-OWNER — evidence or remove/qualify claim           |
-| SEO-054 | Social        | Facebook/X/TikTok link to `#`                       | Confirmed; Instagram works                                                | P0       | BLOCKED-OWNER — real URLs or remove icons                  |
-| SEO-055 | Legal         | Policies are generic                                | Confirmed content-quality/legal risk                                      | P1       | BLOCKED-OWNER — business/legal review and approval         |
-| SEO-056 | Competition   | Competitors show fuller tours/attributable reviews  | Directionally credible; no quantitative authority data                    | P2       | OPEN — close gaps without copying competitors              |
-| SEO-057 | CRO           | Thin pages force basic-detail enquiries             | Confirmed                                                                 | P1       | BLOCKED-OWNER — resolved by complete content               |
-| SEO-058 | CRO           | Add contextual CTAs                                 | Reasonable recommendation                                                 | P2       | OPEN-DESIGN — accessible tracked CTAs, no dark patterns    |
-| SEO-059 | CRO           | Add quick-estimate micro-form                       | Optional, not a defect                                                    | P3       | OPEN-DESIGN — only with owner workflow/evidence            |
-| SEO-060 | Off-page      | Search visibility/backlinks/authority unknown       | Confirmed audit limitation                                                | P1       | BLOCKED-OWNER — GSC/GBP data and ethical growth plan       |
+| ID      | Area          | Finding                                             | Baseline result                                                           | Priority | State / closure target                                                        |
+| ------- | ------------- | --------------------------------------------------- | ------------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------- |
+| SEO-001 | Crawlability  | Robots and sitemap “unverified”                     | Both return `200`; audit method was incomplete                            | P0       | COMPLETE — Preview files return `200` and use preferred origin                |
+| SEO-002 | Sitemap       | Sitemap health                                      | Audit missed that 20/21 listed page URLs return `404`                     | P0       | COMPLETE — all 21 declared Preview page URLs return `200`                     |
+| SEO-003 | Indexing      | No brand/site search result                         | Also not surfaced in current independent search; cause requires GSC       | P0       | OPEN-POTENTIAL — repair signals and record GSC evidence                       |
+| SEO-004 | Canonical     | Canonicals use apex while pages serve on www        | Confirmed; apex redirects to www but signals still conflict               | P0       | COMPLETE — Preview canonicals and OG URLs use exact www URLs                  |
+| SEO-005 | Canonical     | Homepage canonical is `/index.html` instead of `/`  | Confirmed                                                                 | P0       | COMPLETE — canonical `/`; Preview `/index.html` is `308` to `/`               |
+| SEO-006 | Redirects     | HTTP/HTTPS behavior unverified                      | Redirects exist; `http://tourvir.lk` currently takes two hops             | P1       | OPEN-RELEASE — path redirect passed; domain hops need production verification |
+| SEO-007 | URL           | `/blog/first-post.html` is non-descriptive          | Confirmed                                                                 | P2       | OPEN — descriptive route only with safe redirect                              |
+| SEO-008 | URL           | Numeric package prefixes unnecessary                | True but explicitly not harmful; migration risk outweighs benefit         | P3       | REJECTED-WITH-EVIDENCE — preserve stable URLs                                 |
+| SEO-009 | HTTPS         | Mixed content unverified                            | No failure observed in baseline browser checks                            | P1       | OPEN-VERIFY — automated production HTTPS scan                                 |
+| SEO-010 | Widgets       | Weather/currency/counters appeared unresolved       | All resolved in live browser                                              | P2       | OPEN-IMPROVEMENT — honest static/no-JS fallbacks                              |
+| SEO-011 | Performance   | PSI/CWV not measured                                | Correct audit limitation; local Lighthouse exists, field CWV still needed | P1       | OPEN — Preview lab plus GSC/CrUX field evidence                               |
+| SEO-012 | Mobile        | Viewport meta present                               | Confirmed                                                                 | P3       | VERIFIED-PASS — preserve in regression                                        |
+| SEO-013 | On-page       | Homepage metadata and one H1 are strong             | Confirmed                                                                 | P3       | VERIFIED-PASS — preserve                                                      |
+| SEO-014 | Metadata      | Privacy/Terms/Cookies duplicate Contact metadata    | Confirmed                                                                 | P1       | OPEN-CONFIRMED — unique accurate metadata                                     |
+| SEO-015 | Metadata      | Package descriptions are generic                    | Confirmed on all seven                                                    | P1       | OPEN-CONFIRMED — unique verified package metadata                             |
+| SEO-016 | Headings      | Sigiriya post lacks H2/H3                           | Confirmed; it is one short paragraph                                      | P2       | OPEN-CONFIRMED — expand with logical headings                                 |
+| SEO-017 | Destinations  | No destination pages                                | Confirmed                                                                 | P1       | BLOCKED-OWNER — genuine destination content required                          |
+| SEO-018 | Destinations  | Build ten priority pages                            | Directionally good; audit did not validate volumes                        | P1       | BLOCKED-OWNER — confirm offerings and research priority                       |
+| SEO-019 | Packages      | Seven pages lack overview/itinerary/inclusions/FAQs | Confirmed                                                                 | P1       | BLOCKED-OWNER — full approved package content                                 |
+| SEO-020 | Packages      | Route map is a placeholder                          | Incorrect; live map loaded six markers and tiles                          | P3       | VERIFIED-PASS — preserve and smoke-test                                       |
+| SEO-021 | Packages      | Add category landing pages                          | Recommendation, not defect                                                | P2       | OPEN-DESIGN — evaluate after keyword research                                 |
+| SEO-022 | Packages      | Adventure/family interests lack matching offers     | Confirmed alignment gap                                                   | P2       | BLOCKED-OWNER — add truthful offering or remove promise                       |
+| SEO-023 | Content       | Practical planning information is limited           | Confirmed                                                                 | P2       | BLOCKED-OWNER — accurate travel-guide hub                                     |
+| SEO-024 | Content       | “Why Tourvir” evidence is thin                      | Confirmed                                                                 | P2       | BLOCKED-OWNER — real differentiators/team/process                             |
+| SEO-025 | Blog          | Four posts; newest January 2024                     | Confirmed                                                                 | P2       | OPEN — improve existing posts, then quality-led plan                          |
+| SEO-026 | Blog          | Posts are short and weakly linked                   | Confirmed                                                                 | P2       | OPEN-CONFIRMED — expand, add imagery/author/links                             |
+| SEO-027 | Local         | NAP, office hours, map and emergency contacts       | Confirmed strengths                                                       | P3       | VERIFIED-PASS — preserve and owner-verify                                     |
+| SEO-028 | Trust         | Personal Gmail instead of branded email             | Confirmed trust issue, not direct ranking defect                          | P2       | BLOCKED-OWNER — working branded mailbox required                              |
+| SEO-029 | Local         | Google Business Profile unverified                  | Still unverified                                                          | P1       | BLOCKED-OWNER — official invite or evidence                                   |
+| SEO-030 | International | English/USD/nationality/ETA foundations             | Confirmed strengths                                                       | P3       | VERIFIED-PASS — preserve and validate claims                                  |
+| SEO-031 | International | LKR widget broken                                   | Not reproduced; fallback still useful                                     | P3       | OPEN-IMPROVEMENT — covered by SEO-010                                         |
+| SEO-032 | International | Hreflang not needed                                 | Correct for current single-language site                                  | P3       | VERIFIED-PASS — do not add prematurely                                        |
+| SEO-033 | Mobile        | Eight-column vehicle table may be difficult         | Potential; formal device evidence needed                                  | P1       | OPEN-VERIFY — test 320/390px and improve if needed                            |
+| SEO-034 | Performance   | Eleven-image hero may cost bandwidth                | Confirmed design risk despite lazy attributes                             | P1       | OPEN-VERIFY — measure requests/LCP; demand-load slides                        |
+| SEO-035 | UX            | About Us navigation routes home                     | Confirmed; homepage has partial About content                             | P2       | BLOCKED-OWNER — genuine dedicated About page                                  |
+| SEO-036 | Trust         | Only one testimonial                                | Confirmed                                                                 | P2       | BLOCKED-OWNER — permissioned/attributable reviews only                        |
+| SEO-037 | Reviews       | Ratings/counts lack a visible source                | Confirmed; `AggregateRating` also emitted                                 | P0       | BLOCKED-OWNER — prove source or remove counts/schema                          |
+| SEO-038 | Services      | Six service paths route to Contact                  | Confirmed except Vehicles                                                 | P1       | BLOCKED-OWNER — truthful service pages/routing                                |
+| SEO-039 | Schema        | No TravelAgency/LocalBusiness detected              | Incorrect; homepage has `TravelAgency`                                    | P2       | OPEN-IMPROVEMENT — enrich one entity, avoid duplicates                        |
+| SEO-040 | Schema        | No TouristTrip detected                             | Incorrect; package template emits it                                      | P2       | OPEN-IMPROVEMENT — align with visible expanded content                        |
+| SEO-041 | Schema        | No BlogPosting detected                             | Incorrect; blog template emits it                                         | P2       | OPEN-IMPROVEMENT — enrich and validate                                        |
+| SEO-042 | Schema        | BreadcrumbList absent                               | Confirmed                                                                 | P2       | OPEN-CONFIRMED — matching visible/schema breadcrumbs                          |
+| SEO-043 | Schema        | FAQPage will earn rich snippets                     | Outdated for tourism; Google limits regular FAQ rich results              | P3       | REJECTED-WITH-EVIDENCE — useful visible FAQs, no promise                      |
+| SEO-044 | Schema        | WebSite can enable sitelinks search box             | Obsolete; Google removed feature in November 2024                         | P3       | REJECTED-WITH-EVIDENCE — no obsolete implementation                           |
+| SEO-045 | Gallery       | `asd`, `logo`, raw filenames and broken image       | Confirmed; `asd` is broken live                                           | P0       | OPEN-CONFIRMED — remove test/broken content, improve media                    |
+| SEO-046 | Images        | Package pages have one image                        | Confirmed                                                                 | P2       | BLOCKED-OWNER — licensed relevant images required                             |
+| SEO-047 | Media         | File size/compression/lazy loading need measurement | Audit did not measure; repository has large/duplicate assets              | P1       | OPEN — reference inventory and safe optimization                              |
+| SEO-048 | Links         | Homepage destination cards are not links            | Confirmed                                                                 | P1       | OPEN-CONFIRMED — link to approved destination pages                           |
+| SEO-049 | Links         | Packages do not link vehicles/related/destinations  | Confirmed                                                                 | P1       | OPEN-CONFIRMED — contextual link model                                        |
+| SEO-050 | Links         | Blog does not link packages/destinations            | Confirmed                                                                 | P2       | OPEN-CONFIRMED — add relevant contextual links                                |
+| SEO-051 | Links         | Inquiry FAQ is isolated                             | Confirmed                                                                 | P2       | OPEN-CONFIRMED — link from relevant contexts                                  |
+| SEO-052 | E-E-A-T       | No guide/driver profiles                            | Confirmed                                                                 | P2       | BLOCKED-OWNER — approved real profiles                                        |
+| SEO-053 | E-E-A-T       | SLTDA claim lacks number/verification               | Confirmed presentation gap; licence itself unverified                     | P0       | BLOCKED-OWNER — evidence or remove/qualify claim                              |
+| SEO-054 | Social        | Facebook/X/TikTok link to `#`                       | Confirmed; Instagram works                                                | P0       | BLOCKED-OWNER — real URLs or remove icons                                     |
+| SEO-055 | Legal         | Policies are generic                                | Confirmed content-quality/legal risk                                      | P1       | BLOCKED-OWNER — business/legal review and approval                            |
+| SEO-056 | Competition   | Competitors show fuller tours/attributable reviews  | Directionally credible; no quantitative authority data                    | P2       | OPEN — close gaps without copying competitors                                 |
+| SEO-057 | CRO           | Thin pages force basic-detail enquiries             | Confirmed                                                                 | P1       | BLOCKED-OWNER — resolved by complete content                                  |
+| SEO-058 | CRO           | Add contextual CTAs                                 | Reasonable recommendation                                                 | P2       | OPEN-DESIGN — accessible tracked CTAs, no dark patterns                       |
+| SEO-059 | CRO           | Add quick-estimate micro-form                       | Optional, not a defect                                                    | P3       | OPEN-DESIGN — only with owner workflow/evidence                               |
+| SEO-060 | Off-page      | Search visibility/backlinks/authority unknown       | Confirmed audit limitation                                                | P1       | BLOCKED-OWNER — GSC/GBP data and ethical growth plan                          |
 
 ## Owner information request
 
@@ -206,11 +206,11 @@ Phase 1 must add automated checks that crawl every sitemap URL, compare final/ca
 
 ## Known release blockers and environment notes
 
-| Date       | Item                                                                                   | Status / next action                                                                                                    |
-| ---------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| 2026-08-13 | Local shell initially used Node `22.23.2`/npm `10.9.8` instead of the project contract | RESOLVED — Node `24.18.0`/npm `11.16.0` installed through nvm; final gate must explicitly activate it                   |
-| 2026-08-13 | npm reported 8 high-severity transitive development-tool advisories                    | RESOLVED LOCALLY — safe transitive updates plus Lighthouse `13.4.1`; current `npm audit` reports zero vulnerabilities   |
-| 2026-08-13 | Actual Vercel redirect behavior cannot be proven from local configuration alone        | OPEN — deploy only the protected branch to a Preview, then crawl response codes, locations, canonicals and sitemap URLs |
+| Date       | Item                                                                                   | Status / next action                                                                                                        |
+| ---------- | -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| 2026-08-13 | Local shell initially used Node `22.23.2`/npm `10.9.8` instead of the project contract | RESOLVED — Node `24.18.0`/npm `11.16.0` installed through nvm; final gate must explicitly activate it                       |
+| 2026-08-13 | npm reported 8 high-severity transitive development-tool advisories                    | RESOLVED LOCALLY — safe transitive updates plus Lighthouse `13.4.1`; current `npm audit` reports zero vulnerabilities       |
+| 2026-08-13 | Actual Vercel redirect behavior cannot be proven from local configuration alone        | RESOLVED FOR PHASE 1 — protected Preview crawl passed; custom production-domain variants remain in the Phase 7 release gate |
 
 ## Decision log
 
@@ -222,6 +222,7 @@ Phase 1 must add automated checks that crawl every sitemap URL, compare final/ca
 | 2026-08-13 | Reject FAQ rich-result and sitelinks-search-box promises                              | Obsolete/not applicable recommendations                                                                            |
 | 2026-08-13 | Require owner approval for business facts                                             | Prevent fabricated content, reviews, credentials and policies                                                      |
 | 2026-08-13 | Normalize the optional trailing slash on an origin-only sitemap URL during comparison | `https://www.tourvir.lk` and `https://www.tourvir.lk/` identify the same root URL; all non-root paths remain exact |
+| 2026-08-18 | Keep Vercel Preview protection enabled and verify through authenticated CLI access    | Validate the branch without exposing a private Preview or weakening deployment protection                          |
 
 ## Implementation and test log
 
@@ -256,7 +257,14 @@ Phase 1 must add automated checks that crawl every sitemap URL, compare final/ca
 | 2026-08-17 | 1     | Lighthouse `13.4.1` compatibility and budgets                   | PASS WITH FOLLOW-UP | SEO 1.00 on all three routes; performance home 0.70, gallery 0.68, contact 0.81; gallery tracked in Phase 6       |
 | 2026-08-17 | 1     | Complete pinned-runtime regression gate                         | PASS                | `npm run validate`: 44 unit, 9 contract, 59 E2E, 4 accessibility and 3 visual tests; all build/content gates pass |
 | 2026-08-17 | Cross | Final security and diff-integrity gate                          | PASS                | `npm audit --audit-level=high` reports zero vulnerabilities; `git diff --check` is clean                          |
+| 2026-08-17 | 1     | Committed and pushed the verified implementation                | PASS                | Commit `51c185d` on `origin/seo-remediation`; `main` and production remained untouched                            |
+| 2026-08-17 | 1     | Vercel protected Preview build                                  | PASS                | Deployment `tourvir-j0o9gmu4i-nebulync.vercel.app` completed successfully                                         |
+| 2026-08-18 | 1     | Authenticated Preview sitemap crawl                             | PASS                | All 21 URLs declared by the deployed sitemap return `200`                                                         |
+| 2026-08-18 | 1     | Authenticated Preview homepage redirect                         | PASS                | `/index.html` returns permanent `308` to `/`                                                                      |
+| 2026-08-18 | 1     | Deployed robots and sitemap signal checks                       | PASS                | Sitemap index, 21-entry child sitemap and robots directive all use `https://www.tourvir.lk`                       |
+| 2026-08-18 | 1     | Deployed canonical and Open Graph URL checks                    | PASS                | Homepage `/` and representative `/packages.html` tags are exact, self-referencing and mutually consistent         |
+| 2026-08-18 | 1     | Phase 1 completion review                                       | COMPLETE            | Local regression and protected Preview gates passed; production/custom-domain verification remains in Phase 7     |
 
 ## Current next action
 
-Create a focused Phase 1 commit on `seo-remediation`, obtain a Vercel Preview, and verify actual redirect/canonical/sitemap HTTP behavior. Do not deploy to production until Preview passes.
+Begin Phase 2 metadata and schema work on `seo-remediation`. Keep production untouched until the later release gate, and verify the custom-domain redirect variants plus Search Console example URL in Phase 7.
