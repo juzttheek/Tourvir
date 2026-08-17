@@ -2,6 +2,7 @@
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
 import AnalyticsConsent from '../components/layout/AnalyticsConsent.astro';
+import { canonicalPathFor } from '../../scripts/lib/seo-contract.mjs';
 interface Props {
   title: string;
   pageStyles?: string[];
@@ -10,7 +11,7 @@ interface Props {
 
 const { title, description, pageStyles = [], image = '/images/hero/hero_main_hq.webp' } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const canonicalURL = new URL(canonicalPathFor(Astro.url.pathname), Astro.site);
 const socialImageURL = new URL(image, Astro.site);
 ---
 

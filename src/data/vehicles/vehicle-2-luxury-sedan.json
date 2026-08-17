@@ -1,12 +1,7 @@
 {
   "image": "images/vehicles/luxury_sedan.png",
   "id": "vehicle-2-luxury-sedan",
-  "specs": [
-    "2-3 Passengers",
-    "Climate Control",
-    "3 Large Bags",
-    "Premium Interior"
-  ],
+  "specs": ["2-3 Passengers", "Climate Control", "3 Large Bags", "Premium Interior"],
   "name": "Luxury Sedan",
   "badge": "VIP",
   "alt": "Luxury Sedan",

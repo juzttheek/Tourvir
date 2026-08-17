@@ -22,7 +22,8 @@ for (const route of routes) {
     for (const vp of viewports) {
       test(`checks for horizontal overflow on ${vp.name}`, async ({ page }) => {
         await page.setViewportSize({ width: vp.width, height: vp.height });
-        await page.goto(route, { waitUntil: 'networkidle' });
+        await page.goto(route, { waitUntil: 'domcontentloaded' });
+        await expect(page.locator('main')).toBeVisible();
 
         // Find elements wider than the viewport
         const overflowingElements = await page.evaluate(() => {

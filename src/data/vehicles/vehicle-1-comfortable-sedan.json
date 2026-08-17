@@ -1,12 +1,7 @@
 {
   "image": "images/vehicles/comfortable_sedan.png",
   "id": "vehicle-1-comfortable-sedan",
-  "specs": [
-    "2-3 Passengers",
-    "Air Conditioned",
-    "2 Large Bags",
-    "WiFi Available"
-  ],
+  "specs": ["2-3 Passengers", "Air Conditioned", "2 Large Bags", "WiFi Available"],
   "name": "Comfortable Sedan",
   "badge": "Popular",
   "alt": "Comfortable Sedan",

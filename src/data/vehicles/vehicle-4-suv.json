@@ -1,12 +1,7 @@
 {
   "image": "images/vehicles/suv.png",
   "id": "vehicle-4-suv",
-  "specs": [
-    "4-5 Passengers",
-    "Air Conditioned",
-    "3 Large Bags",
-    "Off-Road Ready"
-  ],
+  "specs": ["4-5 Passengers", "Air Conditioned", "3 Large Bags", "Off-Road Ready"],
   "name": "SUV",
   "badge": "Adventure",
   "alt": "SUV",

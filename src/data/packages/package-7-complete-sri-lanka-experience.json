@@ -6,69 +6,38 @@
   "alt": "Complete Sri Lanka Tour",
   "categoryLabel": "Featured Package",
   "title": "Complete Sri Lanka Experience",
-  "highlights": [
-    "Sigiriya",
-    "Yala Safari",
-    "Ella Train",
-    "Mirissa",
-    "Kandy",
-    "Whale Watching"
-  ],
+  "highlights": ["Sigiriya", "Yala Safari", "Ella Train", "Mirissa", "Kandy", "Whale Watching"],
   "routeMap": [
     {
       "name": "Colombo",
-      "coordinates": [
-        6.9271,
-        79.8612
-      ]
+      "coordinates": [6.9271, 79.8612]
     },
     {
       "name": "Sigiriya",
-      "coordinates": [
-        7.957,
-        80.7603
-      ]
+      "coordinates": [7.957, 80.7603]
     },
     {
       "name": "Kandy",
-      "coordinates": [
-        7.2906,
-        80.6337
-      ]
+      "coordinates": [7.2906, 80.6337]
     },
     {
       "name": "Ella",
-      "coordinates": [
-        6.8667,
-        81.0466
-      ]
+      "coordinates": [6.8667, 81.0466]
     },
     {
       "name": "Yala Safari",
-      "coordinates": [
-        6.3683,
-        81.5161
-      ]
+      "coordinates": [6.3683, 81.5161]
     },
     {
       "name": "Mirissa",
-      "coordinates": [
-        5.9483,
-        80.4572
-      ]
+      "coordinates": [5.9483, 80.4572]
     },
     {
       "name": "Colombo",
-      "coordinates": [
-        6.9271,
-        79.8612
-      ]
+      "coordinates": [6.9271, 79.8612]
     }
   ],
-  "recommendedVehicles": [
-    "Luxury Sedan",
-    "Family Van"
-  ],
+  "recommendedVehicles": ["Luxury Sedan", "Family Van"],
   "itinerary": [
     {
       "day": "Day 1",

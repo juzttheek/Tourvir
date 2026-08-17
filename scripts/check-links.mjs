@@ -1,8 +1,14 @@
-import { access, readFile, readdir } from 'node:fs/promises';
-import { cleanReference, isExternalReference, resolveInside } from './lib/site-contract.mjs';
+import path from 'node:path';
+import { access, readFile } from 'node:fs/promises';
+import {
+  cleanReference,
+  isExternalReference,
+  listFilesRecursive,
+  resolveInside,
+} from './lib/site-contract.mjs';
 
 const root = resolveInside(process.cwd(), process.argv[2] ?? '.');
-const htmlFiles = (await readdir(root)).filter((name) => name.endsWith('.html')).sort();
+const htmlFiles = (await listFilesRecursive(root)).filter((name) => name.endsWith('.html'));
 const attributePattern = /\b(?:href|src)\s*=\s*["']([^"']+)["']/gi;
 const failures = [];
 
@@ -12,10 +18,12 @@ for (const filename of htmlFiles) {
     const reference = match[1];
     if (!reference || isExternalReference(reference)) continue;
     const cleaned = cleanReference(reference);
-    if (!cleaned) continue;
+    const destination = reference.startsWith('/')
+      ? cleaned || 'index.html'
+      : path.posix.normalize(path.posix.join(path.posix.dirname(filename), cleaned));
 
     try {
-      await access(resolveInside(root, cleaned));
+      await access(resolveInside(root, destination));
     } catch {
       failures.push(`${filename}: ${reference}`);
     }

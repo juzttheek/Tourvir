@@ -6,60 +6,34 @@
   "alt": "Beach Paradise Tour",
   "categoryLabel": "Beach",
   "title": "Beach Paradise Retreat",
-  "highlights": [
-    "Bentota",
-    "Mirissa",
-    "Unawatuna",
-    "Galle"
-  ],
+  "highlights": ["Bentota", "Mirissa", "Unawatuna", "Galle"],
   "routeMap": [
     {
       "name": "Colombo",
-      "coordinates": [
-        6.9271,
-        79.8612
-      ]
+      "coordinates": [6.9271, 79.8612]
     },
     {
       "name": "Bentota",
-      "coordinates": [
-        6.42,
-        79.9967
-      ]
+      "coordinates": [6.42, 79.9967]
     },
     {
       "name": "Galle",
-      "coordinates": [
-        6.0535,
-        80.221
-      ]
+      "coordinates": [6.0535, 80.221]
     },
     {
       "name": "Unawatuna",
-      "coordinates": [
-        6.0174,
-        80.2489
-      ]
+      "coordinates": [6.0174, 80.2489]
     },
     {
       "name": "Mirissa",
-      "coordinates": [
-        5.9483,
-        80.4572
-      ]
+      "coordinates": [5.9483, 80.4572]
     },
     {
       "name": "Colombo",
-      "coordinates": [
-        6.9271,
-        79.8612
-      ]
+      "coordinates": [6.9271, 79.8612]
     }
   ],
-  "recommendedVehicles": [
-    "Comfortable Sedan",
-    "Luxury Sedan"
-  ],
+  "recommendedVehicles": ["Comfortable Sedan", "Luxury Sedan"],
   "durationLabel": "7 Days / 6 Nights",
   "priceSuffix": "per person",
   "rating": 5,

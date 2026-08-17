@@ -3,7 +3,8 @@
  * Fetches real-time weather and currency data for the TopBar
  */
 
-const WEATHER_API = 'https://api.open-meteo.com/v1/forecast?latitude=6.9271&longitude=79.8612&current_weather=true';
+const WEATHER_API =
+  'https://api.open-meteo.com/v1/forecast?latitude=6.9271&longitude=79.8612&current_weather=true';
 const CURRENCY_API = 'https://open.er-api.com/v6/latest/USD';
 
 interface WeatherData {
@@ -40,8 +41,8 @@ async function fetchWeather() {
 
     const res = await fetch(WEATHER_API);
     if (!res.ok) throw new Error('Weather fetch failed');
-    const data = await res.json() as WeatherData;
-    
+    const data = (await res.json()) as WeatherData;
+
     sessionStorage.setItem('tourvir_weather', JSON.stringify(data));
     return data;
   } catch (err) {
@@ -57,8 +58,8 @@ async function fetchCurrency() {
 
     const res = await fetch(CURRENCY_API);
     if (!res.ok) throw new Error('Currency fetch failed');
-    const data = await res.json() as CurrencyData;
-    
+    const data = (await res.json()) as CurrencyData;
+
     sessionStorage.setItem('tourvir_currency', JSON.stringify(data));
     return data;
   } catch (err) {
@@ -89,7 +90,7 @@ export async function initTopBarWidgets() {
         const lkrPerUsd = Math.round(data.rates.LKR);
         const lkrPerEur = Math.round(data.rates.LKR / data.rates.EUR);
         const lkrPerGbp = Math.round(data.rates.LKR / data.rates.GBP);
-        
+
         // Use a span structure for responsive hiding
         currencyEl.innerHTML = `
           USD: Rs.${lkrPerUsd}

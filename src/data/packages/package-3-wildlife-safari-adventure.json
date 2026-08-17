@@ -6,46 +6,26 @@
   "alt": "Wildlife Safari Tour",
   "categoryLabel": "Wildlife",
   "title": "Wildlife Safari Adventure",
-  "highlights": [
-    "Yala Park",
-    "Udawalawe",
-    "Leopards",
-    "Elephants"
-  ],
+  "highlights": ["Yala Park", "Udawalawe", "Leopards", "Elephants"],
   "routeMap": [
     {
       "name": "Colombo",
-      "coordinates": [
-        6.9271,
-        79.8612
-      ]
+      "coordinates": [6.9271, 79.8612]
     },
     {
       "name": "Udawalawe",
-      "coordinates": [
-        6.4357,
-        80.8872
-      ]
+      "coordinates": [6.4357, 80.8872]
     },
     {
       "name": "Yala Park",
-      "coordinates": [
-        6.3683,
-        81.5161
-      ]
+      "coordinates": [6.3683, 81.5161]
     },
     {
       "name": "Colombo",
-      "coordinates": [
-        6.9271,
-        79.8612
-      ]
+      "coordinates": [6.9271, 79.8612]
     }
   ],
-  "recommendedVehicles": [
-    "Mini SUV",
-    "Family Van"
-  ],
+  "recommendedVehicles": ["Mini SUV", "Family Van"],
   "durationLabel": "3 Days / 2 Nights",
   "priceSuffix": "per person",
   "rating": 4,

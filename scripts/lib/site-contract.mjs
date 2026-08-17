@@ -1,6 +1,16 @@
 import path from 'node:path';
+import { readdir } from 'node:fs/promises';
 
-export const DEPLOYABLE_DIRECTORIES = Object.freeze(['_assets', 'css', 'images', 'js', 'admin', 'blog', 'packages', 'videos']);
+export const DEPLOYABLE_DIRECTORIES = Object.freeze([
+  '_assets',
+  'css',
+  'images',
+  'js',
+  'admin',
+  'blog',
+  'packages',
+  'videos',
+]);
 export const HTML_ROUTES = Object.freeze([
   'index.html',
   'packages.html',
@@ -36,4 +46,17 @@ export function resolveInside(root, relativePath) {
   }
 
   return resolved;
+}
+
+export async function listFilesRecursive(root, relativePath = '') {
+  const entries = await readdir(resolveInside(root, relativePath), { withFileTypes: true });
+  const files = [];
+
+  for (const entry of entries) {
+    const child = relativePath ? path.posix.join(relativePath, entry.name) : entry.name;
+    if (entry.isDirectory()) files.push(...(await listFilesRecursive(root, child)));
+    else if (entry.isFile()) files.push(child);
+  }
+
+  return files.sort();
 }

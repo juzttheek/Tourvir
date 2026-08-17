@@ -24,6 +24,7 @@ export function renderChrome(activeRoute: string) {
   const inactive = chromeMarkup.replaceAll(' active', '');
   return inactive
     .replaceAll('940729430500', '94729430500')
+    .replaceAll('/index.html', '/')
     .replaceAll('/images/logo.png?v=2', '/images/logo-display.png?v=2')
     .replace(
       'href="#" class="sidebar__social-link" aria-label="Instagram"',
@@ -42,6 +43,7 @@ export function renderChrome(activeRoute: string) {
 export function renderFooter() {
   return footerMarkup
     .replaceAll('940729430500', '94729430500')
+    .replaceAll('/index.html', '/')
     .replaceAll('/images/logo.png?v=2', '/images/logo-display.png?v=2')
     .replace(
       'href="#" class="footer__social-link" aria-label="Instagram"',

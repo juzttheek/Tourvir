@@ -1,12 +1,7 @@
 {
   "image": "images/vehicles/coach_bus.png",
   "id": "vehicle-7-coach-bus",
-  "specs": [
-    "20-40 Passengers",
-    "Air Conditioned",
-    "Large Storage",
-    "PA System"
-  ],
+  "specs": ["20-40 Passengers", "Air Conditioned", "Large Storage", "PA System"],
   "name": "Coach Bus",
   "badge": "Groups",
   "alt": "Coach Bus",

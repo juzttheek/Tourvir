@@ -1,12 +1,7 @@
 {
   "image": "images/vehicles/tuk_tuk.png",
   "id": "vehicle-8-tuk-tuk-city-tour",
-  "specs": [
-    "2 Passengers",
-    "Open-Air",
-    "1 Small Bag",
-    "Photo-Ready"
-  ],
+  "specs": ["2 Passengers", "Open-Air", "1 Small Bag", "Photo-Ready"],
   "name": "Tuk-Tuk City Tour",
   "badge": "Fun",
   "alt": "Tuk-Tuk City Tour",

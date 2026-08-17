@@ -1,12 +1,7 @@
 {
   "image": "images/vehicles/van.png",
   "id": "vehicle-6-van",
-  "specs": [
-    "6-8 Passengers",
-    "Air Conditioned",
-    "6 Large Bags",
-    "Entertainment"
-  ],
+  "specs": ["6-8 Passengers", "Air Conditioned", "6 Large Bags", "Entertainment"],
   "name": "Van",
   "badge": "Family",
   "alt": "Van",

@@ -6,45 +6,26 @@
   "alt": "Honeymoon Special",
   "categoryLabel": "Honeymoon",
   "title": "Honeymoon Special",
-  "highlights": [
-    "Couples Spa",
-    "Sunset Cruise",
-    "Private Villa",
-    "Candlelight Dinner"
-  ],
+  "highlights": ["Couples Spa", "Sunset Cruise", "Private Villa", "Candlelight Dinner"],
   "routeMap": [
     {
       "name": "Colombo",
-      "coordinates": [
-        6.9271,
-        79.8612
-      ]
+      "coordinates": [6.9271, 79.8612]
     },
     {
       "name": "Nuwara Eliya",
-      "coordinates": [
-        6.9497,
-        80.7828
-      ]
+      "coordinates": [6.9497, 80.7828]
     },
     {
       "name": "Bentota",
-      "coordinates": [
-        6.42,
-        79.9967
-      ]
+      "coordinates": [6.42, 79.9967]
     },
     {
       "name": "Colombo",
-      "coordinates": [
-        6.9271,
-        79.8612
-      ]
+      "coordinates": [6.9271, 79.8612]
     }
   ],
-  "recommendedVehicles": [
-    "Luxury Sedan"
-  ],
+  "recommendedVehicles": ["Luxury Sedan"],
   "durationLabel": "6 Days / 5 Nights",
   "priceSuffix": "per couple",
   "rating": 5,

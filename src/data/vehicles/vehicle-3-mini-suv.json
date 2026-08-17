@@ -1,12 +1,7 @@
 {
   "image": "images/vehicles/mini_suv.png",
   "id": "vehicle-3-mini-suv",
-  "specs": [
-    "3-4 Passengers",
-    "Air Conditioned",
-    "2 Large Bags",
-    "WiFi Available"
-  ],
+  "specs": ["3-4 Passengers", "Air Conditioned", "2 Large Bags", "WiFi Available"],
   "name": "Mini SUV",
   "badge": "Compact",
   "alt": "Mini SUV",

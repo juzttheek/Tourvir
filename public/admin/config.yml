@@ -36,7 +36,20 @@ collections:
     extension: 'json'
     slug: '{{slug}}'
     fields:
-      - { label: 'Image', name: 'image', widget: 'image', media_library: { config: { default_transformations: [[ {fetch_format: auto, quality: auto} ]], tags: ['tourvir-gallery'], folder: 'tourvir-gallery' } } }
+      - {
+          label: 'Image',
+          name: 'image',
+          widget: 'image',
+          media_library:
+            {
+              config:
+                {
+                  default_transformations: [[{ fetch_format: auto, quality: auto }]],
+                  tags: ['tourvir-gallery'],
+                  folder: 'tourvir-gallery',
+                },
+            },
+        }
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Location', name: 'location', widget: 'string', hint: 'e.g. Southern Province' }
       - {
@@ -70,6 +83,13 @@ collections:
     slug: '{{slug}}'
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
+      - {
+          label: 'SEO Title',
+          name: 'seoTitle',
+          widget: 'string',
+          required: false,
+          hint: 'Optional search title; keep it under 60 characters',
+        }
       - { label: 'Description', name: 'description', widget: 'text' }
       - { label: 'Cover Image', name: 'coverImage', widget: 'image', required: false }
       - { label: 'Author', name: 'author', widget: 'string', default: 'Tourvir Team' }
@@ -85,24 +105,56 @@ collections:
     slug: '{{slug}}'
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Category Name', name: 'category', widget: 'select', options: ['cultural', 'beach', 'wildlife', 'adventure', 'honeymoon'] }
-      - { label: 'Category Label', name: 'categoryLabel', widget: 'string', hint: 'e.g. Cultural, Beach' }
+      - {
+          label: 'Category Name',
+          name: 'category',
+          widget: 'select',
+          options: ['cultural', 'beach', 'wildlife', 'adventure', 'honeymoon'],
+        }
+      - {
+          label: 'Category Label',
+          name: 'categoryLabel',
+          widget: 'string',
+          hint: 'e.g. Cultural, Beach',
+        }
       - { label: 'Duration (Days)', name: 'duration', widget: 'number' }
-      - { label: 'Duration Label', name: 'durationLabel', widget: 'string', required: false, hint: 'Optional, e.g. 5 Days / 4 Nights' }
+      - {
+          label: 'Duration Label',
+          name: 'durationLabel',
+          widget: 'string',
+          required: false,
+          hint: 'Optional, e.g. 5 Days / 4 Nights',
+        }
       - { label: 'Price (USD)', name: 'price', widget: 'number' }
       - { label: 'Price Suffix', name: 'priceSuffix', widget: 'string', default: 'per person' }
       - { label: 'Cover Image', name: 'image', widget: 'image' }
       - { label: 'Alt Text', name: 'alt', widget: 'string' }
       - { label: 'Rating', name: 'rating', widget: 'number', min: 1, max: 5, default: 5 }
       - { label: 'Review Count', name: 'reviewCount', widget: 'number', min: 0, default: 0 }
-      - { label: 'Highlights', name: 'highlights', widget: 'list', field: { label: 'Highlight', name: 'highlight', widget: 'string' } }
-      - { label: 'Recommended Vehicles', name: 'recommendedVehicles', widget: 'list', required: false, field: { label: 'Vehicle Name', name: 'vehicle', widget: 'string' } }
+      - {
+          label: 'Highlights',
+          name: 'highlights',
+          widget: 'list',
+          field: { label: 'Highlight', name: 'highlight', widget: 'string' },
+        }
+      - {
+          label: 'Recommended Vehicles',
+          name: 'recommendedVehicles',
+          widget: 'list',
+          required: false,
+          field: { label: 'Vehicle Name', name: 'vehicle', widget: 'string' },
+        }
       - name: 'routeMap'
         label: 'Route Map Points'
         widget: 'list'
         fields:
           - { label: 'Stop Name', name: 'name', widget: 'string' }
-          - { label: 'Coordinates [Lat, Lng]', name: 'coordinates', widget: 'list', field: { label: 'Coordinate', name: 'coord', widget: 'number' } }
+          - {
+              label: 'Coordinates [Lat, Lng]',
+              name: 'coordinates',
+              widget: 'list',
+              field: { label: 'Coordinate', name: 'coord', widget: 'number' },
+            }
       - name: 'itinerary'
         label: 'Day-by-Day Itinerary'
         widget: 'list'
@@ -127,4 +179,9 @@ collections:
       - { label: 'Alt Text', name: 'alt', widget: 'string' }
       - { label: 'Price (USD/day)', name: 'price', widget: 'number', min: 0 }
       - { label: 'Price Suffix', name: 'priceSuffix', widget: 'string', default: '/day' }
-      - { label: 'Specs', name: 'specs', widget: 'list', field: { label: 'Specification', name: 'spec', widget: 'string' } }
+      - {
+          label: 'Specs',
+          name: 'specs',
+          widget: 'list',
+          field: { label: 'Specification', name: 'spec', widget: 'string' },
+        }

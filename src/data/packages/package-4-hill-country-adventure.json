@@ -6,53 +6,30 @@
   "alt": "Hill Country Adventure",
   "categoryLabel": "Adventure",
   "title": "Hill Country Adventure",
-  "highlights": [
-    "Ella",
-    "Nuwara Eliya",
-    "Train Ride",
-    "Tea Factory"
-  ],
+  "highlights": ["Ella", "Nuwara Eliya", "Train Ride", "Tea Factory"],
   "routeMap": [
     {
       "name": "Colombo",
-      "coordinates": [
-        6.9271,
-        79.8612
-      ]
+      "coordinates": [6.9271, 79.8612]
     },
     {
       "name": "Kandy",
-      "coordinates": [
-        7.2906,
-        80.6337
-      ]
+      "coordinates": [7.2906, 80.6337]
     },
     {
       "name": "Nuwara Eliya",
-      "coordinates": [
-        6.9497,
-        80.7828
-      ]
+      "coordinates": [6.9497, 80.7828]
     },
     {
       "name": "Ella",
-      "coordinates": [
-        6.8667,
-        81.0466
-      ]
+      "coordinates": [6.8667, 81.0466]
     },
     {
       "name": "Colombo",
-      "coordinates": [
-        6.9271,
-        79.8612
-      ]
+      "coordinates": [6.9271, 79.8612]
     }
   ],
-  "recommendedVehicles": [
-    "Mini SUV",
-    "Family Van"
-  ],
+  "recommendedVehicles": ["Mini SUV", "Family Van"],
   "durationLabel": "4 Days / 3 Nights",
   "priceSuffix": "per person",
   "rating": 5,

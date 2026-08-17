@@ -1,8 +1,10 @@
 import { readFile, readdir } from 'node:fs/promises';
-import { resolveInside } from './lib/site-contract.mjs';
+import { listFilesRecursive, resolveInside } from './lib/site-contract.mjs';
 
 const root = resolveInside(process.cwd(), process.argv[2] ?? '.');
-const htmlFiles = (await readdir(root)).filter((name) => name.endsWith('.html')).sort();
+const htmlFiles = (await listFilesRecursive(root)).filter(
+  (name) => name.endsWith('.html') && !name.startsWith('admin/'),
+);
 const forbiddenRuntime =
   /firebase|firestore|tourvir-fd341|gallery-admin|admin-trigger|admin-panel/i;
 const failures = [];

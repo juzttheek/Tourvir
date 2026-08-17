@@ -6,60 +6,34 @@
   "alt": "Cultural Triangle Tour",
   "categoryLabel": "Cultural",
   "title": "Cultural Triangle Explorer",
-  "highlights": [
-    "Sigiriya",
-    "Dambulla",
-    "Kandy",
-    "Polonnaruwa"
-  ],
+  "highlights": ["Sigiriya", "Dambulla", "Kandy", "Polonnaruwa"],
   "routeMap": [
     {
       "name": "Colombo",
-      "coordinates": [
-        6.9271,
-        79.8612
-      ]
+      "coordinates": [6.9271, 79.8612]
     },
     {
       "name": "Sigiriya",
-      "coordinates": [
-        7.957,
-        80.7603
-      ]
+      "coordinates": [7.957, 80.7603]
     },
     {
       "name": "Polonnaruwa",
-      "coordinates": [
-        7.9403,
-        81.0028
-      ]
+      "coordinates": [7.9403, 81.0028]
     },
     {
       "name": "Dambulla",
-      "coordinates": [
-        7.8592,
-        80.6485
-      ]
+      "coordinates": [7.8592, 80.6485]
     },
     {
       "name": "Kandy",
-      "coordinates": [
-        7.2906,
-        80.6337
-      ]
+      "coordinates": [7.2906, 80.6337]
     },
     {
       "name": "Colombo",
-      "coordinates": [
-        6.9271,
-        79.8612
-      ]
+      "coordinates": [6.9271, 79.8612]
     }
   ],
-  "recommendedVehicles": [
-    "Comfortable Sedan",
-    "Mini SUV"
-  ],
+  "recommendedVehicles": ["Comfortable Sedan", "Mini SUV"],
   "durationLabel": "5 Days / 4 Nights",
   "priceSuffix": "per person",
   "rating": 5,

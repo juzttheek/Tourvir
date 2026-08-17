@@ -13,7 +13,7 @@ const { entry } = Astro.props;
 ---
 
 <PageShell 
-  title={`${entry.title} - Tourvir Blog`}
+  title={entry.seoTitle || `${entry.title} - Tourvir Blog`}
   description={entry.description}
   activeRoute="blog.html"
   image={entry.coverImage}
@@ -26,8 +26,8 @@ const { entry } = Astro.props;
       "description": entry.description,
       "author": { "@type": "Organization", "name": entry.author || "Tourvir Team" },
       "datePublished": new Date(entry.date).toISOString(),
-      "image": entry.coverImage ? `https://tourvir.lk${entry.coverImage}` : "https://tourvir.lk/images/hero/hero_main_hq.webp",
-      "publisher": { "@type": "Organization", "name": "Tourvir", "url": "https://tourvir.lk" }
+      "image": entry.coverImage ? `https://www.tourvir.lk${entry.coverImage}` : "https://www.tourvir.lk/images/hero/hero_main_hq.webp",
+      "publisher": { "@type": "Organization", "name": "Tourvir", "url": "https://www.tourvir.lk/" }
     })} />
   </Fragment>
   <main class="page-container" id="main-content" style="padding-top: calc(var(--header-height) + var(--top-bar-height) + var(--safe-top));">

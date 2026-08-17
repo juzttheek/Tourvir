@@ -1,12 +1,7 @@
 {
   "image": "images/vehicles/luxury_suv.png",
   "id": "vehicle-5-luxury-suv",
-  "specs": [
-    "5-6 Passengers",
-    "Climate Control",
-    "4 Large Bags",
-    "Premium Interior"
-  ],
+  "specs": ["5-6 Passengers", "Climate Control", "4 Large Bags", "Premium Interior"],
   "name": "Luxury SUV",
   "badge": "Premium",
   "alt": "Luxury SUV",

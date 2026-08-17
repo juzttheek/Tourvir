@@ -9,6 +9,12 @@ export default defineConfig({
   reporter: process.env.CI ? [['html', { open: 'never' }], ['line']] : 'line',
   timeout: 20_000,
   expect: { timeout: 5_000 },
+  webServer: {
+    command: 'node scripts/serve-static.mjs dist 4173',
+    url: 'http://127.0.0.1:4173/index.html',
+    reuseExistingServer: !process.env.CI,
+    timeout: 30_000,
+  },
   use: {
     baseURL: 'http://127.0.0.1:4173',
     browserName: 'chromium',

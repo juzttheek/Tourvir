@@ -6,53 +6,30 @@
   "alt": "Ancient Cities Tour",
   "categoryLabel": "Cultural",
   "title": "Ancient Cities & Heritage",
-  "highlights": [
-    "Anuradhapura",
-    "Polonnaruwa",
-    "Mihintale",
-    "8 UNESCO Sites"
-  ],
+  "highlights": ["Anuradhapura", "Polonnaruwa", "Mihintale", "8 UNESCO Sites"],
   "routeMap": [
     {
       "name": "Colombo",
-      "coordinates": [
-        6.9271,
-        79.8612
-      ]
+      "coordinates": [6.9271, 79.8612]
     },
     {
       "name": "Anuradhapura",
-      "coordinates": [
-        8.3114,
-        80.4037
-      ]
+      "coordinates": [8.3114, 80.4037]
     },
     {
       "name": "Mihintale",
-      "coordinates": [
-        8.3512,
-        80.5097
-      ]
+      "coordinates": [8.3512, 80.5097]
     },
     {
       "name": "Polonnaruwa",
-      "coordinates": [
-        7.9403,
-        81.0028
-      ]
+      "coordinates": [7.9403, 81.0028]
     },
     {
       "name": "Colombo",
-      "coordinates": [
-        6.9271,
-        79.8612
-      ]
+      "coordinates": [6.9271, 79.8612]
     }
   ],
-  "recommendedVehicles": [
-    "Comfortable Sedan",
-    "Mini SUV"
-  ],
+  "recommendedVehicles": ["Comfortable Sedan", "Mini SUV"],
   "durationLabel": "8 Days / 7 Nights",
   "priceSuffix": "per person",
   "rating": 5,
