@@ -1,6 +1,7 @@
 ---
 import PageShell from '../layouts/PageShell.astro';
 import ResponsiveImage from '../components/ui/ResponsiveImage.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
 ---
 
 <PageShell
@@ -8,6 +9,8 @@ import ResponsiveImage from '../components/ui/ResponsiveImage.astro';
   description="Get in touch with Tourvir — Sri Lanka's premier tour operator. Call, email, WhatsApp, or visit our Colombo office. We're here to help plan your perfect trip."
   pageStyles={["css/pages/contact.css"]}
   activeRoute="contact.html"
+  image="/images/hero/contact_hero_bg.webp"
+  imageAlt="Sri Lankan coast and palm trees"
 >
 <main class="main-content" id="main-content">
 
@@ -20,9 +23,10 @@ import ResponsiveImage from '../components/ui/ResponsiveImage.astro';
         <div class="page-hero__content">
           <h1 class="page-hero__title">Contact Us</h1>
           <p class="page-hero__subtitle">We'd love to hear from you — reach out anytime</p>
-          <div class="page-hero__breadcrumb">
-            <a href="/">Home</a><span>→</span><span>Contact Us</span>
-          </div>
+          <Breadcrumbs items={[
+            { name: 'Home', href: '/' },
+            { name: 'Contact Us', href: '/contact.html' },
+          ]} />
         </div>
       </section>
 

@@ -1,6 +1,7 @@
 ---
 import PageShell from '../layouts/PageShell.astro';
 import ResponsiveImage from '../components/ui/ResponsiveImage.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
 
 const galleryFiles = import.meta.glob('../data/gallery/*.json', { eager: true });
 const galleryItems = Object.values(galleryFiles).map((file: any) => file.default);
@@ -22,6 +23,8 @@ const galleryImageWidth = (path: string) => galleryWidths[path.split('/').pop() 
   description="Explore the breathtaking beauty of Sri Lanka through our curated photo gallery — beaches, temples, wildlife, mountains, and cultural heritage."
   pageStyles={["css/pages/gallery.css?v=4"]}
   activeRoute="gallery.html"
+  image="/images/hero/gallery_hero_bg.webp"
+  imageAlt="Sri Lankan tropical beach"
 >
 <main class="main-content" id="main-content">
 
@@ -34,11 +37,10 @@ const galleryImageWidth = (path: string) => galleryWidths[path.split('/').pop() 
         <div class="page-hero__content">
           <h1 class="page-hero__title">Photo Gallery</h1>
           <p class="page-hero__subtitle">Discover the breathtaking beauty of Sri Lanka through our curated collection</p>
-          <div class="page-hero__breadcrumb">
-            <a href="/">Home</a>
-            <span>→</span>
-            <span>Gallery</span>
-          </div>
+          <Breadcrumbs items={[
+            { name: 'Home', href: '/' },
+            { name: 'Gallery', href: '/gallery.html' },
+          ]} />
         </div>
       </section>
 

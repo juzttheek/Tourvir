@@ -5,11 +5,21 @@ import AnalyticsConsent from '../components/layout/AnalyticsConsent.astro';
 import { canonicalPathFor } from '../../scripts/lib/seo-contract.mjs';
 interface Props {
   title: string;
+  description: string;
   pageStyles?: string[];
   image?: string;
+  imageAlt?: string;
+  socialType?: 'website' | 'article';
 }
 
-const { title, description, pageStyles = [], image = '/images/hero/hero_main_hq.webp' } = Astro.props;
+const {
+  title,
+  description,
+  pageStyles = [],
+  image = '/images/hero/hero_main_hq.webp',
+  imageAlt = title,
+  socialType = 'website',
+} = Astro.props;
 
 const canonicalURL = new URL(canonicalPathFor(Astro.url.pathname), Astro.site);
 const socialImageURL = new URL(image, Astro.site);
@@ -27,18 +37,22 @@ const socialImageURL = new URL(image, Astro.site);
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={socialType} />
+    <meta property="og:site_name" content="Tourvir" />
+    <meta property="og:locale" content="en_LK" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={socialImageURL} />
+    <meta property="og:image:alt" content={imageAlt} />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={socialImageURL} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL} />
+    <meta name="twitter:image:alt" content={imageAlt} />
 
     <link rel="stylesheet" href="/css/style.css?v=5" />
     <link rel="stylesheet" href="/css/sidebar.css?v=5" />

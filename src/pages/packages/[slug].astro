@@ -3,6 +3,7 @@ import PageShell from '../../layouts/PageShell.astro';
 import RouteMap from '../../components/packages/RouteMap.astro';
 import { tourPackages } from '../../content/catalogs';
 import ResponsiveImage from '../../components/ui/ResponsiveImage.astro';
+import Breadcrumbs from '../../components/layout/Breadcrumbs.astro';
 
 export async function getStaticPaths() {
   return tourPackages.map(pkg => ({
@@ -12,41 +13,78 @@ export async function getStaticPaths() {
 }
 
 const { pkg } = Astro.props;
+const canonicalPath = `/packages/${pkg.id}.html`;
+const canonicalUrl = new URL(canonicalPath, Astro.site).href;
+const highlightedPlaces = new Intl.ListFormat('en', {
+  style: 'long',
+  type: 'conjunction',
+}).format(pkg.highlights.slice(0, 3));
+const metaTitle = `${pkg.title}: ${pkg.durationLabel} | Tourvir`;
+const metaDescription = `${pkg.title}: ${pkg.durationLabel.toLowerCase()} Sri Lanka tour featuring ${highlightedPlaces}. View its route, price, and vehicle options.`;
+const itinerary = pkg.routeMap?.length ? {
+  '@type': 'ItemList',
+  numberOfItems: pkg.routeMap.length,
+  itemListElement: pkg.routeMap.map((stop, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    item: {
+      '@type': 'Place',
+      name: stop.name,
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: stop.coordinates[0],
+        longitude: stop.coordinates[1],
+      },
+    },
+  })),
+} : undefined;
+const touristTripSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TouristTrip',
+  '@id': `${canonicalUrl}#trip`,
+  name: pkg.title,
+  description: metaDescription,
+  url: canonicalUrl,
+  mainEntityOfPage: canonicalUrl,
+  image: new URL(`/${pkg.image}`, Astro.site).href,
+  touristType: pkg.category,
+  tripOrigin: pkg.routeMap?.[0] ? { '@type': 'Place', name: pkg.routeMap[0].name } : undefined,
+  itinerary,
+  offers: {
+    '@type': 'Offer',
+    url: canonicalUrl,
+    price: pkg.price,
+    priceCurrency: 'USD',
+    description: pkg.priceSuffix,
+  },
+  provider: {
+    '@type': 'TravelAgency',
+    '@id': 'https://www.tourvir.lk/#organization',
+    name: 'Tourvir',
+    url: 'https://www.tourvir.lk/',
+  },
+};
 ---
 
 <PageShell
-  title={`${pkg.title} - Tourvir`}
-  description={`Discover the amazing ${pkg.title} package in Sri Lanka.`}
+  title={metaTitle}
+  description={metaDescription}
   activeRoute="packages.html"
   image={`/${pkg.image}`}
+  imageAlt={pkg.alt}
 >
   <Fragment slot="head">
-    <script type="application/ld+json" is:inline set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "TouristTrip",
-      "name": pkg.title,
-      "description": `Discover the amazing ${pkg.title} package in Sri Lanka.`,
-      "image": new URL(`/${pkg.image}`, Astro.site).href,
-      "touristType": pkg.categoryLabel,
-      "offers": {
-        "@type": "Offer",
-        "price": pkg.price,
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock"
-      },
-      "aggregateRating": pkg.rating ? {
-        "@type": "AggregateRating",
-        "ratingValue": pkg.rating,
-        "reviewCount": pkg.reviewCount || 1
-      } : undefined,
-      "provider": { "@type": "TravelAgency", "name": "Tourvir", "url": "https://www.tourvir.lk/" }
-    })} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(touristTripSchema)} />
   </Fragment>
   <main class="main-content" id="main-content">
     <section class="section">
       <div class="container">
-        <!-- Back button -->
-        <a href="/packages.html" class="btn btn--ghost btn--sm" style="margin-bottom: var(--space-lg);">← Back to Packages</a>
+        <!-- Breadcrumb navigation -->
+        <Breadcrumbs className="content-breadcrumb" items={[
+          { name: 'Home', href: '/' },
+          { name: 'Tour Packages', href: '/packages.html' },
+          { name: pkg.title, href: canonicalPath },
+        ]} />
 
         <div class="package-detail-header" style="text-align: center; margin-bottom: var(--space-xl);">
           <span class="badge badge--primary" style="margin-bottom: var(--space-sm); display: inline-block;">{pkg.categoryLabel}</span>

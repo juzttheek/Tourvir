@@ -4,7 +4,7 @@
 **Working branch:** `seo-remediation`
 **Production baseline:** `main` at `34aff26`
 **External audit:** `Tourvir_SEO_Audit_Report.pdf`
-**Status:** Phase 0 and Phase 1 complete; Phase 2 starting
+**Status:** Phase 0 and Phase 1 complete; Phase 2 locally complete, Preview pending
 **Production deployments from this programme:** none
 
 ## Purpose and closure rules
@@ -44,16 +44,16 @@ The `.html` routes are retained to avoid an unnecessary migration. Extensions do
 
 ## Phase ledger
 
-| Phase | Scope                                                        | Status   | Completion gate                                                                          |
-| ----- | ------------------------------------------------------------ | -------- | ---------------------------------------------------------------------------------------- |
-| 0     | Protected baseline, finding register and test design         | COMPLETE | All audit claims registered; baseline, safety controls and executable URL tests recorded |
-| 1     | Canonicals, redirects, robots, sitemap and indexability      | COMPLETE | Every sitemap URL reaches one canonical `200`; host/path signals agree                   |
-| 2     | Titles, descriptions, social metadata and schema             | PENDING  | No unintended duplicates; supported schema validates and matches visible content         |
-| 3     | Package, destination, service, About and guide content       | PENDING  | Customer-approved pages are accurate, substantial and conversion-ready                   |
-| 4     | Gallery, reviews, licensing, email, social and trust         | PENDING  | No broken/placeholder media or unsupported trust claim remains                           |
-| 5     | Information architecture and internal linking                | PENDING  | No orphan priority page; contextual link model passes crawler checks                     |
-| 6     | Performance, mobile, media and accessibility                 | PENDING  | Performance/accessibility budgets pass without regressions                               |
-| 7     | Preview, production release, GSC resubmission and monitoring | PENDING  | Preview/production smoke gates pass; GSC/analytics evidence recorded                     |
+| Phase | Scope                                                        | Status         | Completion gate                                                                          |
+| ----- | ------------------------------------------------------------ | -------------- | ---------------------------------------------------------------------------------------- |
+| 0     | Protected baseline, finding register and test design         | COMPLETE       | All audit claims registered; baseline, safety controls and executable URL tests recorded |
+| 1     | Canonicals, redirects, robots, sitemap and indexability      | COMPLETE       | Every sitemap URL reaches one canonical `200`; host/path signals agree                   |
+| 2     | Titles, descriptions, social metadata and schema             | LOCAL COMPLETE | No unintended duplicates; supported schema validates and matches visible content         |
+| 3     | Package, destination, service, About and guide content       | PENDING        | Customer-approved pages are accurate, substantial and conversion-ready                   |
+| 4     | Gallery, reviews, licensing, email, social and trust         | PENDING        | No broken/placeholder media or unsupported trust claim remains                           |
+| 5     | Information architecture and internal linking                | PENDING        | No orphan priority page; contextual link model passes crawler checks                     |
+| 6     | Performance, mobile, media and accessibility                 | PENDING        | Performance/accessibility budgets pass without regressions                               |
+| 7     | Preview, production release, GSC resubmission and monitoring | PENDING        | Preview/production smoke gates pass; GSC/analytics evidence recorded                     |
 
 ## Finding register
 
@@ -74,8 +74,8 @@ The `.html` routes are retained to avoid an unnecessary migration. Extensions do
 | SEO-011 | Performance   | PSI/CWV not measured                                | Correct audit limitation; local Lighthouse exists, field CWV still needed | P1       | OPEN — Preview lab plus GSC/CrUX field evidence                               |
 | SEO-012 | Mobile        | Viewport meta present                               | Confirmed                                                                 | P3       | VERIFIED-PASS — preserve in regression                                        |
 | SEO-013 | On-page       | Homepage metadata and one H1 are strong             | Confirmed                                                                 | P3       | VERIFIED-PASS — preserve                                                      |
-| SEO-014 | Metadata      | Privacy/Terms/Cookies duplicate Contact metadata    | Confirmed                                                                 | P1       | OPEN-CONFIRMED — unique accurate metadata                                     |
-| SEO-015 | Metadata      | Package descriptions are generic                    | Confirmed on all seven                                                    | P1       | OPEN-CONFIRMED — unique verified package metadata                             |
+| SEO-014 | Metadata      | Privacy/Terms/Cookies duplicate Contact metadata    | Confirmed                                                                 | P1       | LOCAL PASS — unique page-specific metadata; Preview pending                   |
+| SEO-015 | Metadata      | Package descriptions are generic                    | Confirmed on all seven                                                    | P1       | LOCAL PASS — unique descriptions generated from visible package facts         |
 | SEO-016 | Headings      | Sigiriya post lacks H2/H3                           | Confirmed; it is one short paragraph                                      | P2       | OPEN-CONFIRMED — expand with logical headings                                 |
 | SEO-017 | Destinations  | No destination pages                                | Confirmed                                                                 | P1       | BLOCKED-OWNER — genuine destination content required                          |
 | SEO-018 | Destinations  | Build ten priority pages                            | Directionally good; audit did not validate volumes                        | P1       | BLOCKED-OWNER — confirm offerings and research priority                       |
@@ -97,12 +97,12 @@ The `.html` routes are retained to avoid an unnecessary migration. Extensions do
 | SEO-034 | Performance   | Eleven-image hero may cost bandwidth                | Confirmed design risk despite lazy attributes                             | P1       | OPEN-VERIFY — measure requests/LCP; demand-load slides                        |
 | SEO-035 | UX            | About Us navigation routes home                     | Confirmed; homepage has partial About content                             | P2       | BLOCKED-OWNER — genuine dedicated About page                                  |
 | SEO-036 | Trust         | Only one testimonial                                | Confirmed                                                                 | P2       | BLOCKED-OWNER — permissioned/attributable reviews only                        |
-| SEO-037 | Reviews       | Ratings/counts lack a visible source                | Confirmed; `AggregateRating` also emitted                                 | P0       | BLOCKED-OWNER — prove source or remove counts/schema                          |
+| SEO-037 | Reviews       | Ratings/counts lack a visible source                | Confirmed; `AggregateRating` also emitted                                 | P0       | BLOCKED-OWNER — schema removed; visible counts need proof or Phase 4 removal  |
 | SEO-038 | Services      | Six service paths route to Contact                  | Confirmed except Vehicles                                                 | P1       | BLOCKED-OWNER — truthful service pages/routing                                |
-| SEO-039 | Schema        | No TravelAgency/LocalBusiness detected              | Incorrect; homepage has `TravelAgency`                                    | P2       | OPEN-IMPROVEMENT — enrich one entity, avoid duplicates                        |
-| SEO-040 | Schema        | No TouristTrip detected                             | Incorrect; package template emits it                                      | P2       | OPEN-IMPROVEMENT — align with visible expanded content                        |
-| SEO-041 | Schema        | No BlogPosting detected                             | Incorrect; blog template emits it                                         | P2       | OPEN-IMPROVEMENT — enrich and validate                                        |
-| SEO-042 | Schema        | BreadcrumbList absent                               | Confirmed                                                                 | P2       | OPEN-CONFIRMED — matching visible/schema breadcrumbs                          |
+| SEO-039 | Schema        | No TravelAgency/LocalBusiness detected              | Incorrect; homepage has `TravelAgency`                                    | P2       | LOCAL PASS — one stable TravelAgency identity uses verified social URL        |
+| SEO-040 | Schema        | No TouristTrip detected                             | Incorrect; package template emits it                                      | P2       | LOCAL PASS — seven trips aligned with metadata, offers and visible route maps |
+| SEO-041 | Schema        | No BlogPosting detected                             | Incorrect; blog template emits it                                         | P2       | LOCAL PASS — four posts aligned with visible authors, dates and page URLs     |
+| SEO-042 | Schema        | BreadcrumbList absent                               | Confirmed                                                                 | P2       | LOCAL PASS — visible and structured breadcrumbs cover all 20 interior pages   |
 | SEO-043 | Schema        | FAQPage will earn rich snippets                     | Outdated for tourism; Google limits regular FAQ rich results              | P3       | REJECTED-WITH-EVIDENCE — useful visible FAQs, no promise                      |
 | SEO-044 | Schema        | WebSite can enable sitelinks search box             | Obsolete; Google removed feature in November 2024                         | P3       | REJECTED-WITH-EVIDENCE — no obsolete implementation                           |
 | SEO-045 | Gallery       | `asd`, `logo`, raw filenames and broken image       | Confirmed; `asd` is broken live                                           | P0       | OPEN-CONFIRMED — remove test/broken content, improve media                    |
@@ -276,7 +276,14 @@ Phase 1 must add automated checks that crawl every sitemap URL, compare final/ca
 | 2026-08-18 | 1     | Deployed and authenticated the redirect follow-up Preview       | PASS                | Deployment `tourvir-r7c58k4wk-nebulync.vercel.app` completed successfully                                         |
 | 2026-08-18 | 1     | Crawled every Google-discovered extensionless URL on Preview    | PASS                | 20/20 return exact permanent `308` redirects to their matching canonical `.html` route                            |
 | 2026-08-18 | 1     | Search Console redirect follow-up completion review             | COMPLETE            | Source mappings, local contract and protected Preview behavior all passed                                         |
+| 2026-08-18 | 2     | Inventoried generated metadata and structured data              | FAIL FOUND          | Four duplicate legal/contact metadata sets; generic package descriptions; incomplete social/schema signals        |
+| 2026-08-18 | 2     | Replaced duplicate and generic metadata                         | LOCAL PASS          | 21/21 indexable pages now have unique titles and descriptions derived from existing visible content               |
+| 2026-08-18 | 2     | Standardized Open Graph and Twitter card metadata               | LOCAL PASS          | 21/21 pages have matching URLs, titles, descriptions, absolute images and image alt text                          |
+| 2026-08-18 | 2     | Added visible and JSON-LD breadcrumbs                           | LOCAL PASS          | 20/20 interior pages expose matching navigable BreadcrumbList paths                                               |
+| 2026-08-18 | 2     | Enriched existing business, trip and article entities           | LOCAL PASS          | One TravelAgency, seven TouristTrip and four BlogPosting entities align with canonical page data                  |
+| 2026-08-18 | 2     | Removed unsupported aggregate-rating markup                     | LOCAL PASS          | Zero AggregateRating entities remain; visible rating claims stay blocked for owner proof or Phase 4 removal       |
+| 2026-08-18 | 2     | Ran focused Phase 2 quality gate                                | PASS                | Formatting, JS/CSS lint, build, HTML validation, SEO contract and diff integrity all pass                         |
 
 ## Current next action
 
-Begin Phase 2 metadata and schema work on `seo-remediation`, without inventing business facts. Keep production untouched until the later release gate.
+Commit Phase 2 and verify metadata, breadcrumbs and structured data on a protected Preview. Keep production untouched until the later release gate.

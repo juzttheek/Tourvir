@@ -1,6 +1,7 @@
 ---
 import PageShell from '../layouts/PageShell.astro';
 import ResponsiveImage from '../components/ui/ResponsiveImage.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
 ---
 
 <PageShell
@@ -8,6 +9,8 @@ import ResponsiveImage from '../components/ui/ResponsiveImage.astro';
   description="Plan your dream Sri Lanka vacation with Tourvir. Fill out our easy multi-step inquiry form and our travel experts will design a personalized itinerary for you."
   pageStyles={["css/pages/inquiry.css?v=2"]}
   activeRoute="inquiry.html"
+  image="/images/hero/inquiry_hero_bg.webp"
+  imageAlt="Scenic Sri Lankan train journey"
 >
 <main class="main-content" id="main-content">
 
@@ -20,9 +23,10 @@ import ResponsiveImage from '../components/ui/ResponsiveImage.astro';
         <div class="page-hero__content">
           <h1 class="page-hero__title">Plan Your Dream Trip</h1>
           <p class="page-hero__subtitle">Tell us about your ideal Sri Lanka adventure and we'll design it for you</p>
-          <div class="page-hero__breadcrumb">
-            <a href="/">Home</a><span>→</span><span>Inquiry</span>
-          </div>
+          <Breadcrumbs items={[
+            { name: 'Home', href: '/' },
+            { name: 'Inquiry', href: '/inquiry.html' },
+          ]} />
         </div>
       </section>
 

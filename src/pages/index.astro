@@ -4,6 +4,26 @@ import ResponsiveImage from '../components/ui/ResponsiveImage.astro';
 
 const testimonialFiles = import.meta.glob('../data/testimonials/*.json', { eager: true });
 const testimonials = Object.values(testimonialFiles).map((file: any) => file.default);
+const travelAgencySchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TravelAgency',
+  '@id': 'https://www.tourvir.lk/#organization',
+  name: 'Tourvir',
+  description:
+    'Your premier Sri Lanka travel companion. Discover the Pearl of the Indian Ocean with curated tour packages, expert guides, and unforgettable experiences.',
+  url: 'https://www.tourvir.lk/',
+  logo: 'https://www.tourvir.lk/images/logo.png',
+  image: 'https://www.tourvir.lk/images/hero/hero_main_hq.webp',
+  telephone: '+94729430500',
+  email: 'sssrajapakshe@gmail.com',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'No. 36/15, 4th Lane, Ramanayaka Road',
+    addressLocality: 'Hokandara South, Hokandara',
+    addressCountry: 'LK',
+  },
+  sameAs: ['https://www.instagram.com/tourvir.lk/'],
+};
 ---
 
 <PageShell
@@ -11,30 +31,10 @@ const testimonials = Object.values(testimonialFiles).map((file: any) => file.def
   description="Tourvir - Your premier Sri Lanka travel companion. Discover the Pearl of the Indian Ocean with curated tour packages, expert guides, and unforgettable experiences."
   pageStyles={["css/pages/home.css"]}
   activeRoute="index.html"
+  imageAlt="Sigiriya rock fortress at sunset"
 >
   <Fragment slot="head">
-    <script type="application/ld+json" is:inline>
-      {
-        "@context": "https://schema.org",
-        "@type": "TravelAgency",
-        "name": "Tourvir",
-        "image": "https://www.tourvir.lk/images/hero/hero_main_hq.webp",
-        "description": "Your premier Sri Lanka travel companion. Discover the Pearl of the Indian Ocean with curated tour packages, expert guides, and unforgettable experiences.",
-        "url": "https://www.tourvir.lk/",
-        "telephone": "0729430500",
-        "email": "sssrajapakshe@gmail.com",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "No. 36/15, 4th Lane, Ramanayaka Road",
-          "addressLocality": "Hokandara South, Hokandara",
-          "addressCountry": "LK"
-        },
-        "sameAs": [
-          "https://facebook.com/tourvir",
-          "https://www.instagram.com/tourvir.lk/"
-        ]
-      }
-    </script>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(travelAgencySchema)} />
   </Fragment>
 
 <main class="main-content" id="main-content">

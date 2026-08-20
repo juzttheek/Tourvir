@@ -1,6 +1,7 @@
 ---
 import PageShell from '../layouts/PageShell.astro';
 import { blogPosts } from '../data/blog';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
 
 const sortedPosts = blogPosts.sort((a, b) => b.date.valueOf() - a.date.valueOf());
 
@@ -8,7 +9,13 @@ const title = 'Travel Blog & Guides - Tourvir';
 const description = 'Read the latest travel guides, tips, and stories about exploring the incredible landscapes of Sri Lanka with Tourvir.';
 ---
 
-<PageShell title={title} description={description} activeRoute="blog.html">
+<PageShell
+  title={title}
+  description={description}
+  activeRoute="blog.html"
+  image="/images/hero/hero_tea_hq.webp"
+  imageAlt="Tea country landscape in Sri Lanka"
+>
 
   <main class="main-content" id="main-content">
     <!-- Page Hero -->
@@ -20,9 +27,10 @@ const description = 'Read the latest travel guides, tips, and stories about expl
       <div class="page-hero__content">
         <h1 class="page-hero__title">Tourvir Blog</h1>
         <p class="page-hero__subtitle">Discover hidden gems, packing tips, and inspiring stories from our adventures across Sri Lanka.</p>
-        <div class="page-hero__breadcrumb">
-          <a href="/">Home</a><span>→</span><span>Blog</span>
-        </div>
+        <Breadcrumbs items={[
+          { name: 'Home', href: '/' },
+          { name: 'Blog', href: '/blog.html' },
+        ]} />
       </div>
     </section>
 

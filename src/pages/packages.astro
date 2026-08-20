@@ -2,6 +2,7 @@
 import PageShell from '../layouts/PageShell.astro';
 import PackageGrid from '../components/packages/PackageGrid.astro';
 import ResponsiveImage from '../components/ui/ResponsiveImage.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
 ---
 
 <PageShell
@@ -9,6 +10,8 @@ import ResponsiveImage from '../components/ui/ResponsiveImage.astro';
   description="Choose from our curated Sri Lanka tour packages — Cultural Triangle, Beach Paradise, Wildlife Safari, Hill Country adventures, and more. Book your dream vacation today."
   pageStyles={["css/pages/packages.css"]}
   activeRoute="packages.html"
+  image="/images/hero/packages_hero_bg.webp"
+  imageAlt="Sri Lankan mountain landscape"
 >
 <main class="main-content" id="main-content">
 
@@ -21,9 +24,10 @@ import ResponsiveImage from '../components/ui/ResponsiveImage.astro';
         <div class="page-hero__content">
           <h1 class="page-hero__title">Tour Packages</h1>
           <p class="page-hero__subtitle">Handcrafted itineraries for every type of traveler</p>
-          <div class="page-hero__breadcrumb">
-            <a href="/">Home</a><span>→</span><span>Tour Packages</span>
-          </div>
+          <Breadcrumbs items={[
+            { name: 'Home', href: '/' },
+            { name: 'Tour Packages', href: '/packages.html' },
+          ]} />
         </div>
       </section>
 

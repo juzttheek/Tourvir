@@ -2,6 +2,7 @@
 import PageShell from '../layouts/PageShell.astro';
 import VehicleGrid from '../components/vehicles/VehicleGrid.astro';
 import ResponsiveImage from '../components/ui/ResponsiveImage.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
 ---
 
 <PageShell
@@ -9,6 +10,8 @@ import ResponsiveImage from '../components/ui/ResponsiveImage.astro';
   description="Explore Tourvir's fleet of comfortable tourist vehicles — sedans, SUVs, vans, luxury cars, and coach buses. All with experienced English-speaking chauffeurs."
   pageStyles={["css/pages/vehicles.css"]}
   activeRoute="vehicles.html"
+  image="/images/hero/vehicles_hero_bg.webp"
+  imageAlt="Road journey through Sri Lanka"
 >
 <main class="main-content" id="main-content">
 
@@ -21,9 +24,10 @@ import ResponsiveImage from '../components/ui/ResponsiveImage.astro';
         <div class="page-hero__content">
           <h1 class="page-hero__title">Our Vehicle Fleet</h1>
           <p class="page-hero__subtitle">Travel in comfort with our well-maintained fleet and expert chauffeurs</p>
-          <div class="page-hero__breadcrumb">
-            <a href="/">Home</a><span>→</span><span>Vehicles</span>
-          </div>
+          <Breadcrumbs items={[
+            { name: 'Home', href: '/' },
+            { name: 'Vehicles', href: '/vehicles.html' },
+          ]} />
         </div>
       </section>
 

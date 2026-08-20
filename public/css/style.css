@@ -1001,6 +1001,24 @@ button {
   color: white;
 }
 
+.content-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.content-breadcrumb a {
+  color: var(--primary);
+}
+
+.content-breadcrumb a:hover {
+  color: var(--primary-dark);
+}
+
 /* ============================================
    GRID LAYOUTS
    ============================================ */
