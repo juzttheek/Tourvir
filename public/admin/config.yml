@@ -129,8 +129,6 @@ collections:
       - { label: 'Price Suffix', name: 'priceSuffix', widget: 'string', default: 'per person' }
       - { label: 'Cover Image', name: 'image', widget: 'image' }
       - { label: 'Alt Text', name: 'alt', widget: 'string' }
-      - { label: 'Rating', name: 'rating', widget: 'number', min: 1, max: 5, default: 5 }
-      - { label: 'Review Count', name: 'reviewCount', widget: 'number', min: 0, default: 0 }
       - {
           label: 'Highlights',
           name: 'highlights',

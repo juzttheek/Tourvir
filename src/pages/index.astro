@@ -1,16 +1,19 @@
 ---
 import PageShell from '../layouts/PageShell.astro';
 import ResponsiveImage from '../components/ui/ResponsiveImage.astro';
+import { tourPackages, vehicles } from '../content/catalogs';
 
 const testimonialFiles = import.meta.glob('../data/testimonials/*.json', { eager: true });
 const testimonials = Object.values(testimonialFiles).map((file: any) => file.default);
+const blogFiles = import.meta.glob('../data/blog/*.json', { eager: true });
+const galleryFiles = import.meta.glob('../data/gallery/*.json', { eager: true });
 const travelAgencySchema = {
   '@context': 'https://schema.org',
   '@type': 'TravelAgency',
   '@id': 'https://www.tourvir.lk/#organization',
   name: 'Tourvir',
   description:
-    'Your premier Sri Lanka travel companion. Discover the Pearl of the Indian Ocean with curated tour packages, expert guides, and unforgettable experiences.',
+    'Sri Lanka tour packages, private transport options, travel guides, and direct trip-planning support from Tourvir.',
   url: 'https://www.tourvir.lk/',
   logo: 'https://www.tourvir.lk/images/logo.png',
   image: 'https://www.tourvir.lk/images/hero/hero_main_hq.webp',
@@ -27,8 +30,8 @@ const travelAgencySchema = {
 ---
 
 <PageShell
-  title="Tourvir - Discover Sri Lanka | Premier Tourist Guide"
-  description="Tourvir - Your premier Sri Lanka travel companion. Discover the Pearl of the Indian Ocean with curated tour packages, expert guides, and unforgettable experiences."
+  title="Sri Lanka Tours & Travel Planning | Tourvir"
+  description="Explore Tourvir's Sri Lanka tour packages, private transport options, travel guides, and direct planning support for cultural, wildlife, beach, and hill-country trips."
   pageStyles={["css/pages/home.css"]}
   activeRoute="index.html"
   imageAlt="Sigiriya rock fortress at sunset"
@@ -96,21 +99,21 @@ const travelAgencySchema = {
           <div class="about-grid reveal">
             <div class="about__image-wrapper reveal-left">
               <img loading="lazy" src="images/gallery/sigiriya.webp" alt="Sigiriya Rock Fortress" class="about__image">
-              <div class="about__image-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> 10+ Years of Excellence</div>
+              <div class="about__image-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Sri Lanka Travel Planning</div>
             </div>
             <div class="about__text reveal-right">
               <span class="section__label">About Tourvir</span>
               <h2>Your Gateway to <br>Sri Lanka's Wonders</h2>
-              <p>Founded in 2015, Tourvir has been the premier choice for international travelers seeking authentic Sri Lankan experiences. We combine local expertise with world-class service to create journeys that go beyond ordinary tourism.</p>
-              <p>Our team of passionate travel experts and certified guides ensures every trip is tailored to your dreams — from the ancient ruins of Anuradhapura to the golden beaches of Bentota.</p>
+              <p>Tourvir helps international travelers compare Sri Lanka itineraries, transport options, and trip ideas across the island's cultural sites, wildlife areas, beaches, and highlands.</p>
+              <p>Tell us your dates, interests, group size, and budget, and we can discuss a route based on the package and vehicle options shown on this website.</p>
               <div class="about__highlights">
                 <div class="about__highlight">
                   <span class="about__highlight-icon">✓</span>
-                  Licensed & Certified
+                  Sri Lanka Based
                 </div>
                 <div class="about__highlight">
                   <span class="about__highlight-icon">✓</span>
-                  24/7 Traveler Support
+                  Direct Travel Support
                 </div>
                 <div class="about__highlight">
                   <span class="about__highlight-icon">✓</span>
@@ -156,23 +159,23 @@ const travelAgencySchema = {
           <div class="stats">
             <div class="stat reveal delay-1">
               <div class="stat__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></div>
-              <div class="stat__number" data-count="5000" data-suffix="+">0</div>
-              <div class="stat__label">Happy Tourists</div>
+              <div class="stat__number" data-count={tourPackages.length}>0</div>
+              <div class="stat__label">Tour Packages</div>
             </div>
             <div class="stat reveal delay-2">
               <div class="stat__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 15 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></div>
-              <div class="stat__number" data-count="50" data-suffix="+">0</div>
-              <div class="stat__label">Destinations</div>
+              <div class="stat__number" data-count={vehicles.length}>0</div>
+              <div class="stat__label">Vehicle Options</div>
             </div>
             <div class="stat reveal delay-3">
               <div class="stat__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-              <div class="stat__number" data-count="10" data-suffix="+">0</div>
-              <div class="stat__label">Years Experience</div>
+              <div class="stat__number" data-count={Object.keys(blogFiles).length}>0</div>
+              <div class="stat__label">Travel Guides</div>
             </div>
             <div class="stat reveal delay-4">
               <div class="stat__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div>
-              <div class="stat__number" data-count="98" data-suffix="%">0</div>
-              <div class="stat__label">Satisfaction Rate</div>
+              <div class="stat__number" data-count={Object.keys(galleryFiles).length}>0</div>
+              <div class="stat__label">Gallery Images</div>
             </div>
           </div>
         </div>
@@ -310,7 +313,7 @@ const travelAgencySchema = {
             <div class="feature-card reveal delay-1">
               <div class="feature-card__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg></div>
               <h4 class="feature-card__title">Expert Local Guides</h4>
-              <p class="feature-card__text">Our certified guides bring stories to life with deep local knowledge and fluent English.</p>
+              <p class="feature-card__text">Plan routes with local context for Sri Lanka's cultural sites, wildlife areas, beaches, and highlands.</p>
             </div>
             <div class="feature-card reveal delay-2">
               <div class="feature-card__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
@@ -320,12 +323,12 @@ const travelAgencySchema = {
             <div class="feature-card reveal delay-3">
               <div class="feature-card__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div>
               <h4 class="feature-card__title">Safe & Reliable</h4>
-              <p class="feature-card__text">Licensed vehicles, insured trips, and 24/7 support for complete peace of mind.</p>
+              <p class="feature-card__text">Compare private vehicle options and contact Tourvir directly when you need help coordinating a trip.</p>
             </div>
             <div class="feature-card reveal delay-4">
               <div class="feature-card__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>
               <h4 class="feature-card__title">Eco-Friendly Travel</h4>
-              <p class="feature-card__text">We partner with sustainable lodges and support local communities on every journey.</p>
+              <p class="feature-card__text">Ask about locally owned stays and lower-impact travel choices when discussing your itinerary.</p>
             </div>
           </div>
         </div>

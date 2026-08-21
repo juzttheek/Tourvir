@@ -13,9 +13,9 @@ const galleryWidths: Record<string, number> = {
   'temple.webp': 360,
   'train.webp': 1024,
   'hero_18bends_hq.webp': 1920,
-  'ChatGPT Image Jul 27, 2026, 10_51_57 AM.png': 1922,
 };
 const galleryImageWidth = (path: string) => galleryWidths[path.split('/').pop() || ''] ?? 1024;
+const galleryCategoryCount = new Set(galleryItems.map((item: any) => item.category)).size;
 ---
 
 <PageShell
@@ -49,16 +49,12 @@ const galleryImageWidth = (path: string) => galleryWidths[path.split('/').pop() 
         <div class="container">
           <div class="gallery-stats reveal">
             <div class="gallery-stat">
-              <div class="gallery-stat__number">50+</div>
-              <div class="gallery-stat__label">Destinations Captured</div>
+              <div class="gallery-stat__number">{galleryItems.length}</div>
+              <div class="gallery-stat__label">Gallery Images</div>
             </div>
             <div class="gallery-stat">
-              <div class="gallery-stat__number">200+</div>
-              <div class="gallery-stat__label">Professional Photos</div>
-            </div>
-            <div class="gallery-stat">
-              <div class="gallery-stat__number">8</div>
-              <div class="gallery-stat__label">UNESCO Sites</div>
+              <div class="gallery-stat__number">{galleryCategoryCount}</div>
+              <div class="gallery-stat__label">Travel Themes</div>
             </div>
           </div>
 

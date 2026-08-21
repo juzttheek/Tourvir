@@ -35,7 +35,5 @@
   ],
   "recommendedVehicles": ["Comfortable Sedan", "Luxury Sedan"],
   "durationLabel": "7 Days / 6 Nights",
-  "priceSuffix": "per person",
-  "rating": 5,
-  "reviewCount": 96
+  "priceSuffix": "per person"
 }

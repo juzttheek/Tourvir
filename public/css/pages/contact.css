@@ -136,7 +136,8 @@
 /* Social Media Grid */
 .social-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: minmax(220px, 320px);
+  justify-content: center;
   gap: var(--space-md);
   margin-top: var(--space-xl);
 }

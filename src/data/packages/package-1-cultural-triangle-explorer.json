@@ -35,7 +35,5 @@
   ],
   "recommendedVehicles": ["Comfortable Sedan", "Mini SUV"],
   "durationLabel": "5 Days / 4 Nights",
-  "priceSuffix": "per person",
-  "rating": 5,
-  "reviewCount": 128
+  "priceSuffix": "per person"
 }

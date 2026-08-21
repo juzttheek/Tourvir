@@ -16,10 +16,6 @@ import ResponsiveImage from '../ui/ResponsiveImage.astro';
       </div>
       <div class="package-card__body">
         <h3 class="package-card__title">{item.title}</h3>
-        <div class="package-card__rating">
-          <div class="stars" role="img" aria-label={`${item.rating} out of 5 stars`}>{'★'.repeat(item.rating)}{'☆'.repeat(5 - item.rating)}</div>
-          <span class="package-card__rating-text">({item.reviewCount} reviews)</span>
-        </div>
         <div class="package-card__highlights">{item.highlights.map((highlight) => <span class="package-card__highlight">{highlight}</span>)}</div>
         <div class="package-card__footer">
           <div class="package-card__price">${item.price.toLocaleString('en-US')} <span>{item.priceSuffix}</span></div>

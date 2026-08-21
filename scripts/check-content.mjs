@@ -19,6 +19,25 @@ for (const filename of htmlFiles) {
     failures.push(`${filename}: duplicate IDs ${duplicateIds.join(', ')}`);
   if (h1Count !== 1) failures.push(`${filename}: expected one h1, found ${h1Count}`);
   if (forbiddenRuntime.test(html)) failures.push(`${filename}: legacy Firebase/admin marker`);
+  if (/\bhref=["']#["']/i.test(html)) failures.push(`${filename}: dead placeholder link`);
+  if (/package-card__rating(?:-text)?/i.test(html)) {
+    failures.push(`${filename}: unsupported package rating or review count`);
+  }
+  if (/Licensed by the Sri Lanka Tourism Development Authority/i.test(html)) {
+    failures.push(`${filename}: unverified tourism-authority licence claim`);
+  }
+
+  if (filename === 'gallery.html') {
+    const galleryItemCount = (html.match(/<article\s+class=["']gallery-item(?:\s|["'])/gi) ?? [])
+      .length;
+    if (galleryItemCount === 0) failures.push(`${filename}: no gallery entries rendered`);
+    if (!new RegExp(`>${galleryItemCount}<\\/div>\\s*<div[^>]*>Gallery Images<`, 'i').test(html)) {
+      failures.push(`${filename}: visible gallery count does not match rendered entries`);
+    }
+    if (/>\s*(?:asd|logo)\s*</i.test(html) || /GrowEasy Plant Growing Kit/i.test(html)) {
+      failures.push(`${filename}: test or unrelated gallery content`);
+    }
+  }
 }
 
 const assetDirectory = resolveInside(root, '_assets');

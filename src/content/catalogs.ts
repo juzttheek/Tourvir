@@ -10,8 +10,6 @@ export interface TourPackage {
   alt: string;
   categoryLabel: string;
   title: string;
-  rating: number;
-  reviewCount: number;
   highlights: string[];
   href: string;
   routeMap?: { name: string; coordinates: [number, number] }[];
@@ -63,8 +61,6 @@ export const tourPackages = Object.entries(packageModules).map(([path, mod]: [st
     alt: String(mod.alt),
     categoryLabel: String(mod.categoryLabel),
     title: String(mod.title),
-    rating: Number(mod.rating),
-    reviewCount: Number(mod.reviewCount),
     highlights: Array.isArray(mod.highlights) ? mod.highlights.map(String) : [],
     href: `/packages/${id}.html`,
     routeMap: mod.routeMap,
