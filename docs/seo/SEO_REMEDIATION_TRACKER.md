@@ -318,7 +318,13 @@ Phase 1 must add automated checks that crawl every sitemap URL, compare final/ca
 | 2026-08-22 | 6     | Rechecked the final destination-card layout                     | PASS                | 5/5 homepage hero and overflow checks pass at 320px, 390px, tablet and desktop widths                                          |
 | 2026-08-22 | 6     | Measured affected routes with Lighthouse                        | PASS                | Home 0.87 performance, vehicle 0.81, Sigiriya guide 0.95; SEO 1.00, accessibility 0.94-0.95 and final vehicle CLS 0            |
 | 2026-08-22 | 6     | Phase 6 completion review                                       | COMPLETE            | Performance, mobile, media and accessibility budgets pass; production remains untouched                                        |
+| 2026-08-23 | 5-6   | Committed and pushed the verified implementation                | PASS                | Commit `16cc3d9` on `origin/seo-remediation`; untracked user files, `main` and production remained untouched                   |
+| 2026-08-23 | 5-6   | Vercel protected Preview build                                  | PASS                | Deployment `tourvir-9j553h0h6-nebulync.vercel.app` completed successfully and is aliased to the remediation branch             |
+| 2026-08-23 | 5-6   | Authenticated affected-route Preview verification               | PASS                | Home, new guide, representative package, vehicles, inquiry and both sitemap files return `200`; deployed structures agree      |
+| 2026-08-23 | 5     | Verified the deployed article migration                         | PASS                | Both `/blog/first-post` and `/blog/first-post.html` return direct permanent `308` redirects to the new descriptive URL         |
+| 2026-08-23 | 5     | Verified the deployed sitemap migration                         | PASS                | 21 URLs; new Sigiriya canonical present and retired `first-post.html` absent                                                   |
+| 2026-08-23 | 5-6   | Protected Preview completion review                             | COMPLETE            | Local and deployed gates pass for all approved items 1-9; no production deployment performed                                   |
 
 ## Current next action
 
-Commit and push the verified Phase 5-6 batch to `seo-remediation`, then run the protected Vercel Preview smoke/redirect checks. Keep production untouched. Owner-dependent Phase 3, remaining Phase 4 trust inputs and Phase 7 production/GSC work remain separate.
+Wait for the customer-approved facts required by Phase 3 and remaining Phase 4 trust work, or obtain explicit approval for Phase 7 production release. After production release, resubmit the sitemap and start Search Console validation/monitoring; do not start those production actions from Preview evidence alone.
