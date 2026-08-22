@@ -47,17 +47,17 @@ const travelAgencySchema = {
         <div class="hero__bg" id="hero-slider">
           <!-- Eagerly loaded first asset -->
           <ResponsiveImage src="images/hero/hero_main_hq.webp" sourceWidth={1024} sizes="100vw" class="active" alt="Sigiriya rock fortress at sunset" fetchpriority="high" />
-          <!-- Subsequent lazy assets for slider -->
-          <ResponsiveImage src="images/hero/hero_train_hq.webp" sourceWidth={1920} sizes="100vw" alt="Beautiful Ella train journey" loading="lazy" />
-          <ResponsiveImage src="images/hero/hero_wild_hq.webp" sourceWidth={1920} sizes="100vw" alt="Majestic wild elephant at sunset" loading="lazy" />
-          <ResponsiveImage src="images/hero/hero_tea_hq.webp" sourceWidth={1920} sizes="100vw" alt="Lush green tea plantations" loading="lazy" />
-          <ResponsiveImage src="images/hero/hero_mountains_hq.webp" sourceWidth={1920} sizes="100vw" alt="Scenic mountain landscape" loading="lazy" />
-          <ResponsiveImage src="images/hero/hero_kandy_hq.webp" sourceWidth={1920} sizes="100vw" alt="Cultural city of Kandy" loading="lazy" />
-          <ResponsiveImage src="images/hero/hero_18bends_hq.webp" sourceWidth={1920} sizes="100vw" alt="Famous 18 bends road" loading="lazy" />
-          <ResponsiveImage src="images/hero/hero_dancer_hq.webp" sourceWidth={1024} sizes="100vw" alt="Traditional Sri Lankan dancer" loading="lazy" />
-          <ResponsiveImage src="images/hero/hero_ocean_hq.webp" sourceWidth={1920} sizes="100vw" alt="Pristine Sri Lankan beaches" loading="lazy" />
-          <ResponsiveImage src="images/hero/hero_lotus_hq.webp" sourceWidth={1920} sizes="100vw" alt="Lotus Tower Colombo" loading="lazy" />
-          <ResponsiveImage src="images/hero/hero_temple_hq.webp" sourceWidth={1920} sizes="100vw" alt="Ancient Buddhist temple" loading="lazy" />
+          <!-- Inert templates prevent the other ten slides from competing with the LCP image. -->
+          <template data-hero-slide><ResponsiveImage src="images/hero/hero_train_hq.webp" sourceWidth={1920} sizes="100vw" alt="Beautiful Ella train journey" loading="lazy" /></template>
+          <template data-hero-slide><ResponsiveImage src="images/hero/hero_wild_hq.webp" sourceWidth={1920} sizes="100vw" alt="Majestic wild elephant at sunset" loading="lazy" /></template>
+          <template data-hero-slide><ResponsiveImage src="images/hero/hero_tea_hq.webp" sourceWidth={1920} sizes="100vw" alt="Lush green tea plantations" loading="lazy" /></template>
+          <template data-hero-slide><ResponsiveImage src="images/hero/hero_mountains_hq.webp" sourceWidth={1920} sizes="100vw" alt="Scenic mountain landscape" loading="lazy" /></template>
+          <template data-hero-slide><ResponsiveImage src="images/hero/hero_kandy_hq.webp" sourceWidth={1920} sizes="100vw" alt="Cultural city of Kandy" loading="lazy" /></template>
+          <template data-hero-slide><ResponsiveImage src="images/hero/hero_18bends_hq.webp" sourceWidth={1920} sizes="100vw" alt="Famous 18 bends road" loading="lazy" /></template>
+          <template data-hero-slide><ResponsiveImage src="images/hero/hero_dancer_hq.webp" sourceWidth={1024} sizes="100vw" alt="Traditional Sri Lankan dancer" loading="lazy" /></template>
+          <template data-hero-slide><ResponsiveImage src="images/hero/hero_ocean_hq.webp" sourceWidth={1920} sizes="100vw" alt="Pristine Sri Lankan beaches" loading="lazy" /></template>
+          <template data-hero-slide><ResponsiveImage src="images/hero/hero_lotus_hq.webp" sourceWidth={1920} sizes="100vw" alt="Lotus Tower Colombo" loading="lazy" /></template>
+          <template data-hero-slide><ResponsiveImage src="images/hero/hero_temple_hq.webp" sourceWidth={1920} sizes="100vw" alt="Ancient Buddhist temple" loading="lazy" /></template>
         </div>
         
         <!-- Hero Slider Controls -->
@@ -159,22 +159,22 @@ const travelAgencySchema = {
           <div class="stats">
             <div class="stat reveal delay-1">
               <div class="stat__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></div>
-              <div class="stat__number" data-count={tourPackages.length}>0</div>
+              <div class="stat__number" data-count={tourPackages.length}>{tourPackages.length}</div>
               <div class="stat__label">Tour Packages</div>
             </div>
             <div class="stat reveal delay-2">
               <div class="stat__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 15 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></div>
-              <div class="stat__number" data-count={vehicles.length}>0</div>
+              <div class="stat__number" data-count={vehicles.length}>{vehicles.length}</div>
               <div class="stat__label">Vehicle Options</div>
             </div>
             <div class="stat reveal delay-3">
               <div class="stat__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-              <div class="stat__number" data-count={Object.keys(blogFiles).length}>0</div>
+              <div class="stat__number" data-count={Object.keys(blogFiles).length}>{Object.keys(blogFiles).length}</div>
               <div class="stat__label">Travel Guides</div>
             </div>
             <div class="stat reveal delay-4">
               <div class="stat__icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div>
-              <div class="stat__number" data-count={Object.keys(galleryFiles).length}>0</div>
+              <div class="stat__number" data-count={Object.keys(galleryFiles).length}>{Object.keys(galleryFiles).length}</div>
               <div class="stat__label">Gallery Images</div>
             </div>
           </div>
@@ -201,7 +201,7 @@ const travelAgencySchema = {
               <div class="service-card__body">
                 <h4 class="service-card__title">Sri Lanka Tours</h4>
                 <p class="service-card__desc">Expertly crafted itineraries across the island's most breathtaking destinations.</p>
-                <a href="contact.html" class="service-card__link">Get in Touch <span>→</span></a>
+                <a href="packages.html" class="service-card__link">Browse Tours <span>→</span></a>
               </div>
             </div>
 
@@ -271,7 +271,7 @@ const travelAgencySchema = {
               <div class="service-card__body">
                 <h4 class="service-card__title">Vehicle Rental</h4>
                 <p class="service-card__desc">Self-drive or chauffeur-driven vehicles — sedans, SUVs, vans, and luxury cars.</p>
-                <a href="contact.html" class="service-card__link">Get in Touch <span>→</span></a>
+                <a href="vehicles.html" class="service-card__link">Compare Vehicles <span>→</span></a>
               </div>
             </div>
 
@@ -285,7 +285,7 @@ const travelAgencySchema = {
               <div class="service-card__body">
                 <h4 class="service-card__title">Tailor-made Tours</h4>
                 <p class="service-card__desc">Design your dream trip — you set the pace, we make it happen.</p>
-                <a href="contact.html" class="service-card__link">Get in Touch <span>→</span></a>
+                <a href="inquiry.html" class="service-card__link">Plan Your Route <span>→</span></a>
               </div>
             </div>
 
@@ -343,27 +343,30 @@ const travelAgencySchema = {
             <p class="section__subtitle">From ancient ruins to tropical beaches, Sri Lanka offers a world of wonder in one small island.</p>
           </div>
           <div class="destinations-grid">
-            <div class="destination-card reveal delay-1">
+            <a class="destination-card reveal delay-1" href="/packages/package-1-cultural-triangle-explorer.html" aria-label="Explore the Cultural Triangle tour featuring Sigiriya">
               <img loading="lazy" src="images/gallery/sigiriya.webp" alt="Sigiriya Rock Fortress">
               <div class="destination-card__overlay">
                 <h3 class="destination-card__name">Sigiriya</h3>
                 <p class="destination-card__desc">Ancient rock fortress & UNESCO site</p>
+                <span class="destination-card__action">View matching tour →</span>
               </div>
-            </div>
-            <div class="destination-card reveal delay-2">
+            </a>
+            <a class="destination-card reveal delay-2" href="/packages/package-2-beach-paradise-retreat.html" aria-label="Explore the Beach Paradise tour of Sri Lanka's southern coast">
               <img loading="lazy" src="images/gallery/beach.webp" alt="Tropical Beach in Sri Lanka">
               <div class="destination-card__overlay">
                 <h3 class="destination-card__name">Southern Coast</h3>
                 <p class="destination-card__desc">Golden beaches & turquoise waters</p>
+                <span class="destination-card__action">View matching tour →</span>
               </div>
-            </div>
-            <div class="destination-card reveal delay-3">
+            </a>
+            <a class="destination-card reveal delay-3" href="/packages/package-1-cultural-triangle-explorer.html" aria-label="Explore the Cultural Triangle tour featuring Kandy">
               <img loading="lazy" src="images/gallery/temple.webp" alt="Temple of the Tooth Relic">
               <div class="destination-card__overlay">
                 <h3 class="destination-card__name">Kandy</h3>
                 <p class="destination-card__desc">Temple of the Tooth & hill capital</p>
+                <span class="destination-card__action">View matching tour →</span>
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </section>

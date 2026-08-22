@@ -18,7 +18,7 @@ import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
       <!-- Page Hero -->
       <section class="page-hero">
         <div class="page-hero__bg">
-          <ResponsiveImage src="images/hero/vehicles_hero_bg.png" sourceWidth={1024} sizes="100vw" alt="Sri Lanka road journey" />
+          <ResponsiveImage src="images/hero/vehicles_hero_bg.png" sourceWidth={1024} sizes="100vw" alt="Sri Lanka road journey" fetchpriority="high" />
         </div>
         <div class="page-hero__overlay"></div>
         <div class="page-hero__content">
@@ -88,24 +88,26 @@ import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
             <p class="section__subtitle">Find the perfect vehicle that matches your needs and group size.</p>
           </div>
 
-          <div class="comparison-table-wrapper reveal">
+          <p class="comparison-scroll-hint" id="vehicle-comparison-help">On smaller screens, swipe or use the arrow keys to compare every vehicle. The feature name remains visible.</p>
+          <div class="comparison-table-wrapper reveal" tabindex="0" role="region" aria-labelledby="vehicle-comparison-title" aria-describedby="vehicle-comparison-help">
             <table class="comparison-table">
+              <caption>Tourvir vehicle capacity, features, suitability, and listed daily rates</caption>
               <thead>
                 <tr>
-                  <th>Feature</th>
-                  <th>Sedan</th>
-                  <th>Lux Sedan</th>
-                  <th>Mini SUV</th>
-                  <th>SUV</th>
-                  <th>Lux SUV</th>
-                  <th>Van</th>
-                  <th>Coach</th>
-                  <th>Tuk-Tuk</th>
+                  <th scope="col" id="vehicle-comparison-title">Feature</th>
+                  <th scope="col">Sedan</th>
+                  <th scope="col">Lux Sedan</th>
+                  <th scope="col">Mini SUV</th>
+                  <th scope="col">SUV</th>
+                  <th scope="col">Lux SUV</th>
+                  <th scope="col">Van</th>
+                  <th scope="col">Coach</th>
+                  <th scope="col">Tuk-Tuk</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><strong>Passengers</strong></td>
+                  <th scope="row">Passengers</th>
                   <td>2-3</td>
                   <td>2-3</td>
                   <td>3-4</td>
@@ -116,7 +118,7 @@ import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
                   <td>2</td>
                 </tr>
                 <tr>
-                  <td><strong>Air Conditioning</strong></td>
+                  <th scope="row">Air Conditioning</th>
                   <td><span class="check">✓</span></td>
                   <td><span class="check">✓</span></td>
                   <td><span class="check">✓</span></td>
@@ -127,7 +129,7 @@ import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
                   <td><span class="cross">✗</span></td>
                 </tr>
                 <tr>
-                  <td><strong>WiFi</strong></td>
+                  <th scope="row">WiFi</th>
                   <td><span class="check">✓</span></td>
                   <td><span class="check">✓</span></td>
                   <td><span class="check">✓</span></td>
@@ -138,7 +140,7 @@ import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
                   <td><span class="cross">✗</span></td>
                 </tr>
                 <tr>
-                  <td><strong>Luggage Space</strong></td>
+                  <th scope="row">Luggage Space</th>
                   <td>Medium</td>
                   <td>Medium</td>
                   <td>Medium</td>
@@ -149,7 +151,7 @@ import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
                   <td>Small</td>
                 </tr>
                 <tr>
-                  <td><strong>Off-Road</strong></td>
+                  <th scope="row">Off-Road</th>
                   <td><span class="cross">✗</span></td>
                   <td><span class="cross">✗</span></td>
                   <td><span class="cross">✗</span></td>
@@ -160,7 +162,7 @@ import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
                   <td><span class="check">✓</span></td>
                 </tr>
                 <tr>
-                  <td><strong>Best For</strong></td>
+                  <th scope="row">Best For</th>
                   <td>Couples</td>
                   <td>VIPs</td>
                   <td>Small Families</td>
@@ -171,7 +173,7 @@ import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
                   <td>City Fun</td>
                 </tr>
                 <tr>
-                <td><strong>Daily Rate</strong></td>
+                  <th scope="row">Daily Rate</th>
                   <td><strong>$90</strong></td>
                   <td><strong>$150</strong></td>
                   <td><strong>$100</strong></td>
@@ -187,6 +189,7 @@ import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
 
           <div class="reveal legacy-util-25">
             <a href="inquiry.html" class="btn btn--primary btn--lg">Reserve a Vehicle</a>
+            <a href="inquiry.html#trip-planning-faq" class="btn btn--ghost btn--lg">Read Planning FAQs</a>
           </div>
         </div>
       </section>

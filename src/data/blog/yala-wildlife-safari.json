@@ -4,5 +4,25 @@
   "coverImage": "/images/hero/hero_wild_hq.webp",
   "author": "Tourvir Team",
   "date": "2023-12-10T00:00:00.000Z",
-  "content": "If you are a nature lover, Yala National Park is an absolute dream. Located on the southeastern coast, Yala boasts one of the highest leopard densities in the world. A jeep safari at dawn offers the best chance to spot these majestic cats, along with herds of elephants, sloth bears, and crocodiles. The park's stunning combination of dry woodland and coastline makes for an unforgettable safari experience."
+  "introduction": "Yala National Park combines dry woodland and coastal landscapes on Sri Lanka's southeastern side.",
+  "sections": [
+    {
+      "heading": "Wildlife Encounters in Yala",
+      "paragraphs": [
+        "Yala is known for wildlife including leopards, elephants, sloth bears, crocodiles, and many bird species.",
+        "Sightings are never guaranteed, so the landscape and the wider safari experience are important parts of a visit."
+      ]
+    },
+    {
+      "heading": "Plan a Wildlife Route",
+      "paragraphs": [
+        "A safari is easier to plan when it is considered alongside travel time, accommodation, and the other stops in your itinerary.",
+        "Compare Tourvir's wildlife and island-wide routes below, then use the inquiry form to discuss dates, group size, and transport."
+      ]
+    }
+  ],
+  "relatedPackageIds": [
+    "package-3-wildlife-safari-adventure",
+    "package-7-complete-sri-lanka-experience"
+  ]
 }

@@ -1,0 +1,29 @@
+{
+  "title": "Exploring the Ancient Wonder of Sigiriya",
+  "seoTitle": "Sigiriya Rock Fortress Guide | Tourvir",
+  "description": "Discover the breathtaking beauty and rich history of Sigiriya, the Lion Rock fortress.",
+  "coverImage": "/images/hero/hero_main_hq.webp",
+  "author": "Tourvir Team",
+  "date": "2023-10-15T00:00:00.000Z",
+  "introduction": "Sigiriya is one of the most remarkable historical monuments in Sri Lanka. The rock rises above the surrounding landscape and rewards the climb with wide views.",
+  "sections": [
+    {
+      "heading": "Climbing Sigiriya Rock",
+      "paragraphs": [
+        "Visitors can climb to the summit to explore the ruins of the palace associated with King Kasyapa in the 5th century.",
+        "The route passes the famous frescoes and continues towards the giant lion paws that guard the final ascent."
+      ]
+    },
+    {
+      "heading": "Include Sigiriya in Your Route",
+      "paragraphs": [
+        "Sigiriya is a UNESCO World Heritage site and a natural match for a journey through Sri Lanka's Cultural Triangle.",
+        "Compare Tourvir's existing cultural routes below, then use the inquiry form to discuss dates, group size, pace, and transport."
+      ]
+    }
+  ],
+  "relatedPackageIds": [
+    "package-1-cultural-triangle-explorer",
+    "package-7-complete-sri-lanka-experience"
+  ]
+}

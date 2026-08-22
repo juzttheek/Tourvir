@@ -4,5 +4,25 @@
   "coverImage": "/images/hero/hero_train_hq.webp",
   "author": "Tourvir Team",
   "date": "2024-01-20T00:00:00.000Z",
-  "content": "The train journey from Kandy or Nuwara Eliya to Ella is often described as one of the most beautiful in the world. As you chug through misty mountains and endless tea estates, the views are simply breathtaking. Once in Ella, hike up Little Adam's Peak for panoramic views, visit the iconic Nine Arch Bridge, and enjoy a warm cup of world-renowned Ceylon tea in the cool highland climate."
+  "introduction": "The train journey from Kandy or Nuwara Eliya to Ella travels through Sri Lanka's misty mountains and tea estates.",
+  "sections": [
+    {
+      "heading": "The Hill-Country Rail Journey",
+      "paragraphs": [
+        "The changing highland scenery is a central part of the journey, with views across mountain slopes and tea country.",
+        "Allow enough time in your route to enjoy the journey itself rather than treating the train only as transport between stops."
+      ]
+    },
+    {
+      "heading": "Places to Explore Around Ella",
+      "paragraphs": [
+        "Once in Ella, popular stops include Little Adam's Peak and the Nine Arch Bridge, alongside time to enjoy the cooler highland setting.",
+        "Compare Tourvir's hill-country and island-wide routes below, then discuss timing and vehicle options for the rest of your journey."
+      ]
+    }
+  ],
+  "relatedPackageIds": [
+    "package-4-hill-country-adventure",
+    "package-7-complete-sri-lanka-experience"
+  ]
 }

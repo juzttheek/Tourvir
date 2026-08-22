@@ -1,7 +1,15 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
-for (const route of ['/index.html', '/gallery.html', '/contact.html', '/inquiry.html']) {
+for (const route of [
+  '/index.html',
+  '/gallery.html',
+  '/contact.html',
+  '/inquiry.html',
+  '/vehicles.html',
+  '/packages/package-1-cultural-triangle-explorer.html',
+  '/blog/sigiriya-rock-fortress-guide.html',
+]) {
   test(`${route} has no critical automated accessibility violations`, async ({ page }) => {
     await page.goto(route);
     const results = await new AxeBuilder({ page }).analyze();

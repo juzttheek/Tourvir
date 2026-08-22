@@ -310,6 +310,32 @@ for (const expectedRedirect of expectedLegacyRedirects) {
   }
 }
 
+const retiredArticleRedirects = [
+  {
+    source: '/blog/first-post',
+    destination: '/blog/sigiriya-rock-fortress-guide.html',
+  },
+  {
+    source: '/blog/first-post.html',
+    destination: '/blog/sigiriya-rock-fortress-guide.html',
+  },
+];
+
+for (const retiredRedirect of retiredArticleRedirects) {
+  const configuredRedirect = configuredRedirects.find(
+    (redirect) => redirect.source === retiredRedirect.source,
+  );
+  if (
+    !configuredRedirect ||
+    configuredRedirect.destination !== retiredRedirect.destination ||
+    configuredRedirect.permanent !== true
+  ) {
+    failures.push(
+      `vercel.json: missing direct permanent ${retiredRedirect.source} -> ${retiredRedirect.destination} redirect`,
+    );
+  }
+}
+
 if (vercelConfig.cleanUrls !== false) {
   failures.push('vercel.json: cleanUrls must remain false for the approved .html URL policy');
 }

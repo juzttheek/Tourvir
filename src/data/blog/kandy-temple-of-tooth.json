@@ -5,5 +5,25 @@
   "coverImage": "/images/hero/hero_kandy_hq.webp",
   "author": "Tourvir Team",
   "date": "2023-11-02T00:00:00.000Z",
-  "content": "Kandy, the last royal capital of Sri Lanka, is nestled among misty hills and tea plantations. The crown jewel of Kandy is the Temple of the Sacred Tooth Relic (Sri Dalada Maligawa), which houses a tooth relic of the Buddha. Exploring the temple complex offers a profound glimpse into Buddhist rituals and traditional Kandyan architecture. Make sure to stroll around the picturesque Kandy Lake at sunset!"
+  "introduction": "Kandy, the last royal capital of Sri Lanka, is nestled among misty hills and tea plantations.",
+  "sections": [
+    {
+      "heading": "The Temple of the Sacred Tooth Relic",
+      "paragraphs": [
+        "The crown jewel of Kandy is the Temple of the Sacred Tooth Relic, also known as Sri Dalada Maligawa, which houses a tooth relic of the Buddha.",
+        "Exploring the temple complex offers a glimpse into Buddhist rituals and traditional Kandyan architecture."
+      ]
+    },
+    {
+      "heading": "Add Kandy to a Sri Lanka Itinerary",
+      "paragraphs": [
+        "A walk around Kandy Lake can complement a visit to the temple complex.",
+        "Tourvir's existing cultural and island-wide routes include Kandy; compare them below before discussing your dates and transport needs."
+      ]
+    }
+  ],
+  "relatedPackageIds": [
+    "package-1-cultural-triangle-explorer",
+    "package-7-complete-sri-lanka-experience"
+  ]
 }

@@ -169,15 +169,18 @@
 }
 
 .destination-card {
+  display: block;
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
   height: 320px;
-  cursor: pointer;
+  color: white;
+  text-decoration: none;
   transition: all var(--transition-base);
 }
 
-.destination-card:hover {
+.destination-card:hover,
+.destination-card:focus-visible {
   transform: translateY(-6px);
   box-shadow: var(--shadow-xl);
 }
@@ -214,6 +217,20 @@
 .destination-card__desc {
   color: rgba(255,255,255,0.8);
   font-size: 0.85rem;
+}
+
+.destination-card__action {
+  margin-top: var(--space-sm);
+  color: white;
+  font-size: 0.82rem;
+  font-weight: 700;
+  opacity: 0.9;
+  transition: transform var(--transition-fast);
+}
+
+.destination-card:hover .destination-card__action,
+.destination-card:focus-visible .destination-card__action {
+  transform: translateX(4px);
 }
 
 /* Testimonials Section */

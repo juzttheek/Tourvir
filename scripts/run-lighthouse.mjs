@@ -6,7 +6,14 @@ import lighthouse from 'lighthouse';
 import { chromium } from 'playwright';
 
 const sitePort = 4173;
-const routes = ['index.html', 'gallery.html', 'contact.html'];
+const defaultRoutes = [
+  'index.html',
+  'gallery.html',
+  'contact.html',
+  'vehicles.html',
+  'blog/sigiriya-rock-fortress-guide.html',
+];
+const routes = process.argv.slice(2).length > 0 ? process.argv.slice(2) : defaultRoutes;
 const outputDirectory = path.resolve('.lighthouseci/results');
 
 async function reservePort() {

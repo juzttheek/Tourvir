@@ -22,9 +22,9 @@ describe('SEO URL contract helpers', () => {
     expect(serializeSitemapItem({ url: `${SITE_ORIGIN}/packages` }).url).toBe(
       `${SITE_ORIGIN}/packages.html`,
     );
-    expect(serializeSitemapItem({ url: `${SITE_ORIGIN}/blog/first-post` }).url).toBe(
-      `${SITE_ORIGIN}/blog/first-post.html`,
-    );
+    expect(
+      serializeSitemapItem({ url: `${SITE_ORIGIN}/blog/sigiriya-rock-fortress-guide` }).url,
+    ).toBe(`${SITE_ORIGIN}/blog/sigiriya-rock-fortress-guide.html`);
   });
 
   it('rejects sitemap items generated for another origin', () => {
@@ -36,8 +36,8 @@ describe('SEO URL contract helpers', () => {
   it('maps canonical site URLs to static output files', () => {
     expect(outputPathForSiteUrl(`${SITE_ORIGIN}/`)).toBe('index.html');
     expect(outputPathForSiteUrl(`${SITE_ORIGIN}/packages.html`)).toBe('packages.html');
-    expect(outputPathForSiteUrl(`${SITE_ORIGIN}/blog/first-post.html`)).toBe(
-      'blog/first-post.html',
+    expect(outputPathForSiteUrl(`${SITE_ORIGIN}/blog/sigiriya-rock-fortress-guide.html`)).toBe(
+      'blog/sigiriya-rock-fortress-guide.html',
     );
     expect(outputPathForSiteUrl(`${SITE_ORIGIN}/packages`)).toBeNull();
     expect(outputPathForSiteUrl('https://tourvir.lk/packages.html')).toBeNull();

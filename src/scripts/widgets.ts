@@ -39,14 +39,14 @@ async function fetchWeather() {
     const cached = sessionStorage.getItem('tourvir_weather');
     if (cached) return JSON.parse(cached);
 
-    const res = await fetch(WEATHER_API);
+    const res = await fetch(WEATHER_API, { signal: AbortSignal.timeout(5000) });
     if (!res.ok) throw new Error('Weather fetch failed');
     const data = (await res.json()) as WeatherData;
 
     sessionStorage.setItem('tourvir_weather', JSON.stringify(data));
     return data;
   } catch (err) {
-    console.error('[TopBar] Weather error:', err);
+    console.warn('[TopBar] Live weather unavailable:', err);
     return null;
   }
 }
@@ -56,14 +56,14 @@ async function fetchCurrency() {
     const cached = sessionStorage.getItem('tourvir_currency');
     if (cached) return JSON.parse(cached);
 
-    const res = await fetch(CURRENCY_API);
+    const res = await fetch(CURRENCY_API, { signal: AbortSignal.timeout(5000) });
     if (!res.ok) throw new Error('Currency fetch failed');
     const data = (await res.json()) as CurrencyData;
 
     sessionStorage.setItem('tourvir_currency', JSON.stringify(data));
     return data;
   } catch (err) {
-    console.error('[TopBar] Currency error:', err);
+    console.warn('[TopBar] Live currency rates unavailable:', err);
     return null;
   }
 }
@@ -79,7 +79,7 @@ export async function initTopBarWidgets() {
         const emoji = getWeatherEmoji(data.current_weather.weathercode);
         weatherEl.textContent = `Colombo: ${temp}°C ${emoji}`;
       } else {
-        weatherEl.textContent = 'Colombo: 28°C ☀️'; // Fallback
+        weatherEl.textContent = 'Colombo weather: check current conditions';
       }
     });
   }
@@ -97,7 +97,7 @@ export async function initTopBarWidgets() {
           <span class="hide-mobile"> | EUR: Rs.${lkrPerEur} | GBP: Rs.${lkrPerGbp}</span>
         `;
       } else {
-        currencyEl.textContent = 'Currency rates unavailable';
+        currencyEl.textContent = 'Exchange rates: check current rates';
       }
     });
   }

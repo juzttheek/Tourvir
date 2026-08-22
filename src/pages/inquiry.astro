@@ -17,7 +17,7 @@ import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
       <!-- Page Hero -->
       <section class="page-hero">
         <div class="page-hero__bg">
-          <ResponsiveImage src="images/hero/inquiry_hero_bg.webp" sourceWidth={1920} sizes="100vw" alt="Plan your trip" />
+          <ResponsiveImage src="images/hero/inquiry_hero_bg.webp" sourceWidth={1920} sizes="100vw" alt="Plan your trip" fetchpriority="high" />
         </div>
         <div class="page-hero__overlay"></div>
         <div class="page-hero__content">
@@ -296,7 +296,7 @@ import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
                       <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
                     </div>
                     <h3 class="form-step__title">Inquiry Submitted!</h3>
-                    <p class="form-step__subtitle" style="margin-bottom: 2rem;">Thank you for reaching out. We have received your details and will get back to you within 24 hours.</p>
+                    <p class="form-step__subtitle" style="margin-bottom: 2rem;">Thank you for reaching out. We have received your details and will respond as soon as possible.</p>
                     
                     <div style="background: var(--surface); padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--border-color);">
                       <h4 style="margin-bottom: 1rem;">Want a faster response?</h4>
@@ -342,13 +342,13 @@ import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
                   </div>
                 </div>
                 <div class="legacy-util-18">
-                  <p class="legacy-util-19">Response within</p>
-                  <p class="legacy-util-20"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg> 24 Hours Guaranteed</p>
+                  <p class="legacy-util-19">Need a quicker conversation?</p>
+                  <p class="legacy-util-20"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg> Call or use WhatsApp</p>
                 </div>
               </div>
 
               <!-- FAQ -->
-              <div class="reveal">
+              <div class="reveal" id="trip-planning-faq">
                 <h3 class="legacy-util-21">Frequently Asked Questions</h3>
                 <div class="accordion">
                   <div class="accordion__item">
@@ -357,7 +357,7 @@ import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
                       <span class="accordion__icon">▼</span>
                     </button>
                     <div class="accordion__body">
-                      <div class="accordion__content">We recommend booking at least 2-4 weeks in advance, especially during peak season (December–March). For last-minute trips, we'll do our best to accommodate you!</div>
+                      <div class="accordion__content">Availability depends on your dates, route, vehicle, and accommodation preferences. Send your dates as early as you can, and Tourvir can confirm what is available.</div>
                     </div>
                   </div>
                   <div class="accordion__item">
@@ -366,7 +366,7 @@ import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
                       <span class="accordion__icon">▼</span>
                     </button>
                     <div class="accordion__body">
-                      <div class="accordion__content">Most nationalities can obtain an Electronic Travel Authorization (ETA) online before arrival. We can guide you through the process based on your nationality.</div>
+                      <div class="accordion__content">Entry requirements can change and depend on your passport. Check the current requirements with Sri Lanka's official immigration service before travelling, and include your nationality in the inquiry if you want to discuss trip planning.</div>
                     </div>
                   </div>
                   <div class="accordion__item">
@@ -375,7 +375,7 @@ import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
                       <span class="accordion__icon">▼</span>
                     </button>
                     <div class="accordion__body">
-                      <div class="accordion__content">Absolutely! All our packages are fully customizable. Just submit your inquiry with your interests and budget, and our travel experts will design a tailor-made itinerary.</div>
+                      <div class="accordion__content">Use the inquiry form to share your dates, interests, group size, pace, and budget. Tourvir can then discuss a route based on the packages and vehicle options shown on this website.</div>
                     </div>
                   </div>
                   <div class="accordion__item">
@@ -384,7 +384,7 @@ import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
                       <span class="accordion__icon">▼</span>
                     </button>
                     <div class="accordion__body">
-                      <div class="accordion__content">Typically includes: air-conditioned transport, chauffeur-guide, accommodation, breakfast, entrance fees to sites. Lunch, dinner, and personal expenses are usually not included. Full details are provided in your personalized quote.</div>
+                      <div class="accordion__content">Inclusions vary by trip. Confirm accommodation, meals, transport, entrance fees, guide services, taxes, and exclusions in the written quote before booking.</div>
                     </div>
                   </div>
                   <div class="accordion__item">
@@ -393,7 +393,7 @@ import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
                       <span class="accordion__icon">▼</span>
                     </button>
                     <div class="accordion__body">
-                      <div class="accordion__content">Yes! Sri Lanka is one of the safest destinations in South Asia for tourists. Our guides and drivers are also trained in first aid and emergency protocols for extra peace of mind.</div>
+                      <div class="accordion__content">Conditions can change. Review current official travel advice, keep appropriate travel insurance, and discuss any accessibility, health, or transport needs before confirming your route.</div>
                     </div>
                   </div>
                 </div>

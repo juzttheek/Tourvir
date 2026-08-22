@@ -77,24 +77,65 @@ export function initHeroSlider(): CarouselController | null {
   const slider = document.getElementById('hero-slider') as HTMLElement | null;
   if (!slider) return null;
 
-  const images = slider.querySelectorAll('img');
-  if (images.length <= 1) return null;
+  const firstImage = slider.querySelector('img');
+  const templates = [...slider.querySelectorAll<HTMLTemplateElement>('template[data-hero-slide]')];
+  if (!firstImage || templates.length === 0) return null;
+
+  const pauseBtn = document.getElementById('hero-pause-btn') as HTMLButtonElement | null;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (pauseBtn) pauseBtn.hidden = true;
+    return null;
+  }
+
+  const materializedSlides = new Map<number, HTMLImageElement>([[0, firstImage]]);
+  const slideCount = templates.length + 1;
+
+  const materializeSlide = (index: number): HTMLImageElement | null => {
+    const existing = materializedSlides.get(index);
+    if (existing) return existing;
+
+    const template = templates[index - 1];
+    if (!template) return null;
+
+    const fragment = template.content.cloneNode(true) as DocumentFragment;
+    const image = fragment.querySelector('img');
+    if (!image) return null;
+
+    image.loading = 'eager';
+    slider.append(fragment);
+    materializedSlides.set(index, image);
+    return image;
+  };
+
+  const schedulePreload = (index: number) => {
+    const preload = () => materializeSlide(index);
+    const requestIdle = (
+      window as unknown as {
+        requestIdleCallback?: (callback: () => void, options: { timeout: number }) => number;
+      }
+    ).requestIdleCallback;
+    if (requestIdle) {
+      requestIdle.call(window, preload, { timeout: 2000 });
+    } else {
+      globalThis.setTimeout(preload, 1000);
+    }
+  };
 
   let currentIndex = 0;
 
   const controller = new CarouselController(
     slider,
     () => {
-      const activeImg = images[currentIndex];
+      const activeImg = materializedSlides.get(currentIndex);
       if (activeImg) activeImg.classList.remove('active');
-      currentIndex = (currentIndex + 1) % images.length;
-      const nextImg = images[currentIndex];
+      currentIndex = (currentIndex + 1) % slideCount;
+      const nextImg = materializeSlide(currentIndex);
       if (nextImg) nextImg.classList.add('active');
+      schedulePreload((currentIndex + 1) % slideCount);
     },
     6000,
   );
 
-  const pauseBtn = document.getElementById('hero-pause-btn') as HTMLButtonElement | null;
   if (pauseBtn) {
     let isManuallyPaused = false;
     pauseBtn.addEventListener('click', () => {
@@ -120,6 +161,7 @@ export function initHeroSlider(): CarouselController | null {
     });
   }
 
+  schedulePreload(1);
   controller.start();
   return controller;
 }

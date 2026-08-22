@@ -17,7 +17,17 @@
     },
     {
       "source": "/blog/first-post",
-      "destination": "/blog/first-post.html",
+      "destination": "/blog/sigiriya-rock-fortress-guide.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/first-post.html",
+      "destination": "/blog/sigiriya-rock-fortress-guide.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sigiriya-rock-fortress-guide",
+      "destination": "/blog/sigiriya-rock-fortress-guide.html",
       "permanent": true
     },
     {

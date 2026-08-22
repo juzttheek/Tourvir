@@ -88,6 +88,10 @@ export function animateCounters(): void {
 
   counters.forEach((counter) => {
     const target = parseInt(counter.dataset.count || '0', 10);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      counter.textContent = target.toLocaleString() + (counter.dataset.suffix || '');
+      return;
+    }
     const duration = 2000;
     const start = 0;
     const startTime = performance.now();

@@ -1,0 +1,32 @@
+---
+interface LinkItem {
+  href: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  id: string;
+  heading: string;
+  intro?: string;
+  links: LinkItem[];
+}
+
+const { id, heading, intro, links } = Astro.props;
+---
+
+<section class="context-links" aria-labelledby={`${id}-heading`}>
+  <div class="context-links__header">
+    <h2 id={`${id}-heading`}>{heading}</h2>
+    {intro && <p>{intro}</p>}
+  </div>
+  <div class="context-links__grid">
+    {links.map((link) => (
+      <a class="context-link" href={link.href}>
+        <span class="context-link__title">{link.title}</span>
+        <span class="context-link__description">{link.description}</span>
+        <span class="context-link__action" aria-hidden="true">Explore →</span>
+      </a>
+    ))}
+  </div>
+</section>

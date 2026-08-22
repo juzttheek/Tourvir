@@ -2,6 +2,9 @@
 import PageShell from '../../layouts/PageShell.astro';
 import { blogPosts } from '../../data/blog';
 import Breadcrumbs from '../../components/layout/Breadcrumbs.astro';
+import ResponsiveImage from '../../components/ui/ResponsiveImage.astro';
+import ContextualLinks from '../../components/ui/ContextualLinks.astro';
+import { tourPackages } from '../../content/catalogs';
 
 export async function getStaticPaths() {
   return blogPosts.map(entry => ({
@@ -13,6 +16,26 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const canonicalPath = `/blog/${entry.id}.html`;
 const canonicalUrl = new URL(canonicalPath, Astro.site).href;
+const relatedPackages = entry.relatedPackageIds
+  .map((id) => tourPackages.find((pkg) => pkg.id === id))
+  .filter((pkg) => pkg !== undefined);
+const planningLinks = [
+  ...relatedPackages.map((pkg) => ({
+    href: pkg.href,
+    title: pkg.title,
+    description: `${pkg.durationLabel} featuring ${pkg.highlights.slice(0, 3).join(', ')}.`,
+  })),
+  {
+    href: '/vehicles.html',
+    title: 'Compare vehicle options',
+    description: 'Review passenger capacity, luggage space, features, and listed daily rates.',
+  },
+  {
+    href: '/inquiry.html#trip-planning-faq',
+    title: 'Plan or ask a question',
+    description: 'Read the planning FAQs, then share your dates, group size, interests, and budget.',
+  },
+];
 const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
@@ -73,16 +96,33 @@ const articleSchema = {
           {new Date(entry.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} • By {entry.author}
         </div>
         {entry.coverImage && (
-          <img 
+          <ResponsiveImage
             src={entry.coverImage} 
-            alt={entry.title} 
+            sourceWidth={entry.coverImageWidth}
+            sizes="(max-width: 900px) 100vw, 800px"
+            alt={entry.title}
+            fetchpriority="high"
             style="width: 100%; height: auto; max-height: 500px; object-fit: cover; border-radius: var(--radius-lg);"
           />
         )}
       </header>
       <div class="content" style="font-size: 1.1rem; line-height: 1.8;">
-        <p>{entry.content}</p>
+        <p style="margin-bottom: var(--space-xl);">{entry.introduction}</p>
+        {entry.sections.map((section) => (
+          <section style="margin-top: var(--space-xl);">
+            <h2 style="margin-bottom: var(--space-md); font-size: clamp(1.5rem, 3vw, 2rem);">{section.heading}</h2>
+            {section.paragraphs.map((paragraph) => (
+              <p style="margin-bottom: var(--space-md);">{paragraph}</p>
+            ))}
+          </section>
+        ))}
       </div>
+      <ContextualLinks
+        id="guide-next-steps"
+        heading="Continue planning your Sri Lanka trip"
+        intro="Compare the matching Tourvir routes and practical planning pages."
+        links={planningLinks}
+      />
     </article>
   </main>
 </PageShell>
