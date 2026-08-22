@@ -4,7 +4,7 @@
 **Working branch:** `seo-remediation`
 **Production baseline:** `main` at `34aff26`
 **External audit:** `Tourvir_SEO_Audit_Report.pdf`
-**Status:** Phase 0, Phase 1 and Phase 2 complete; Phase 3 owner-blocked; Phase 4A locally verified, Preview pending
+**Status:** Phase 0, Phase 1, Phase 2 and Phase 4A complete; Phase 3 and remaining Phase 4 owner items blocked
 **Production deployments from this programme:** none
 
 ## Purpose and closure rules
@@ -97,7 +97,7 @@ The `.html` routes are retained to avoid an unnecessary migration. Extensions do
 | SEO-034 | Performance   | Eleven-image hero may cost bandwidth                | Confirmed design risk despite lazy attributes                             | P1       | OPEN-VERIFY — measure requests/LCP; demand-load slides                        |
 | SEO-035 | UX            | About Us navigation routes home                     | Confirmed; homepage has partial About content                             | P2       | BLOCKED-OWNER — genuine dedicated About page                                  |
 | SEO-036 | Trust         | Only one testimonial                                | Confirmed                                                                 | P2       | BLOCKED-OWNER — permissioned/attributable reviews only                        |
-| SEO-037 | Reviews       | Ratings/counts lack a visible source                | Confirmed; `AggregateRating` also emitted                                 | P0       | LOCAL PASS — schema and unsupported visible package ratings/counts removed    |
+| SEO-037 | Reviews       | Ratings/counts lack a visible source                | Confirmed; `AggregateRating` also emitted                                 | P0       | COMPLETE — schema and unsupported visible package ratings/counts removed      |
 | SEO-038 | Services      | Six service paths route to Contact                  | Confirmed except Vehicles                                                 | P1       | BLOCKED-OWNER — truthful service pages/routing                                |
 | SEO-039 | Schema        | No TravelAgency/LocalBusiness detected              | Incorrect; homepage has `TravelAgency`                                    | P2       | COMPLETE — stable TravelAgency identity uses only the verified social URL     |
 | SEO-040 | Schema        | No TouristTrip detected                             | Incorrect; package template emits it                                      | P2       | COMPLETE — seven trips align with metadata, offers and visible route maps     |
@@ -105,7 +105,7 @@ The `.html` routes are retained to avoid an unnecessary migration. Extensions do
 | SEO-042 | Schema        | BreadcrumbList absent                               | Confirmed                                                                 | P2       | COMPLETE — visible and structured breadcrumbs cover all 20 interior pages     |
 | SEO-043 | Schema        | FAQPage will earn rich snippets                     | Outdated for tourism; Google limits regular FAQ rich results              | P3       | REJECTED-WITH-EVIDENCE — useful visible FAQs, no promise                      |
 | SEO-044 | Schema        | WebSite can enable sitelinks search box             | Obsolete; Google removed feature in November 2024                         | P3       | REJECTED-WITH-EVIDENCE — no obsolete implementation                           |
-| SEO-045 | Gallery       | `asd`, `logo`, raw filenames and broken image       | Confirmed; `asd` is broken live                                           | P0       | LOCAL PASS — test/product entries and their two unused raw assets removed     |
+| SEO-045 | Gallery       | `asd`, `logo`, raw filenames and broken image       | Confirmed; `asd` is broken live                                           | P0       | COMPLETE — test/product entries and their two unused raw assets removed       |
 | SEO-046 | Images        | Package pages have one image                        | Confirmed                                                                 | P2       | BLOCKED-OWNER — licensed relevant images required                             |
 | SEO-047 | Media         | File size/compression/lazy loading need measurement | Audit did not measure; repository has large/duplicate assets              | P1       | OPEN — 1,154,056 unused bytes removed; broader optimization remains Phase 6   |
 | SEO-048 | Links         | Homepage destination cards are not links            | Confirmed                                                                 | P1       | OPEN-CONFIRMED — link to approved destination pages                           |
@@ -113,8 +113,8 @@ The `.html` routes are retained to avoid an unnecessary migration. Extensions do
 | SEO-050 | Links         | Blog does not link packages/destinations            | Confirmed                                                                 | P2       | OPEN-CONFIRMED — add relevant contextual links                                |
 | SEO-051 | Links         | Inquiry FAQ is isolated                             | Confirmed                                                                 | P2       | OPEN-CONFIRMED — link from relevant contexts                                  |
 | SEO-052 | E-E-A-T       | No guide/driver profiles                            | Confirmed                                                                 | P2       | BLOCKED-OWNER — approved real profiles                                        |
-| SEO-053 | E-E-A-T       | SLTDA claim lacks number/verification               | Confirmed presentation gap; licence itself unverified                     | P0       | LOCAL PASS — unverified licence/certification/insurance claims neutralized    |
-| SEO-054 | Social        | Facebook/X/TikTok link to `#`                       | Confirmed; Instagram works                                                | P0       | LOCAL PASS — dead icons removed; verified Instagram remains                   |
+| SEO-053 | E-E-A-T       | SLTDA claim lacks number/verification               | Confirmed presentation gap; licence itself unverified                     | P0       | COMPLETE — unverified licence/certification/insurance claims neutralized      |
+| SEO-054 | Social        | Facebook/X/TikTok link to `#`                       | Confirmed; Instagram works                                                | P0       | COMPLETE — dead icons removed; verified Instagram remains                     |
 | SEO-055 | Legal         | Policies are generic                                | Confirmed content-quality/legal risk                                      | P1       | BLOCKED-OWNER — business/legal review and approval                            |
 | SEO-056 | Competition   | Competitors show fuller tours/attributable reviews  | Directionally credible; no quantitative authority data                    | P2       | OPEN — close gaps without copying competitors                                 |
 | SEO-057 | CRO           | Thin pages force basic-detail enquiries             | Confirmed                                                                 | P1       | BLOCKED-OWNER — resolved by complete content                                  |
@@ -297,7 +297,11 @@ Phase 1 must add automated checks that crawl every sitemap URL, compare final/ca
 | 2026-08-21 | 4A    | Added content regression guards                                 | PASS                | Generated output rejects dead `#` links, package ratings, SLTDA copy, test gallery content and count mismatches       |
 | 2026-08-21 | 4A    | Ran focused local quality and browser gates                     | PASS                | Format, lint, typecheck, build, HTML, links, content and SEO pass; 31/31 responsive/visual browser checks pass        |
 | 2026-08-22 | 4A    | Rebuilt after deleting the two unused public assets             | PASS                | Final 22-page build, dist allowlist, content, link and diff-integrity checks pass; removed files are absent from dist |
+| 2026-08-22 | 4A    | Committed and pushed the verified implementation                | PASS                | Commit `d3539d0` on `origin/seo-remediation`; untracked user files, `main` and production remained untouched          |
+| 2026-08-22 | 4A    | Vercel protected Preview build                                  | PASS                | Deployment `tourvir-5w4g67mho-nebulync.vercel.app` completed successfully                                             |
+| 2026-08-22 | 4A    | Authenticated affected-route Preview verification               | PASS                | Home, packages, gallery, vehicles and contact return `200`; trust/gallery assertions pass                             |
+| 2026-08-22 | 4A    | Phase 4A completion review                                      | COMPLETE            | Focused local and protected Preview gates passed; remaining owner-dependent Phase 4 findings stay explicitly blocked  |
 
 ## Current next action
 
-Commit Phase 4A and verify the affected homepage, packages, gallery, vehicles and contact pages on a protected Vercel Preview. Keep Phase 3 factual expansion blocked until customer-approved information arrives, and keep production untouched until the later release gate.
+Proceed to customer-independent internal-linking and performance work while Phase 3 content and remaining Phase 4 trust details wait for owner approval. Keep production untouched until the later release gate.
